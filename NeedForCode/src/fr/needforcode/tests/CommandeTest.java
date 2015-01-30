@@ -27,13 +27,18 @@ public class CommandeTest {
 	@Test
 	public void testGetTurn(){
 		assertEquals(maCommande.getTurn(), -1, 0.0001);
+		assertNotEquals(maCommande.getTurn(), -25, 0.0001);
 		assertEquals(maCommande2.getTurn(), 0.75, 0.0001);
+		assertNotEquals(maCommande2.getTurn(), 1, 0.0001);
+		
 	}
 	
 	@Test 
 	public void testGetAcc(){
 		assertEquals(maCommande.getAcc(), 1, 0.0001);
+		assertNotEquals(maCommande.getAcc(), 38, 0.0001);
 		assertEquals(maCommande2.getAcc(), -0.5, 0.0001);
+		assertNotEquals(maCommande2.getAcc(), -1, 0.001);
 	}
 	
 }

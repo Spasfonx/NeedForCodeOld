@@ -103,4 +103,9 @@ public class Vecteur implements Serializable {
 		x = (x * d);
 		y = (y * d);
 	}
+	
+	@Override
+	public String toString(){
+		return "Vecteur [x = " + x + " y = "+ y + "]";
+	}
 }
