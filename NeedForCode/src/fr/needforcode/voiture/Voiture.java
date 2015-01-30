@@ -1,5 +1,7 @@
 package fr.needforcode.voiture;
 
+import fr.needforcode.geometrie.*;
+
 /**
  * @author Omar Ben Bella
  * @version 1.0

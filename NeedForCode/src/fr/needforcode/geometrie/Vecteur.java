@@ -80,9 +80,27 @@ public class Vecteur implements Serializable {
 	/**
 	 * Clone d'un vecteur
 	 * @author Camille
-	 * @return
+	 * @return Vecteur
 	 */
 	public Vecteur cloneAsVecteur() {
 		return new Vecteur(x, y);
+	}
+	
+	/** 
+	 * produit scalaire du vecteur courant avec le vecteur v et modification des paramètres du vecteur courant
+	 * @param a Vecteur v
+	 */
+	public void autoAdd(Vecteur v) {
+		x = (x + v.x);
+		y = (y + v.y);
+	}
+
+	/** 
+	 * produit vectoriel du vecteur courant avec un double d et modification des paramètres du vecteur courant
+	 * @param a double d
+	 */
+	public void autoProdDouble(double d) {
+		x = (x * d);
+		y = (y * d);
 	}
 }

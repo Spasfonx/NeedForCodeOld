@@ -1,5 +1,8 @@
 package fr.needforcode.voiture;
 
+import fr.needforcode.geometrie.Vecteur;
+import fr.needforcode.geometrie.vTools;
+
 /**
  * @author Omar Ben Bella
  * @version 1.0
@@ -18,30 +21,30 @@ public class VoitureImpl implements Voiture {
 	private double sens_derapage;
 	
 	/**
-	 * Â· Commande (dÃ©pend de c) : Î±cc
+	 * Commande (dépend de c) : alpha_c * c
 	 */
 	private double alpha_c;
 	
 	/**
-	 * Â· Frottements (nÃ©gative) : Î±f mv + Î²f m
+	 * Frottements (négative) : alpha_f mv + beta_f m
 	 */
 	private double alpha_f, beta_f;
 	
 	/**
-	 * Â· Inertie (positive) : Î±imv
+	 * Inertie (positive) : alpha_derapage * mv
 	 */
 	private double alpha_derapage;
 	
 	/**
-	 * Exemple dâ€™utilisation : entre 20 et 30% de la vmax, 
-	 * on peut tourner sans dÃ©raper de 80% de la capacitÃ© de braquage
+	 * Exemple d'utilisation : entre 20 et 30% de la vmax, 
+	 * on peut tourner sans déraper de 80% de la capacité de braquage
 	 */
 	private final double[] tabVitesse = { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1. };
 	private final double[] tabTurn = { 1., 1., 0.8, 0.7, 0.6, 0.4, 0.3, 0.2, 0.1, 0.075 };
 
 
 	/**
-	  * Constructeur de la classe VoitureImpl avec l'ensemble des paramÃ¨tres
+	  * Constructeur de la classe VoitureImpl avec l'ensemble des paramètres
 	  */
 	public VoitureImpl(double vmax, double braquage, double alpha_c, 
 			double alpha_f, double beta_f, double alpha_derapage, 
@@ -62,7 +65,7 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	/**
-	  * Constructeur de la classe VoitureImpl avec un modÃ¨le de voiture dÃ©jÃ  instenciÃ©
+	  * Constructeur de la classe VoitureImpl avec un modèle de voiture déjà instencié
 	  */
 	public VoitureImpl(VoitureImpl model) {
 		this.position = model.position.cloneAsVecteur();
@@ -80,7 +83,7 @@ public class VoitureImpl implements Voiture {
 	}
 
 	/**
-	  * MÃ©thode de pilotage dÃ©tectant si le dÃ©rapage est actif et faisant appel Ã  la mÃ©thode appropriÃ©e
+	  * Méthode de pilotage détectant si le dérapage est actif et faisant appel à la méthode appropriée
 	  * 
 	  * @param a Commande c
 	  */
@@ -99,7 +102,7 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	/**
-	  * MÃ©thode calculant la rotation maximale que la voiture peut prendre sans dÃ©raper
+	  * Méthode calculant la rotation maximale que la voiture peut prendre sans déraper
 	  * 
 	  * @return un double du tableau tabTurn
 	  */
@@ -138,7 +141,7 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	/**
-	  * MÃ©thode modifiant la pisiton de la voiture selon les paramÃ¨tres physiques liÃ©s au dÃ©rapage de la voiture
+	  * Méthode calculant la positon de la voiture selon les paramètres physiques liés au dérapage de la voiture
 	  * 
 	  * @param a Commande c
 	  */
@@ -147,12 +150,12 @@ public class VoitureImpl implements Voiture {
 		vitesse -= alpha_derapage;
 		vitesse = Math.max(0., vitesse);
 		// maj de la direction
-		VTools.rotation(direction, Math.signum(c.getTurn())
+		vTools.rotation(direction, Math.signum(c.getTurn())
 				* getMaxTurnSansDerapage() * braquage * 0.5);
-		VTools.rotation(direction_derapage, sens_derapage
+		vTools.rotation(direction_derapage, sens_derapage
 				* getMaxTurnSansDerapage() * braquage * 1.2);
 		// avance un peu selon
-		position.autoAdd(VTools.prodDouble(direction, vitesse));
+		position.autoAdd(vTools.prodDouble(direction, vitesse));
 		if (vitesse < vitesse_sortie_derapage) {
 			fin_derapage();
 			System.out.println("fin_derapage");
@@ -160,29 +163,29 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	/**
-	  * MÃ©thode modifiant la pisiton de la voiture selon les paramÃ¨tres physiques de frotement, inertie et commande
+	  * Méthode calculant la positon de la voiture selon les paramètres physiques de frotement, inertie et commande
 	  * 
 	  * @param a Commande c
 	  */
 	private void driveSansDerapage(Commande c) {
 		// approche normale
 		// 1) gestion du volant
-		VTools.rotation(direction, (c.getTurn() * braquage));
+		vTools.rotation(direction, (c.getTurn() * braquage));
 		// 2.1) gestion des frottements
 		vitesse -= alpha_f;
 		vitesse -= beta_f * vitesse;
 		// 2.2) gestion de l'acceleration/freinage
 		vitesse += c.getAcc() * alpha_c;
 		// 2.3) garanties, bornes...
-		VTools.normalisation(direction);
+		vTools.normalisation(direction);
 		vitesse = Math.max(0., vitesse); // pas de vitesse nÃ©gative
 		vitesse = Math.min(vmax, vitesse);
 		// 3) mise Ã  jour de la position
-		position.autoAdd(VTools.prodDouble(direction, vitesse));
+		position.autoAdd(vTools.prodDouble(direction, vitesse));
 	}
 	
 	/**
-	  * MÃ©thode dÃ©tectant si la commande passÃ©e en paramÃ¨tre fait dÃ©raper la voiture
+	  * Méthode détectant si la commande passée en paramètre fait déraper la voiture
 	  * 
 	  * @param a Commande c
 	  */
@@ -194,7 +197,7 @@ public class VoitureImpl implements Voiture {
 	}
 
 	/**
-	  * MÃ©thode arrÃªtant le dÃ©rapage de la voiture
+	  * Méthode arrêtant le dérapage de la voiture
 	  */
 	private void fin_derapage() {
 		derapage = false;
@@ -202,7 +205,7 @@ public class VoitureImpl implements Voiture {
 	}
 
 	/**
-	  * MÃ©thode dÃ©butant le dÃ©rapage de la voiture
+	  * Méthode débutant le dérapage de la voiture
 	  */
 	private void debut_derapage(Commande c) {
 		derapage = true;
