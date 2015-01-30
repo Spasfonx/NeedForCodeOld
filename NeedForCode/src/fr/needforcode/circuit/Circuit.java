@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import fr.needforcode.geometrie.Vecteur;
 
 /**
- * Interface circuit
+ * Interface circuit!
  * @author Camille
  *
  */
