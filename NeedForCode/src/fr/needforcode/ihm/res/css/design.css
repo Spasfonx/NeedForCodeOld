@@ -1,0 +1,57 @@
+#mainAppWindow {
+	-fx-background-color: #464646;
+	-fx-min-height: 720;
+	-fx-min-width: 1280;
+	-fx-font-size: 12px;
+	-fx-border-color: #3e3e3e;
+	-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.0, 3, 3);
+}
+
+#mainAppTitle {
+	-fx-text-fill: white;
+}
+
+#mainContentPane {
+	-fx-background-image: url("../img/background-cars.jpg");
+	-fx-background-size: 100%;  
+	-fx-background-color: #000;
+	-fx-border-color: #3e3e3e;
+}
+
+/**
+ * Boutons de controle : Fermer, réduire, agrandir
+ */
+
+.btn-control {
+	-fx-background-color: #3e3e3e;
+    -fx-background-radius: 0px;
+    
+	-fx-text-fill: white;
+	
+	-fx-min-height: 25px;
+	-fx-min-width: 25px;
+	-fx-max-height: 25px;
+	-fx-max-width: 25px;
+}
+
+.btn-control:hover {
+	-fx-background-color: #404040;
+}
+
+.btn-control:pressed {
+	-fx-background-color: #404040;
+	-fx-text-fill: #adadad;
+}
+	 
+
+.btn-control-close:hover {
+	-fx-border-insets: 0;
+    -fx-border-width: 1px;
+    -fx-border-color: #3e3e3e #3e3e3e red #3e3e3e;
+}
+
+.btn-control-close:pressed {
+	-fx-border-insets: 0;
+    -fx-border-width: 1px;
+    -fx-border-color: #3e3e3e #3e3e3e #990000 #3e3e3e;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?scenebuilder-stylesheet ../res/css/design.css?>
+
+<AnchorPane fx:id="mainAppWindow" prefHeight="720.0" prefWidth="1280.0" style="&#10;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fr.needforcode.ihm.controller.MainAppWindowController">
+  <children>
+    <AnchorPane id="mainApptitleContentPane" fx:id="mainAppTopBar" minHeight="0.0" prefHeight="30.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <Label fx:id="mainAppTitle" layoutY="7.0" text="Need For Code" AnchorPane.leftAnchor="27.0" />
+        <AnchorPane fx:id="btnControlPane" prefHeight="30.0" prefWidth="200.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+          <children>
+            <Button fx:id="btnControlClose" defaultButton="false" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" styleClass="btn-control, btn-control-close" text="×" textOverrun="CLIP" AnchorPane.rightAnchor="3.0" />
+          </children>
+        </AnchorPane>
+      </children>
+    </AnchorPane>
+    <Pane fx:id="mainContentPane" prefHeight="687.0" prefWidth="1274.0" style="&#10;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="30.0" />
+  </children>
+</AnchorPane>
