@@ -102,7 +102,7 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	/**
-	  * Méthode calculant la rotation maximale que la voiture peut prendre sans déraper
+	  * Méthode calculant la rotation maximale que la voiture peut prendre sans déraper en fonction de sa vitesse actuelle
 	  * 
 	  * @return un double du tableau tabTurn
 	  */

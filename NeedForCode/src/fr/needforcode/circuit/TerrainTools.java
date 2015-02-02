@@ -149,7 +149,7 @@ public class TerrainTools {
 	}
 	
 	/**
-	 * Créer une image png à partir d'un fichier source (.trk)
+	 * Créer une image png(dans le dossier /png) à partir d'un fichier source (.trk dans le dossier trk par defaut)
 	 * @param filename Nom du fichier source
 	 */
 	public static void previsualisation(String filename) {
@@ -157,7 +157,7 @@ public class TerrainTools {
 		Circuit c = cF.build();
 		BufferedImage im = imageFromCircuit(c);
 		try {
-			ImageIO.write(im, "png", new File(filename + ".png"));
+			ImageIO.write(im, "png", new File("./png/" + filename.substring(6) + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
