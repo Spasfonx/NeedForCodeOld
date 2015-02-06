@@ -3,13 +3,21 @@ package fr.needforcode.ihm.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import fr.needforcode.ihm.MainApp;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-
+/**
+ * Controller de la fenêtre principale. Contient les composants permettant de 
+ * customiser la fenêtre générale.
+ * @author Christophe
+ * @version 1.0
+ */
 public class MainAppWindowController {
 
     @FXML
@@ -17,6 +25,12 @@ public class MainAppWindowController {
 
     @FXML
     private URL location;
+    
+    @FXML
+    private AnchorPane btnControlPane;
+    
+    @FXML
+    private Button btnControlClose;
     
     @FXML
     private AnchorPane mainAppWindow;
@@ -29,19 +43,64 @@ public class MainAppWindowController {
 
     @FXML
     private BorderPane mainContentPane;
-    
-    @FXML
-    private AnchorPane btnControlPane;
-    
-    @FXML
-    private Button btnControlClose;
 
+    // Référence à l'application principale
+    private MainApp mainApp;
+    
+    // Variables utiles pour gérer le déplacement de la fenêtre
+    private static double xOffset = 0;
+    private static double yOffset = 0;
 
     @FXML
-    void initialize() { }
+    void initialize() {
+    	initDragableWindow();
+    	initClosableWindow();
+    }
+
+	public BorderPane getMainContentPane() {
+		return this.mainContentPane;
+	}
     
-    public BorderPane getMainContentPane() {
-    	return this.mainContentPane;
+    /**
+     * Permet de rendre la fenêtre déplaçable.
+     */
+    public void initDragableWindow() {
+    	mainAppTopBar.setOnMousePressed(new EventHandler<MouseEvent>() {
+    		@Override
+    		public void handle(MouseEvent event) {
+    			xOffset = event.getX();
+    			yOffset = event.getY();
+    		}
+    	});
+    	
+    	mainAppTopBar.setOnMouseDragged(new EventHandler<MouseEvent>() {
+    		@Override
+    		public void handle(MouseEvent event) {
+    			mainApp.getPrimaryStage().setX(event.getScreenX() - xOffset);
+    			mainApp.getPrimaryStage().setY(event.getScreenY() - yOffset);
+    		}
+    	});
+    }
+    
+    /**
+     * Permet de fermer la fenêtre par clic sur le bouton : [x]
+     */
+    public void initClosableWindow() {
+    	btnControlClose.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    		@Override
+    		public void handle(MouseEvent event) {
+    			mainApp.getPrimaryStage().close();
+    		}
+    	});
+    }
+    
+    /**
+     * Appelée par l'application principale. Permet la référence au point d'entrée de l'application.
+     * 
+     * @param mainApp
+     */
+    public void setMainApp(MainApp mainApp) {
+    	this.mainApp = mainApp;
     }
 
 }

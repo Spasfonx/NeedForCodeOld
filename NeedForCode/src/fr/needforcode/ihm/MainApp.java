@@ -31,19 +31,21 @@ public class MainApp extends Application {
         this.primaryStage.initStyle(StageStyle.TRANSPARENT);
         
         try {
-            // Charge le layout pour la fenêtre pricipale
+            // Charge le layout de la fenêtre pricipale
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MainAppWindowLayout.fxml"));
             
             this.mainAppWindow = (AnchorPane) loader.load();
             this.mainAppWindow.getStylesheets().add(MainApp.class.getResource("res/css/design.css").toExternalForm());
             
             MainAppWindowController controller = loader.getController();
+            controller.setMainApp(this);
+            
             this.mainContentPane = controller.getMainContentPane();
             
             this.primaryStage.setScene(new Scene(mainAppWindow));
             this.primaryStage.show();
         } catch (IOException e) {
-            // Exception gets thrown if the fxml file could not be loaded
+        	// Exception levée si le fxml ne peut pas être chargé
             e.printStackTrace();
         }
         
@@ -93,4 +95,8 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
 }
