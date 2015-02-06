@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="courseContainer" prefHeight="296.0" prefWidth="406.6666564941406" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fr.needforcode.ihm.controller.CourseRunningController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <ImageView fx:id="circuitContainer" fitHeight="305.0" fitWidth="406.66666666666663" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+</AnchorPane>

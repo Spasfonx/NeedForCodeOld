@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 
 
 public class MainAppWindowController {
@@ -17,27 +17,31 @@ public class MainAppWindowController {
 
     @FXML
     private URL location;
+    
+    @FXML
+    private AnchorPane mainAppWindow;
 
+    @FXML
+    private AnchorPane mainAppTopBar;
+    
+    @FXML
+    private Label mainAppTitle;
+
+    @FXML
+    private BorderPane mainContentPane;
+    
     @FXML
     private AnchorPane btnControlPane;
     
     @FXML
     private Button btnControlClose;
 
-    @FXML
-    private Label mainAppTitle;
-
-    @FXML
-    private AnchorPane mainAppTopBar;
-
-    @FXML
-    private AnchorPane mainAppWindow;
-
-    @FXML
-    private Pane mainContentPane;
-
 
     @FXML
     void initialize() { }
+    
+    public BorderPane getMainContentPane() {
+    	return this.mainContentPane;
+    }
 
 }

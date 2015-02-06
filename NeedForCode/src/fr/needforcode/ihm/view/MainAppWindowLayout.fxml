@@ -19,6 +19,6 @@
         </AnchorPane>
       </children>
     </AnchorPane>
-    <Pane fx:id="mainContentPane" prefHeight="687.0" prefWidth="1274.0" style="&#10;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="30.0" />
+    <BorderPane fx:id="mainContentPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="30.0" />
   </children>
 </AnchorPane>
