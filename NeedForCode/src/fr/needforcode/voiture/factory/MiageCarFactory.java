@@ -3,6 +3,7 @@ package fr.needforcode.voiture.factory;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.geometrie.Vecteur;
+import fr.needforcode.geometrie.vTools;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureImpl;
 public class MiageCarFactory implements VoitureFactory {
@@ -27,4 +28,13 @@ public class MiageCarFactory implements VoitureFactory {
 		alpha_derapage, vitesse, position, direction,
 		vitesse_sortie_derapage);
 	}
+	
+	
+	public Voiture build2() {
+		return new VoitureImpl(vmax, braquage, alpha_c, alpha_f, beta_f,
+		alpha_derapage, vitesse, vTools.addition(position, new Vecteur(50,0)), direction.cloneAsVecteur(),
+		vitesse_sortie_derapage);
+	}
+	
+	
 }

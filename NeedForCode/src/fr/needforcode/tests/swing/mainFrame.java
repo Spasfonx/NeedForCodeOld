@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import fr.needforcode.chrono.Chrono;
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.circuit.factory.CircuitFactory;
@@ -64,6 +65,7 @@ public class mainFrame extends JFrame {
 		Circuit ci = cf.build();
 		MiageCarFactory mc = new MiageCarFactory(ci);
 		final Voiture v = mc.build();
+		final Voiture v2 = mc.build2();
 		final JLabel imgCircuitContainer = new JLabel("Circuit");
 		final BufferedImage im = TerrainTools.imageFromCircuit(ci);
 		imgCircuitContainer.setIcon(new ImageIcon(im));
@@ -105,25 +107,36 @@ public class mainFrame extends JFrame {
         coms.add(c6);
         //etc....
         
+        
         //définition d'un nouveau Thread afin d'executer la course en parralele de la jFrame
         new Thread() {        	
         	@Override
         	public void run(){
+        		long time = java.lang.System.currentTimeMillis();
         		int i = 1; //compteur de liste
 		        for(ArrayList<Commande> cg:coms){
 		            System.out.println("Liste de commandes c" + i + " en cours d'exécution..."); //affichage de la liste en cours
 		            try {
 		            	for(Commande c:cg){
 		            		v.piloter(c);
-				            //System.out.println("position : "+ v.getPosition());
+		            		v2.piloter(c);
+//				            System.out.println("position v1 : "+ v.getPosition());
+//				            System.out.println("position v2 : "+ v2.getPosition());
+
 		            		//si on derape, tracé rouge, sinon orange
 		            		if(v.getDerapage())
 								im.setRGB((int) v.getPosition().getY(), (int) v.getPosition().getX(), Color.red.getRGB());
 							else
 								im.setRGB((int) v.getPosition().getY(), (int) v.getPosition().getX(), Color.orange.getRGB());
+		            		
+		            		if(v2.getDerapage())
+								im.setRGB((int) v2.getPosition().getY(), (int) v2.getPosition().getX(), Color.red.getRGB());
+							else
+								im.setRGB((int) v2.getPosition().getY(), (int) v2.getPosition().getX(), Color.orange.getRGB());
+		            		
 				            imgCircuitContainer.repaint();
 				            Thread.sleep(10); //vitesse de l'animation en nbre de milliseconde par tracé (baisser pour accélerer le tracé)
-				            
+
 		            	}
 					} catch (VoitureException e) {
 						// TODO Auto-generated catch block
@@ -133,9 +146,12 @@ public class mainFrame extends JFrame {
 						e.printStackTrace();
 					}
 		            i++; // liste suivante
+		            
 			    }
+		        System.out.println("Temps écoulé : " + (java.lang.System.currentTimeMillis() - time));
         	}
         }.start();
+
 	
 	    //im.setRGB(0,0, Color.orange.getRGB());
 	    //ImageIO.write(im, "png", new File("test.png"));
