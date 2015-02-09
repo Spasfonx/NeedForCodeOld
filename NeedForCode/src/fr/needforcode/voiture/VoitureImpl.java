@@ -93,6 +93,7 @@ public class VoitureImpl implements Voiture {
 
 		if (!derapage && detection_derapage(c)) {
 			debut_derapage(c);
+			System.out.println("debut_derapage");
 		}
 		if (derapage) {
 			driveAvecDerapage(c);
