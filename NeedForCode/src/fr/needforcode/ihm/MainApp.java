@@ -59,7 +59,6 @@ public class MainApp extends Application {
         try {
 			showCourseRunning();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

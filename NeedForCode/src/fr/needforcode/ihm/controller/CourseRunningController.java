@@ -1,5 +1,6 @@
 package fr.needforcode.ihm.controller;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,10 +37,15 @@ public class CourseRunningController {
     }
     
     public void setCircuit(Circuit circuit, String pathImage) {
+    	// On adapte le path pour le composant Image
+    	pathImage = "file:" + File.separator + pathImage;
+    	
+    	System.out.println(circuit.getHeight() + " " + circuit.getWidth());
+    	
     	Image circuitImage = new Image(
     			pathImage,
-    			300,
-            	300,
+    			circuit.getWidth(),
+            	circuit.getHeight(),
             	true,
             	true
            );
@@ -47,8 +53,7 @@ public class CourseRunningController {
     	this.circuitContainer.setImage(circuitImage);
     	this.circuit = circuit;
     	
-    	//this.courseContainer.setPrefSize(circuit.getWidth(), circuit.getHeight());
-    	this.courseContainer.setPrefSize(300, 300);
+    	this.courseContainer.setPrefSize(circuit.getHeight(), circuit.getWidth());
     }
     
 }
