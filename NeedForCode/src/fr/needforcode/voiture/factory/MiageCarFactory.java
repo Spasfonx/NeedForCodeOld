@@ -10,7 +10,7 @@ public class MiageCarFactory implements VoitureFactory {
 	private double alpha_c = 0.02;
 	private double braquage = 0.2;
 	private double alpha_f = 0.001;
-	private double beta_f = 0.002;
+	private double beta_f = 0.006;
 	private double alpha_derapage = 0.003;
 	// private double masse = 1;
 	private double vitesse_sortie_derapage = 0.15;

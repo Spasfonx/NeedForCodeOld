@@ -7,6 +7,7 @@ import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.CircuitImpl;
 import fr.needforcode.ihm.MainApp;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,18 +26,29 @@ public class CourseRunningController {
     @FXML
     private ImageView circuitContainer;
 
+    @FXML
+    private Label labelTest;
+    
     private Circuit circuit;
 
     @FXML
-    void initialize() { }
+    void initialize() { 
+    }
     
-    public void setCircuit(String pathImage, Circuit circuit) {
-    	Image circuitImage = new Image(pathImage);
+    public void setCircuit(Circuit circuit, String pathImage) {
+    	Image circuitImage = new Image(
+    			pathImage,
+    			300,
+            	300,
+            	true,
+            	true
+           );
     	
-    	this.circuitContainer = new ImageView(circuitImage);
+    	this.circuitContainer.setImage(circuitImage);
     	this.circuit = circuit;
     	
-    	this.courseContainer.setPrefSize(circuit.getWidth(), circuit.getHeight());
+    	//this.courseContainer.setPrefSize(circuit.getWidth(), circuit.getHeight());
+    	this.courseContainer.setPrefSize(300, 300);
     }
     
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,5 +10,6 @@
   <!-- TODO Add Nodes -->
   <children>
     <ImageView fx:id="circuitContainer" fitHeight="305.0" fitWidth="406.66666666666663" layoutX="0.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true" />
+    <Label fx:id="labelTest" layoutX="203.0" layoutY="153.0" text="Label" />
   </children>
 </AnchorPane>
