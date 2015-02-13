@@ -68,5 +68,12 @@ public class vToolsTest {
 		assertEquals(v7.getX(),0.610713,0.0001);
 		assertEquals(v7.getY(),22.3523,0.0001);
 	}
+	
+	@Test
+	public void testDirectionOrthogonaleNormale() {
+		Vecteur v8 = v1.cloneAsVecteur();
+		System.out.println((vTools.directionOrthogonaleNormale(v8)).toString());
+
+	}
 
 }

@@ -18,6 +18,7 @@ import fr.needforcode.chrono.Chrono;
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.circuit.factory.CircuitFactory;
+import fr.needforcode.pilote.Pilote;
 import fr.needforcode.voiture.Commande;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
@@ -65,13 +66,25 @@ public class mainFrame extends JFrame {
 		Circuit ci = cf.build();
 		MiageCarFactory mc = new MiageCarFactory(ci);
 		final Voiture v = mc.build();
-		final Voiture v2 = mc.build2();
+		//final Voiture v2 = mc.build2();
 		final JLabel imgCircuitContainer = new JLabel("Circuit");
 		final BufferedImage im = TerrainTools.imageFromCircuit(ci);
+		final Pilote p = new Pilote(v,ci,im,imgCircuitContainer);
 		imgCircuitContainer.setIcon(new ImageIcon(im));
 		imgCircuitContainer.setBounds(0, 0, 1024, 768);
 		contentPane.add(imgCircuitContainer);
-
+		
+		
+		
+		
+//		for(int i = 0; i < p.champsDeVision.length;i++){
+//			for(int j = 0 ; j< p.champsDeVision[0].length;j++){
+//				System.out.print(p.champsDeVision[i][j].toString().substring(0,1));
+//			}
+//			System.out.println("");
+//		}
+		
+		
 		/*	Comme le comportement n'est pas codé, il faut déterminer toutes les commandes manuelement :
 		*	(Une seule arrayList aurait suffit, mais le découpage en plusieurs arrayList permet de visualiser 
 		*	plus facilement quelles commandes font quoi en temps réel
@@ -84,11 +97,11 @@ public class mainFrame extends JFrame {
         for(int i=0; i<200; i++) c1.add(new Commande(1,0.005)); //tout droit à fond en serrant a gauche
         
         final ArrayList<Commande> c2 = new ArrayList<Commande>();
-        for(int i=0; i<200; i++) c2.add(new Commande(0.1,0.065)); // tourner large à gauche sans accélerer
+       for(int i=0; i<200; i++) c2.add(new Commande(0.1,0.065)); // tourner large à gauche sans accélerer
         
         final ArrayList<Commande> c3 = new ArrayList<Commande>(); //etc....
         for(int i=0; i<200; i++) c3.add(new Commande(1,0));
-        
+       
         final ArrayList<Commande> c4 = new ArrayList<Commande>(); //etc....
         for(int i=0; i<200; i++) c4.add(new Commande(0.3,-0.03));
         
@@ -117,26 +130,55 @@ public class mainFrame extends JFrame {
 		        for(ArrayList<Commande> cg:coms){
 		            System.out.println("Liste de commandes c" + i + " en cours d'exécution..."); //affichage de la liste en cours
 		            try {
+		            	int cpt = 0;
 		            	for(Commande c:cg){
+		            		
+		            		Color couleur;
 		            		v.piloter(c);
-		            		v2.piloter(c);
-//				            System.out.println("position v1 : "+ v.getPosition());
-//				            System.out.println("position v2 : "+ v2.getPosition());
-
+		            		//v2.piloter(c);
+				            //System.out.println("position v1 : "+ v.getPosition());
+				            //System.out.println("Direction v1 : "+ v.getDirection());
+		            		//System.out.println("Vitesse v1 : "+ v.getVitesse());
 		            		//si on derape, tracé rouge, sinon orange
 		            		if(v.getDerapage())
 								im.setRGB((int) v.getPosition().getY(), (int) v.getPosition().getX(), Color.red.getRGB());
 							else
 								im.setRGB((int) v.getPosition().getY(), (int) v.getPosition().getX(), Color.orange.getRGB());
 		            		
-		            		if(v2.getDerapage())
-								im.setRGB((int) v2.getPosition().getY(), (int) v2.getPosition().getX(), Color.red.getRGB());
-							else
-								im.setRGB((int) v2.getPosition().getY(), (int) v2.getPosition().getX(), Color.orange.getRGB());
-		            		
+//		            		if(v2.getDirection().getX() > 0)
+//								im.setRGB((int) v2.getPosition().getY(), (int) v2.getPosition().getX(), Color.red.getRGB());
+//							else
+//								im.setRGB((int) v2.getPosition().getY(), (int) v2.getPosition().getX(), Color.orange.getRGB());
+		            		switch(cpt % 8){
+		            		case 0:
+		            			couleur = Color.blue;
+		            			break;
+		            		case 1:
+		            			couleur = Color.cyan;
+		            			break;
+		            		case 2:
+		            			couleur = Color.green;
+		            			break;
+		            		case 3:
+		            			couleur = Color.lightGray;
+		            			break;
+		            		case 4:
+		            			couleur = Color.magenta;
+		            			break;
+		            		case 5:
+		            			couleur = Color.orange;
+		            			break;
+		            		case 6:
+		            			couleur = Color.pink;
+		            			break;
+		            		default:
+		            			couleur = Color.red;
+		            			break;
+		            		}
+		            		p.refreshChampsDeVision(couleur);
 				            imgCircuitContainer.repaint();
 				            Thread.sleep(10); //vitesse de l'animation en nbre de milliseconde par tracé (baisser pour accélerer le tracé)
-
+				            cpt++;
 		            	}
 					} catch (VoitureException e) {
 						// TODO Auto-generated catch block
@@ -148,7 +190,7 @@ public class mainFrame extends JFrame {
 		            i++; // liste suivante
 		            
 			    }
-		        System.out.println("Temps écoulé : " + (java.lang.System.currentTimeMillis() - time));
+		        //System.out.println("Temps écoulé : " + (java.lang.System.currentTimeMillis() - time));
         	}
         }.start();
 

@@ -2,7 +2,9 @@ package fr.needforcode.course;
 
 import java.util.ArrayList;
 
+import fr.needforcode.circuit.Circuit;
 import fr.needforcode.equipe.Equipe;
+import fr.needforcode.voiture.Voiture;
 
 
 /**
@@ -11,5 +13,7 @@ import fr.needforcode.equipe.Equipe;
  *
  */
 public class Course {
-	ArrayList<Equipe> listeEquipes;
+	private ArrayList<Equipe> listeEquipes;
+	private Circuit circuit;
+	private Voiture voiture;
 }

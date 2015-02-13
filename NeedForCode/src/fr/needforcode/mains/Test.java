@@ -14,7 +14,7 @@ import fr.needforcode.circuit.factory.CircuitFactory;
 import fr.needforcode.voiture.Commande;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
-import fr.needforcode.voiture.factory.MiageCar;
+import fr.needforcode.voiture.factory.MiageCarFactory;
 import fr.needforcode.voiture.factory.VoitureFactory;
 
 public class Test {
@@ -23,7 +23,7 @@ public class Test {
          
          CircuitFactory cf = new CircuitFactory(filename);
          Circuit track = cf.build();
-         MiageCar mc = new MiageCar(track);
+         MiageCarFactory mc = new MiageCarFactory(track);
          Voiture v = mc.build();
          System.out.println("point de départ : " + track.getPointDepart());
          System.out.println("Voiture position départ : " + v.getPosition());

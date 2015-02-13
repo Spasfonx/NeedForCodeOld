@@ -2,6 +2,7 @@ package fr.needforcode.voiture;
 
 import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.geometrie.vTools;
+import fr.needforcode.pilote.Pilote;
 
 /**
  * @author Omar Ben Bella
@@ -19,6 +20,8 @@ public class VoitureImpl implements Voiture {
 	private double vitesse_sortie_derapage;
 	private Vecteur direction_derapage;
 	private double sens_derapage;
+	private Pilote driver;
+	
 	
 	/**
 	 * Commande (dépend de c) : alpha_c * c
@@ -172,6 +175,7 @@ public class VoitureImpl implements Voiture {
 		// approche normale
 		// 1) gestion du volant
 		vTools.rotation(direction, (c.getTurn() * braquage));
+		
 		// 2.1) gestion des frottements
 		vitesse -= alpha_f;
 		vitesse -= beta_f * vitesse;
