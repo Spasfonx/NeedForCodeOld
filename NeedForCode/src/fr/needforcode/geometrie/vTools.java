@@ -132,8 +132,8 @@ public class vTools {
 	/**
 	 * Calcul de l'angle formé par 2 vecteurs (ave le signe, attention sens trigo)
 	 * @param Vecteur a
-	 * @param Vecteur bb
-	 * @return L'angle formé par le vecteur aet le vecteur b
+	 * @param Vecteur b
+	 * @return L'angle formé par le vecteur a et le vecteur b (en radian)
 	 */
 	public static double angle(Vecteur a, Vecteur b) {
 		double res = composanteZ(a, b) * (Math.acos(scalaire(a, b) / (norme(a) * norme(b))));

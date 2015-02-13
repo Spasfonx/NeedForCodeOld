@@ -92,8 +92,11 @@ public class MainApp extends Application {
     		Circuit track = cF.build();
     		
     		controller.setCircuit(track, filename_img);
+    		controller.setVoiture();
             
             mainContentPane.setCenter(overviewPage);
+            
+            controller.launchCourse();
 
         } catch (IOException e) {
             // Exception gets thrown if the fxml file could not be loaded
