@@ -142,4 +142,18 @@ public class vTools {
 		}
 		return res;
 	}
+	
+	
+	/**
+	 * Retourne un Vecteur direction orthogonal au vecteur initial
+	 * @param v1
+	 * @return
+	 */
+	public static Vecteur directionOrthogonaleNormale(Vecteur v1){
+		Vecteur v = v1.cloneAsVecteur();
+		double vX = v.getX();
+		v.setX(vX * Math.cos(Math.PI / 2) - v.getY() * Math.sin(Math.PI / 2));
+		v.setY(vX * Math.sin(Math.PI / 2) + v.getY() * Math.cos(Math.PI / 2)); 
+		return vTools.normalisation(v);
+	}
 }
