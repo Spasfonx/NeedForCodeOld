@@ -13,6 +13,7 @@ import fr.needforcode.circuit.factory.CircuitFactory;
 import fr.needforcode.circuit.factory.CircuitFactoryImage;
 import fr.needforcode.ihm.controller.CourseRunningController;
 import fr.needforcode.ihm.controller.MainAppWindowController;
+import fr.needforcode.ihm.listener.ResizeListener;
 import fr.needforcode.ihm.model.CircuitLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -29,8 +31,11 @@ import javafx.stage.StageStyle;
 public class MainApp extends Application {
 	
 	private Stage primaryStage;
+	
     private AnchorPane mainAppWindow;
     private BorderPane mainContentPane;
+
+    private MainAppWindowController mainAppController;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -44,13 +49,20 @@ public class MainApp extends Application {
             this.mainAppWindow = (AnchorPane) loader.load();
             this.mainAppWindow.getStylesheets().add(MainApp.class.getResource("res/css/design.css").toExternalForm());
             
-            MainAppWindowController controller = loader.getController();
-            controller.setMainApp(this);
+            this.mainAppController = loader.getController();
+            this.mainAppController.setMainApp(this);
             
-            this.mainContentPane = controller.getMainContentPane();
+            Scene scene = new Scene(mainAppWindow);
             
-            this.primaryStage.setScene(new Scene(mainAppWindow));
+            this.primaryStage.setScene(scene);
+            this.primaryStage.setFullScreen(true);
+            
+            // On rend la fenêtre resizable
+            
+            this.mainContentPane = this.mainAppController.getMainContentPane();
+            
             this.primaryStage.show();
+            
         } catch (IOException e) {
         	// Exception levée si le fxml ne peut pas être chargé
             e.printStackTrace();
@@ -68,13 +80,12 @@ public class MainApp extends Application {
 	}
 	
 	/**
-     * Shows the person overview scene.
+     * Charge les composants et lance la vue qui permet de lancer la course
 	 * @throws Exception 
      */
     public void showCourseRunning() throws Exception {
         try {
         	
-            // Load the fxml file and set into the center of the main layout
             FXMLLoader loader 		= new FXMLLoader(MainApp.class.getResource("view/CourseRunning.fxml"));
             AnchorPane overviewPage = (AnchorPane) loader.load();
             CourseRunningController controller = loader.getController();
@@ -91,6 +102,7 @@ public class MainApp extends Application {
     		CircuitFactory cF = new CircuitFactory(filename_trk);
     		Circuit track = cF.build();
     		
+    		controller.setMainApp(this);
     		controller.setCircuit(track, filename_img);
     		controller.setVoiture();
             
@@ -99,12 +111,24 @@ public class MainApp extends Application {
             controller.launchCourse();
 
         } catch (IOException e) {
-            // Exception gets thrown if the fxml file could not be loaded
             e.printStackTrace();
         }
     }
+    
+    public void setError(String message) {
+    	this.mainAppController.setError(message);
+    }
 
+    /**
+     * Renvois la stage principale.
+     * 
+     * @return Stage
+     */
 	public Stage getPrimaryStage() {
 		return primaryStage;
+	}
+	
+	public BorderPane getMainContentPane() {
+		return this.mainContentPane;
 	}
 }

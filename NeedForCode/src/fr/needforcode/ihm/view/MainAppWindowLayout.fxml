@@ -2,14 +2,16 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet ../res/css/design.css?>
 
-<AnchorPane fx:id="mainAppWindow" prefHeight="720.0" prefWidth="1280.0" style="&#10;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fr.needforcode.ihm.controller.MainAppWindowController">
+<AnchorPane fx:id="mainAppWindow" prefHeight="720.0" prefWidth="1280.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fr.needforcode.ihm.controller.MainAppWindowController">
   <children>
-    <AnchorPane id="mainApptitleContentPane" fx:id="mainAppTopBar" minHeight="0.0" prefHeight="30.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane id="mainApptitleContentPane" fx:id="mainAppTopBar" prefHeight="30.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <Label fx:id="mainAppTitle" layoutY="7.0" text="Need For Code" AnchorPane.leftAnchor="27.0" />
         <AnchorPane fx:id="btnControlPane" prefHeight="30.0" prefWidth="200.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
@@ -19,6 +21,15 @@
         </AnchorPane>
       </children>
     </AnchorPane>
-    <BorderPane fx:id="mainContentPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="30.0" />
+    <BorderPane fx:id="mainContentPane" cache="true" cacheHint="SCALE" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="30.0" />
+    <AnchorPane fx:id="errorContentPane" opacity="1.0" prefHeight="25.0" prefWidth="1280.0" visible="false" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0">
+      <children>
+        <Text fx:id="errorText" fill="WHITE" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" AnchorPane.leftAnchor="10.0" />
+        <Button fx:id="btnErrorClose" mnemonicParsing="false" prefHeight="7.0" prefWidth="7.0" styleClass="btn-helper" text="×" textAlignment="LEFT" textOverrun="CLIP" wrapText="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="3.0" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" />
+      </padding>
+    </AnchorPane>
   </children>
 </AnchorPane>

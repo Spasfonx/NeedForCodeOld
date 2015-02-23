@@ -38,7 +38,9 @@ import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 public class CourseRunningController {
-
+	
+	/* Composants FXML */
+	
     @FXML
     private ResourceBundle resources;
 
@@ -54,52 +56,23 @@ public class CourseRunningController {
     @FXML
     private Label labelTest;
     
+    /* Composants de classe */
+    
+    private MainApp mainApp;
+    
     private Circuit circuit;
     private Voiture voiture;
+    
     private Rectangle voitureImg;
     
-    private double echelleCircuit;
+    private double scaleX;
+    private double scaleY;
     
     private final int TAILLE_LONGUEUR_VOITURE = 23;
     private final int TAILLE_LARGEUR_VOITURE = 12;
 
     @FXML
     void initialize() {
-    	this.echelleCircuit = 0.90;
-    }
-    
-    /**
-     * Charge le circuit sur lequel va se dérouler la course
-     * 
-     * @param circuit
-     * @param pathImage
-     */
-    public void setCircuit(Circuit circuit, String pathImage) {
-    	// On adapte le path pour le composant Image
-    	pathImage = "file:" + File.separator + pathImage;
-    	
-    	Image circuitImage = new Image(
-    			pathImage,
-    			circuit.getWidth() * echelleCircuit,
-            	circuit.getHeight() * echelleCircuit,
-            	true,
-            	true
-           );
-    	
-    	this.circuitContainer.setImage(circuitImage);
-    	this.courseContainer.setPrefSize(circuit.getHeight(), circuit.getWidth());
-    	this.circuit = circuit;
-    }
-    
-    public void setVoiture() {
-    	this.voitureImg = new Rectangle(
-    			(int) circuit.getPointDepart().getY() * echelleCircuit, 
-    			(int) circuit.getPointDepart().getX() * echelleCircuit, 
-    			this.TAILLE_LONGUEUR_VOITURE * echelleCircuit, 
-    			this.TAILLE_LARGEUR_VOITURE * echelleCircuit
-    		);
-    	this.voitureImg.setFill(Color.BLUE);
-    	this.courseContainer.getChildren().add(voitureImg);
     }
     
     @SuppressWarnings("deprecation")
@@ -183,13 +156,77 @@ public class CourseRunningController {
     	timeline.play();
     }
     
-    private void setPositionVoiture(double x, double y) {
-    	this.voitureImg.setX(x * echelleCircuit);
-		this.voitureImg.setY(y * echelleCircuit);
+    /**
+     * Charge le circuit sur lequel va se dérouler la course
+     * 
+     * @param circuit
+     * @param pathImage
+     */
+    public void setCircuit(Circuit circuit, String pathImage) {
+    	// On adapte le path pour le composant Image
+    	pathImage = "file:" + File.separator + pathImage;
+    	
+    	this.circuit = circuit;
+    	this.refreshScale();
+    	
+    	Image circuitImage = new Image(
+    			pathImage,
+    			circuit.getWidth() * scaleX,
+            	circuit.getHeight() * scaleY,
+            	false,
+            	true
+           );
+    	
+    	this.circuitContainer.setImage(circuitImage);
+    	this.courseContainer.setPrefSize(circuit.getHeight() * scaleY, circuit.getWidth() * scaleX);
+    	//this.circuit = circuit;
     }
     
+    public void setVoiture() {
+    	this.voitureImg = new Rectangle(
+    			(int) circuit.getPointDepart().getY() * scaleX, 
+    			(int) circuit.getPointDepart().getX() * scaleY, 
+    			this.TAILLE_LONGUEUR_VOITURE * scaleY,
+    			this.TAILLE_LARGEUR_VOITURE * scaleX
+    		);
+    	this.voitureImg.setFill(Color.BLUE);
+    	this.courseContainer.getChildren().add(voitureImg);
+    }
+    
+    /**
+     * Règle la position de la voiture sur le circuit (graphiquement).
+     * @param x
+     * @param y
+     */
+    private void setPositionVoiture(double x, double y) {
+    	this.voitureImg.setX(x * scaleX);
+		this.voitureImg.setY(y * scaleY);
+    }
+    
+    /**
+     * Tourne la voiture en fonction de sa direction et de l'angle donné en paramètre (graphiquement).
+     * @param angle Angle de rotation
+     */
     private void setDirectionVoiture(double angle) {
     	this.voitureImg.setRotate(voitureImg.getRotate() - angle);
+    }
+    
+    public void setMainApp(MainApp m) {
+    	this.mainApp = m;
+    }
+    
+    public void refreshScale() {
+    	int borderWidth = MainAppWindowController.BORDER_LEFT + MainAppWindowController.BORDER_RIGHT;
+    	int borderHeight = MainAppWindowController.BORDER_TOP + MainAppWindowController.BORDER_BOTTOM;    	
+    	
+    	// Règle de trois pour trouver la proportion du circuit en % par rapport à la taille de la fenêtre (moins les bordures)
+    	double proportionX = ((circuit.getWidth() * 100) / 
+    						 	(this.mainApp.getPrimaryStage().getWidth() - borderWidth));
+    	double proportionY = ((circuit.getHeight() * 100) / 
+    						 	(this.mainApp.getPrimaryStage().getHeight() - borderHeight));
+    	
+    	this.scaleX = 100 / proportionX;
+    	this.scaleY = 100 / proportionY;
     }
     
 }
