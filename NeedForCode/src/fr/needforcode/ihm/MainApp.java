@@ -18,9 +18,11 @@ import fr.needforcode.ihm.model.CircuitLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
@@ -33,7 +35,7 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	
     private AnchorPane mainAppWindow;
-    private BorderPane mainContentPane;
+    private AnchorPane mainContentPane;
 
     private MainAppWindowController mainAppController;
 
@@ -57,8 +59,6 @@ public class MainApp extends Application {
             this.primaryStage.setScene(scene);
             this.primaryStage.setFullScreen(true);
             
-            // On rend la fenêtre resizable
-            
             this.mainContentPane = this.mainAppController.getMainContentPane();
             
             this.primaryStage.show();
@@ -69,9 +69,9 @@ public class MainApp extends Application {
         }
         
         try {
-			showCourseRunning();
+			showMainMenu();
 		} catch (Exception e) {
-			e.printStackTrace();
+			this.setError("Impossible de lancer la course : " + e.getMessage());
 		}
 	}
 
@@ -106,7 +106,8 @@ public class MainApp extends Application {
     		controller.setCircuit(track, filename_img);
     		controller.setVoiture();
             
-            mainContentPane.setCenter(overviewPage);
+            //mainContentPane.setCenter(overviewPage);
+    		this.setMainContent(overviewPage);
             
             controller.launchCourse();
 
@@ -115,20 +116,49 @@ public class MainApp extends Application {
         }
     }
     
+    public void showMainMenu() {
+    	try {
+            FXMLLoader loader 		= new FXMLLoader(MainApp.class.getResource("view/MainMenuLayout.fxml"));
+            BorderPane overviewPage = (BorderPane) loader.load();
+            
+            this.setMainContent(overviewPage);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Inclus la vue principale.
+     * @param n Layout à inclure
+     */
+    private void setMainContent(Node n) {
+    	AnchorPane.setTopAnchor(n, 0d);
+    	AnchorPane.setBottomAnchor(n, 0d);
+    	AnchorPane.setLeftAnchor(n, 0d);
+    	AnchorPane.setRightAnchor(n, 0d);
+    	
+    	this.mainContentPane.getChildren().clear();
+    	this.mainContentPane.getChildren().add(n);
+    }
+    
     public void setError(String message) {
     	this.mainAppController.setError(message);
     }
 
     /**
      * Renvois la stage principale.
-     * 
      * @return Stage
      */
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
 	
-	public BorderPane getMainContentPane() {
+	/**
+	 * Renvois le conteneur principal.
+	 * @return Conteneur principal
+	 */
+	public AnchorPane getMainContentPane() {
 		return this.mainContentPane;
 	}
 }

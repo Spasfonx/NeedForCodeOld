@@ -49,7 +49,7 @@ public class MainAppWindowController {
     private Label mainAppTitle;
 
     @FXML
-    private BorderPane mainContentPane;
+    private AnchorPane mainContentPane;
     
     @FXML
     private AnchorPane errorContentPane;
@@ -64,10 +64,10 @@ public class MainAppWindowController {
     private static double xOffset = 0;
     private static double yOffset = 0;
     
-    public static int BORDER_BOTTOM = 3;
-    public static int BORDER_TOP   	= 30;
-    public static int BORDER_LEFT  	= 3;
-    public static int BORDER_RIGHT 	= 3;
+    public static int BORDER_BOTTOM = 4;
+    public static int BORDER_TOP   	= 31;
+    public static int BORDER_LEFT  	= 4;
+    public static int BORDER_RIGHT 	= 4;
 
     @FXML
     void initialize() {
@@ -76,7 +76,7 @@ public class MainAppWindowController {
     	initClosableBtnErrorError();
     }
 
-	public BorderPane getMainContentPane() {
+	public AnchorPane getMainContentPane() {
 		return this.mainContentPane;
 	}
 	

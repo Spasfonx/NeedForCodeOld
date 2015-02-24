@@ -82,3 +82,44 @@
 .btn-helper:pressed {
 	-fx-opacity: 0.3;
 }
+
+/**
+ * Boutons menu principal
+ */
+ .btn-main-menu {
+ 	-fx-background-color: #464646;
+ 	-fx-background-radius: 0;
+ 	
+ 	-fx-text-fill: white;
+ 	-fx-font-weight: bold;
+ 	-fx-font-size: 18px;
+	-fx-padding: 205 0 0 0;
+	
+	-fx-border-color: #3e3e3e;
+	-fx-border-width: 1px;
+	
+	-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0.0, 0, 0);
+ }
+ 
+ .btn-main-menu:hover {
+ 	-fx-border-color: #3e3e3e #3e3e3e #99ff00 #3e3e3e;
+ }
+ 
+ .btn-main-menu:pressed {
+ 	-fx-background-color: #404040;
+ 	-fx-border-color: #3e3e3e #3e3e3e #339900 #3e3e3e;
+ }
+ 
+ .btn-main-menu-launch {
+ 	-fx-background-image: url("../img/icon-flag.png");
+ 	-fx-background-size: 80%;
+ 	-fx-background-repeat: no-repeat;
+ 	-fx-background-position: center;
+ }
+ 
+  .btn-main-menu-settings {
+ 	-fx-background-image: url("../img/icon-settings.png");
+ 	-fx-background-size: 70%;
+ 	-fx-background-repeat: no-repeat;
+ 	-fx-background-position: center;
+ }

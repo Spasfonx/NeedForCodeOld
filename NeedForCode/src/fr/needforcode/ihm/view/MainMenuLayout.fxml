@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?scenebuilder-stylesheet ../res/css/design.css?>
+
+<BorderPane fx:id="mainMenu" prefHeight="500.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <center>
+    <Group id="Group" fx:id="groupButtons">
+      <children>
+        <Button fx:id="buttonLaunch" layoutX="0.0" layoutY="0.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0" styleClass="btn-main-menu, btn-main-menu-launch" text="Démarrer" wrapText="false" />
+        <Button fx:id="buttonSettings" layoutX="265.0" layoutY="0.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0" styleClass="btn-main-menu, btn-main-menu-settings" text="Réglages" />
+      </children>
+    </Group>
+  </center>
+</BorderPane>
