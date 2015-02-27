@@ -56,6 +56,9 @@ public class Course {
 		
 		this.listeEquipes.put(e, 0);
 		this.listeVoitures.put(e, factory.build());
+		
+		/* On affecte l'équipe à cette course */
+		e.setCourse(this);
 	}
 	
 	public void removeEquipe(Equipe e) throws CourseRunningException {
@@ -64,6 +67,16 @@ public class Course {
 		
 		this.listeEquipes.remove(e);
 		this.listeVoitures.remove(e);
+		
+		/* L'équipe n'est plus dans cette course */
+		e.setCourse(null);
+	}
+	
+	public Voiture getVoiture(Equipe e) throws ParticipationEquipeException {
+		if (!listeVoitures.containsKey(e))
+			throw new ParticipationEquipeException("Cette équipe ne participe pas à la course");
+		
+		return listeVoitures.get(e);
 	}
 	
 	public Circuit getCircuit() {

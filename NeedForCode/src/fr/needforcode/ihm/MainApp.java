@@ -13,6 +13,7 @@ import fr.needforcode.circuit.factory.CircuitFactory;
 import fr.needforcode.circuit.factory.CircuitFactoryImage;
 import fr.needforcode.ihm.controller.CourseRunningController;
 import fr.needforcode.ihm.controller.MainAppWindowController;
+import fr.needforcode.ihm.controller.MainMenuController;
 import fr.needforcode.ihm.listener.ResizeListener;
 import fr.needforcode.ihm.model.CircuitLoader;
 import javafx.application.Application;
@@ -120,6 +121,9 @@ public class MainApp extends Application {
     	try {
             FXMLLoader loader 		= new FXMLLoader(MainApp.class.getResource("view/MainMenuLayout.fxml"));
             BorderPane overviewPage = (BorderPane) loader.load();
+            MainMenuController controller = loader.getController();
+            
+            controller.setMainApp(this);
             
             this.setMainContent(overviewPage);
 

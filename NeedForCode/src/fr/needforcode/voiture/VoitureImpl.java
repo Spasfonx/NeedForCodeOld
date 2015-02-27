@@ -68,7 +68,7 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	/**
-	  * Constructeur de la classe VoitureImpl avec un modèle de voiture déjà instencié
+	  * Constructeur de la classe VoitureImpl avec un modèle de voiture déjà instancié
 	  */
 	public VoitureImpl(VoitureImpl model) {
 		this.position = model.position.cloneAsVecteur();
