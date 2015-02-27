@@ -1,11 +1,10 @@
 package fr.needforcode.course;
 
-
 /**
- * Brouillon
- * @author s11745823
+ * Enum qui décrit les états d'une course.
+ * @author Christophe
  *
  */
 public enum EtatCourse {
-	prepare, run, end
+	PREPARE, RUN, END
 }

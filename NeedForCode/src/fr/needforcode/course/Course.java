@@ -1,19 +1,74 @@
 package fr.needforcode.course;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.voiture.Voiture;
+import fr.needforcode.voiture.VoitureException;
+import fr.needforcode.voiture.factory.MiageCarFactory;
+import fr.needforcode.voiture.factory.VoitureFactory;
 
 
 /**
- * Brouillon
- * @author s11745823
- *
+ * Course, élément principal du déroulement du jeu, carrefour des classes Circuit, Voiture et Equipe.
+ * @author Christophe
  */
 public class Course {
-	private ArrayList<Equipe> listeEquipes;
+	
+	private HashMap<Equipe, Integer> listeEquipes;
+	private HashMap<Equipe, Voiture> listeVoitures;
 	private Circuit circuit;
-	private Voiture voiture;
+	private EtatCourse etatCourse;
+	private VoitureFactory factory;
+	private int lapTotal;
+
+	/**
+	 * Constructeur Course.
+	 * @param c Circuit sur lequel la course va se dérouler
+	 * @param lt Nombre de tours
+	 */
+	public Course(Circuit c, int lt) {
+		this.circuit 	   = c;
+		this.lapTotal 	   = lt;
+		this.etatCourse    = EtatCourse.PREPARE;
+		this.listeEquipes  = new HashMap<Equipe, Integer>();
+		this.listeVoitures = new HashMap<Equipe, Voiture>();
+		this.factory 	   = new MiageCarFactory(this.circuit);
+	}
+	
+	/**
+	 * Méthode qui pilote toutes les voitures à chaque frame.
+	 * @throws VoitureException Si levée par une voiture
+	 */
+	public void avancer() throws VoitureException {
+		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
+			entry.getValue().piloter(
+					entry.getKey().run()
+				);
+		}
+	}
+	
+	public void addEquipe(Equipe e) throws CourseRunningException {
+		if (this.etatCourse != EtatCourse.PREPARE)
+			throw new CourseRunningException("Impossible de rajouter une équipe lorsque la course est en cours de déroulement");
+		
+		this.listeEquipes.put(e, 0);
+		this.listeVoitures.put(e, factory.build());
+	}
+	
+	public void removeEquipe(Equipe e) throws CourseRunningException {
+		if (this.etatCourse != EtatCourse.PREPARE)
+			throw new CourseRunningException("Impossible de supprimer une équipe lorsque la course est en cours de déroulement");
+		
+		this.listeEquipes.remove(e);
+		this.listeVoitures.remove(e);
+	}
+	
+	public Circuit getCircuit() {
+		return circuit;
+	}
+	
 }
+
