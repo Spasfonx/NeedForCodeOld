@@ -1,23 +1,18 @@
 package fr.needforcode.tests.swing;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import fr.needforcode.chrono.Chrono;
+
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Terrain;
 import fr.needforcode.circuit.TerrainTools;
@@ -28,11 +23,7 @@ import fr.needforcode.course.ParticipationEquipeException;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.equipe.EquipeCamille;
 import fr.needforcode.equipe.EquipeDefault;
-import fr.needforcode.pilote.Pilote;
-import fr.needforcode.voiture.Commande;
-import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
-import fr.needforcode.voiture.factory.MiageCarFactory;
 /**
  * Class test intégration d'une course avec swing (jFrame)
  * @author camille
@@ -40,6 +31,10 @@ import fr.needforcode.voiture.factory.MiageCarFactory;
  */
 public class mainFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -70,16 +65,15 @@ public class mainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		//initialisation de la course
 		String filename = "./trk/1_safe.trk";
 		CircuitFactory cf = new CircuitFactory(filename);
 		final Circuit ci = cf.build();
 		final Course maCourse = new Course(ci,2);
 		final Equipe e1 = new EquipeCamille("EquipeCamille",maCourse);
-		//final Equipe e2 = new EquipeDefault("EquipeDefault",maCourse);
+		final Equipe e2 = new EquipeDefault("EquipeDefault",maCourse);
 		maCourse.addEquipe(e1);
-		//maCourse.addEquipe(e2);
+		maCourse.addEquipe(e2);
 		
 		final JLabel imgCircuitContainer = new JLabel("Circuit");
 		final BufferedImage im = TerrainTools.imageFromCircuit(ci);
@@ -211,7 +205,7 @@ public class mainFrame extends JFrame {
         		try {
 					maCourse.avancer();
 					im.setRGB((int) maCourse.getVoiture(e1).getPosition().getY(), (int) maCourse.getVoiture(e1).getPosition().getX(), Color.red.getRGB());
-					//im.setRGB((int) maCourse.getVoiture(e2).getPosition().getY(), (int) maCourse.getVoiture(e2).getPosition().getX(), Color.yellow.getRGB());
+					im.setRGB((int) maCourse.getVoiture(e2).getPosition().getY(), (int) maCourse.getVoiture(e2).getPosition().getX(), Color.yellow.getRGB());
 					Terrain[][] cdv = maCourse.getChampsDeVision(e1);
 					File ff=new File("cdv.txt");
 					ff.createNewFile();

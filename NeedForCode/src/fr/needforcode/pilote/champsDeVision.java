@@ -1,10 +1,6 @@
 package fr.needforcode.pilote;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
 import java.util.HashMap;
-
-import javax.swing.JLabel;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Terrain;
@@ -24,8 +20,8 @@ public class champsDeVision {
 	int x,y,yMin;
 	private Circuit circuit;
 	private Voiture voiture;
-	private Vecteur directionCache;
-	private Vecteur positionCache;
+	//private Vecteur directionCache;
+	//private Vecteur positionCache;
 
 	
 	/**
@@ -40,8 +36,8 @@ public class champsDeVision {
 		this.x = (int) this.voiture.getVitesse() * 300;
 		this.y = (int) this.voiture.getVitesse() * 300;
 		this.champsDeVision = new Terrain[x][y]; 
-		this.directionCache = v.getDirection();
-		this.positionCache = v.getPosition();
+		//this.directionCache = v.getDirection();
+		//this.positionCache = v.getPosition();
 		this.yMin = 200;
 		
 	}
@@ -80,9 +76,9 @@ public class champsDeVision {
 			for(int j = 0; j < y; j++){
 				try{
 					//s'il y a une voiture à la position du curseur, on l'ajoute au cdv, sinon on ajoute le terrain
-					if(this.circuit.isCar(curseur, listeVoitures))
-						champsDeVision[i][j] = Terrain.Voiture;
-					else
+//					if(this.circuit.isCar(curseur, listeVoitures))
+//						champsDeVision[i][j] = Terrain.Voiture;
+//					else
 						champsDeVision[i][j] = this.circuit.getTerrain(curseur);
 				}
 				catch(java.lang.ArrayIndexOutOfBoundsException ex){

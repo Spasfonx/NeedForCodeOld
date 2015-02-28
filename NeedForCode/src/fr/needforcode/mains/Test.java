@@ -15,7 +15,6 @@ import fr.needforcode.voiture.Commande;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
 import fr.needforcode.voiture.factory.MiageCarFactory;
-import fr.needforcode.voiture.factory.VoitureFactory;
 
 public class Test {
 	 public static void main(String[] args) throws VoitureException, IOException {

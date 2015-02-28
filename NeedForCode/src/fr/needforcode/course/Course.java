@@ -24,7 +24,7 @@ public class Course {
 	private EtatCourse etatCourse;
 	private VoitureFactory factory;
 	private int lapTotal;
-	private int incrementStartPosition;
+	//private int incrementStartPosition;
 
 	/**
 	 * Constructeur Course.
@@ -38,7 +38,7 @@ public class Course {
 		this.listeEquipes  = new HashMap<Equipe, Integer>();
 		this.listeVoitures = new HashMap<Equipe, Voiture>();
 		this.factory 	   = new MiageCarFactory(this.circuit);
-		this.incrementStartPosition = 0;
+		//this.incrementStartPosition = 0;
 	}
 	
 	/**

@@ -1,5 +1,4 @@
 package fr.needforcode.geometrie;
-import java.math.*;
 
 public class vTools {
 	/**
@@ -33,7 +32,7 @@ public class vTools {
 	 * @return Vecteur étant le produit vectoriel entre vecteur a et vecteur b
 	 */
 	public static Vecteur produitVectoriel(Vecteur a , Vecteur b){
-		double nX, nY;
+		//double nX, nY;
 		//Nouveau vecteur n :
 		// n.x = a.x * b.y - a.y * b.x
 		// n.y = a.y * b.x - a.x * b.y
