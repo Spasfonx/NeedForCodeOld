@@ -1,5 +1,6 @@
 package fr.needforcode.voiture;
 
+import fr.needforcode.circuit.Circuit;
 import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.geometrie.vTools;
 import fr.needforcode.pilote.Pilote;
@@ -52,7 +53,7 @@ public class VoitureImpl implements Voiture {
 	public VoitureImpl(double vmax, double braquage, double alpha_c, 
 			double alpha_f, double beta_f, double alpha_derapage, 
 			double vitesse, Vecteur position, Vecteur direction,
-			double vitesse_sortie_derapage) {
+			double vitesse_sortie_derapage,Circuit track) {
 		this.position = position;
 		this.direction = direction;
 		this.vitesse = vitesse;
@@ -63,7 +64,8 @@ public class VoitureImpl implements Voiture {
 		this.beta_f = beta_f;
 		this.alpha_derapage = alpha_derapage;
 		this.vitesse_sortie_derapage = vitesse_sortie_derapage;
-		derapage = false;
+		this.derapage = false;
+		this.driver = new Pilote(this,track);
 
 	}
 	

@@ -18,24 +18,26 @@ public class MiageCarFactory implements VoitureFactory {
 	private double vitesse = 0.;
 	private Vecteur position;
 	private Vecteur direction;
+	private Circuit trk;
 	
 	public MiageCarFactory(Circuit track) {
 		super();
-		position = track.getPointDepart().cloneAsVecteur();
-		direction = track.getDirectionDepart().cloneAsVecteur();
+		this.trk = track;
+		this.position = track.getPointDepart().cloneAsVecteur();
+		this.direction = track.getDirectionDepart().cloneAsVecteur();
 	}
 	
 	public Voiture build() {
 		return new VoitureImpl(vmax, braquage, alpha_c, alpha_f, beta_f,
 		alpha_derapage, vitesse, position, direction,
-		vitesse_sortie_derapage);
+		vitesse_sortie_derapage,trk);
 	}
 	
 	@Deprecated
 	public Voiture build2() {
 		return new VoitureImpl(vmax, braquage, alpha_c, alpha_f, beta_f,
 		alpha_derapage, vitesse, vTools.addition(position, new Vecteur(50,0)), direction.cloneAsVecteur(),
-		vitesse_sortie_derapage);
+		vitesse_sortie_derapage,trk);
 	}
 	
 	

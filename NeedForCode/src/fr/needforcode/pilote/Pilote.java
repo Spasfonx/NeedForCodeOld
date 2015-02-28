@@ -16,17 +16,10 @@ public class Pilote {
 	private Voiture voiture;
 	private	champsDeVision champs;
 	
-	//affichage(temporaire)
-	BufferedImage im;
-	JLabel jl;
 	
-	
-	public Pilote(Voiture v, Circuit c,BufferedImage im, JLabel jl){
+	public Pilote(Voiture v, Circuit c){
 		this.circuit = c;
 		this.voiture = v;
-		this.im = im;
-		this.jl = jl;
-		this.champs = new champsDeVision(v,c,im,jl);
-		
+		this.champs = new champsDeVision(v,c);		
 	}
 }
