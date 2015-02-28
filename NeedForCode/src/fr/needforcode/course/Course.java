@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import fr.needforcode.circuit.Circuit;
+import fr.needforcode.circuit.Terrain;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
@@ -23,6 +24,7 @@ public class Course {
 	private EtatCourse etatCourse;
 	private VoitureFactory factory;
 	private int lapTotal;
+	private int incrementStartPosition;
 
 	/**
 	 * Constructeur Course.
@@ -36,6 +38,7 @@ public class Course {
 		this.listeEquipes  = new HashMap<Equipe, Integer>();
 		this.listeVoitures = new HashMap<Equipe, Voiture>();
 		this.factory 	   = new MiageCarFactory(this.circuit);
+		this.incrementStartPosition = 0;
 	}
 	
 	/**
@@ -56,7 +59,7 @@ public class Course {
 		
 		this.listeEquipes.put(e, 0);
 		this.listeVoitures.put(e, factory.build());
-		
+		//this.incrementStartPosition += 10; //incrémente la StartPosition de la prochaine voiture ajouté
 		/* On affecte l'équipe à cette course */
 		e.setCourse(this);
 	}
@@ -64,7 +67,7 @@ public class Course {
 	public void removeEquipe(Equipe e) throws CourseRunningException {
 		if (this.etatCourse != EtatCourse.PREPARE)
 			throw new CourseRunningException("Impossible de supprimer une équipe lorsque la course est en cours de déroulement");
-		
+		//this.incrementStartPosition -= 10;
 		this.listeEquipes.remove(e);
 		this.listeVoitures.remove(e);
 		
@@ -81,6 +84,14 @@ public class Course {
 	
 	public Circuit getCircuit() {
 		return circuit;
+	}
+	
+	public Terrain[][] getChampsDeVision(Equipe e) throws ParticipationEquipeException {
+		if (!listeVoitures.containsKey(e))
+			throw new ParticipationEquipeException("Cette équipe ne participe pas à la course");
+		
+		return this.circuit.getChampsDeVision(this.listeVoitures.get(e), listeVoitures);
+		
 	}
 	
 }

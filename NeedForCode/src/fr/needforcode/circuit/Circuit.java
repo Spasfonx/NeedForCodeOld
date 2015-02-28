@@ -1,7 +1,12 @@
 package fr.needforcode.circuit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import fr.needforcode.equipe.Equipe;
 import fr.needforcode.geometrie.Vecteur;
+import fr.needforcode.pilote.champsDeVision;
+import fr.needforcode.voiture.Voiture;
 
 /**
  * Interface circuit!
@@ -30,4 +35,8 @@ public interface Circuit {
 	
 	public String getName();
 	
+	public Terrain[][] getChampsDeVision(Voiture v,HashMap<Equipe,Voiture> listeVoitures);
+	
+	public boolean isCar(Vecteur pos, HashMap<Equipe,Voiture> listeVoitures);
+
 }

@@ -1,6 +1,7 @@
 package fr.needforcode.voiture;
 
 import fr.needforcode.geometrie.*;
+import fr.needforcode.pilote.Pilote;
 
 /**
  * @author Omar Ben Bella
@@ -29,5 +30,7 @@ public interface Voiture {
 	public double getBraquage();
 	
 	public boolean getDerapage();
+	
+	public Pilote getPilote();
 
 }

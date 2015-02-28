@@ -1,8 +1,17 @@
 package fr.needforcode.circuit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+
+
+import java.util.Map.Entry;
+
+import fr.needforcode.equipe.Equipe;
 //import fr.needforcode.algo.Dijkstra;
 import fr.needforcode.geometrie.Vecteur;
+import fr.needforcode.pilote.champsDeVision;
+import fr.needforcode.voiture.Voiture;
 
 /**
  * Implémentation d'un circuit
@@ -15,6 +24,7 @@ public class CircuitImpl implements CircuitModifiable {
 	private Vecteur sensDepart;
 	private Vecteur sensArrivee;
 	private ArrayList<Vecteur> listeArrivees;
+	private HashMap<Voiture,Vecteur> listeVoitures;
 	//private Dijkstra dijkstra;
 	private String name; /* nécessaire pour sauvegarder */
 	
@@ -41,6 +51,7 @@ public class CircuitImpl implements CircuitModifiable {
 //		dijkstra = new Dijkstra(this);
 //	}
 	
+	//getter et setters :
 	public String getName() {
 		return name;
 	}
@@ -94,4 +105,23 @@ public class CircuitImpl implements CircuitModifiable {
 		//return dijkstra.getDist(i, j);
 		return 0.0;
 	}
+	
+	@Override
+	public Terrain[][] getChampsDeVision(Voiture v,HashMap<Equipe,Voiture> listeVoitures){
+		return v.getPilote().getChampsDeVision(listeVoitures);
+		
+	}
+	
+	/**
+	 * Rtourne vrai si une voiture contenue dans listeVoitures se trouve à la position v
+	 */
+	@Override
+	public boolean isCar(Vecteur v, HashMap<Equipe,Voiture> listeVoitures){
+		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
+			if(entry.getValue().getPosition().equals(v))
+				return true;
+		}
+		return false;
+	}
+	
 }

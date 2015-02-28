@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -16,8 +19,15 @@ import javax.swing.border.EmptyBorder;
 
 import fr.needforcode.chrono.Chrono;
 import fr.needforcode.circuit.Circuit;
+import fr.needforcode.circuit.Terrain;
 import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.circuit.factory.CircuitFactory;
+import fr.needforcode.course.Course;
+import fr.needforcode.course.CourseRunningException;
+import fr.needforcode.course.ParticipationEquipeException;
+import fr.needforcode.equipe.Equipe;
+import fr.needforcode.equipe.EquipeCamille;
+import fr.needforcode.equipe.EquipeDefault;
 import fr.needforcode.pilote.Pilote;
 import fr.needforcode.voiture.Commande;
 import fr.needforcode.voiture.Voiture;
@@ -51,8 +61,9 @@ public class mainFrame extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * 
 	 */
-	public mainFrame() throws VoitureException, InterruptedException {
+	public mainFrame() throws VoitureException, InterruptedException, CourseRunningException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1024, 810);
 		contentPane = new JPanel();
@@ -63,33 +74,37 @@ public class mainFrame extends JFrame {
 		//initialisation de la course
 		String filename = "./trk/1_safe.trk";
 		CircuitFactory cf = new CircuitFactory(filename);
-		Circuit ci = cf.build();
-		MiageCarFactory mc = new MiageCarFactory(ci);
-		final Voiture v = mc.build();
-		//final Voiture v2 = mc.build2();
+		final Circuit ci = cf.build();
+		final Course maCourse = new Course(ci,2);
+		final Equipe e1 = new EquipeCamille("EquipeCamille",maCourse);
+		//final Equipe e2 = new EquipeDefault("EquipeDefault",maCourse);
+		maCourse.addEquipe(e1);
+		//maCourse.addEquipe(e2);
+		
 		final JLabel imgCircuitContainer = new JLabel("Circuit");
 		final BufferedImage im = TerrainTools.imageFromCircuit(ci);
-		final Pilote p = new Pilote(v,ci,im,imgCircuitContainer);
 		imgCircuitContainer.setIcon(new ImageIcon(im));
 		imgCircuitContainer.setBounds(0, 0, 1024, 768);
 		contentPane.add(imgCircuitContainer);
 		
 		
+		/*
 		
+    	for(int i = 0; i < p.champsDeVision.length;i++){
+			for(int j = 0 ; j< p.champsDeVision[0].length;j++){
+				System.out.print(p.champsDeVision[i][j].toString().substring(0,1));
+			}
+			System.out.println("");
+		}
 		
-//		for(int i = 0; i < p.champsDeVision.length;i++){
-//			for(int j = 0 ; j< p.champsDeVision[0].length;j++){
-//				System.out.print(p.champsDeVision[i][j].toString().substring(0,1));
-//			}
-//			System.out.println("");
-//		}
-		
+		*/
 		
 		/*	Comme le comportement n'est pas codé, il faut déterminer toutes les commandes manuelement :
 		*	(Une seule arrayList aurait suffit, mais le découpage en plusieurs arrayList permet de visualiser 
 		*	plus facilement quelles commandes font quoi en temps réel
 		*/
 		
+		/*
 		final ArrayList<ArrayList<Commande>> coms = new ArrayList<ArrayList<Commande>>(); //Contiendra toutes les commandes a executer
 		
 		//on determine les ArrayList de commandes :
@@ -119,12 +134,13 @@ public class mainFrame extends JFrame {
         coms.add(c5);
         coms.add(c6);
         //etc....
-        
+         */
         
         //définition d'un nouveau Thread afin d'executer la course en parralele de la jFrame
         new Thread() {        	
         	@Override
         	public void run(){
+        		/*
         		long time = java.lang.System.currentTimeMillis();
         		int i = 1; //compteur de liste
 		        for(ArrayList<Commande> cg:coms){
@@ -191,7 +207,35 @@ public class mainFrame extends JFrame {
 		            
 			    }
 		        //System.out.println("Temps écoulé : " + (java.lang.System.currentTimeMillis() - time));
+		        */
+        		try {
+					maCourse.avancer();
+					im.setRGB((int) maCourse.getVoiture(e1).getPosition().getY(), (int) maCourse.getVoiture(e1).getPosition().getX(), Color.red.getRGB());
+					//im.setRGB((int) maCourse.getVoiture(e2).getPosition().getY(), (int) maCourse.getVoiture(e2).getPosition().getX(), Color.yellow.getRGB());
+					Terrain[][] cdv = maCourse.getChampsDeVision(e1);
+					File ff=new File("cdv.txt");
+					ff.createNewFile();
+					FileWriter ffw=new FileWriter(ff);
+			    	for(int i = 0; i < cdv.length;i++){
+						for(int j = 0 ; j< cdv[0].length;j++){
+								ffw.write(TerrainTools.charFromTerrain(ci.getTerrain(i, j)));		
+						}
+						ffw.write("\n");
+					}
+			    	ffw.close();
+				} catch (VoitureException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParticipationEquipeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
         	}
+        		
         }.start();
 
 	

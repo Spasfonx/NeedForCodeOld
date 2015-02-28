@@ -219,5 +219,9 @@ public class VoitureImpl implements Voiture {
 		sens_derapage = Math.signum(c.getTurn());
 		direction_derapage = direction.cloneAsVecteur();
 	}
+	
+	public Pilote getPilote(){
+		return this.driver;
+	}
 
 }

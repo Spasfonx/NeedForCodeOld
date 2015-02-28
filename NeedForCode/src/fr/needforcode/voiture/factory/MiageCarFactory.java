@@ -33,10 +33,10 @@ public class MiageCarFactory implements VoitureFactory {
 		vitesse_sortie_derapage,trk);
 	}
 	
-	@Deprecated
-	public Voiture build2() {
+	//increment a voir pls en detail
+	public Voiture build(int StartPositionIncrement) {
 		return new VoitureImpl(vmax, braquage, alpha_c, alpha_f, beta_f,
-		alpha_derapage, vitesse, vTools.addition(position, new Vecteur(50,0)), direction.cloneAsVecteur(),
+		alpha_derapage, vitesse, vTools.addition(position, new Vecteur(StartPositionIncrement,0)), direction.cloneAsVecteur(),
 		vitesse_sortie_derapage,trk);
 	}
 	

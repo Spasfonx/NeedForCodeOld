@@ -37,6 +37,10 @@ public class TerrainTools {
 				return Terrain.EndLine;
 			case '%':
 				return Terrain.Obstacle;
+			case 'v':
+				return Terrain.Voiture;
+			case 'n':
+				return Terrain.Out;
 			default:
 				return Terrain.Herbe;
 		}
@@ -64,6 +68,10 @@ public class TerrainTools {
 				return '*';
 			case EndLine:
 				return '!';
+			case Out:
+				return 'n';
+			case Voiture:
+				return 'v';
 			default:
 				return '.'; /* herbe */
 		}
@@ -143,7 +151,7 @@ public class TerrainTools {
 	 * @return True si le terrain peut être parcouru, false sinon
 	 */
 	public static boolean isRunnable(Terrain t) {
-		if (t == Terrain.Herbe || t == Terrain.Eau || t == Terrain.Obstacle)
+		if (t == Terrain.Herbe || t == Terrain.Eau || t == Terrain.Obstacle || t == Terrain.Voiture)
 			return false;
 		return true;
 	}

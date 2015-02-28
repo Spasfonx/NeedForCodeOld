@@ -5,5 +5,7 @@ import fr.needforcode.voiture.Voiture;
 public interface VoitureFactory {
 
 	public Voiture build();
+	
+	public Voiture build(int StartPositionIncrement);
 
 }
