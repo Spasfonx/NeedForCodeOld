@@ -61,6 +61,45 @@ public class Vecteur implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * Cette méthode permet de comparer l'égalité de vecteur à 10-3 près
+	 * @param obj
+	 * @return
+	 */
+	public boolean equalsArrondi(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vecteur other = (Vecteur) obj;
+		Double otherX = other.getX();
+		Double otherY = other.getY();
+		otherX *= 1000;
+		otherY *= 1000;
+		otherX = (double) Math.round(otherX);
+		otherY = (double) Math.round(otherY);
+		otherX /= 1000;
+		otherY /= 1000;
+		
+		Double currentX = this.x;
+		Double currentY = this.y;
+		currentX *= 1000;
+		currentY *= 1000;
+		currentX = (double) Math.round(currentX);
+		currentY = (double) Math.round(currentY);
+		currentX /= 1000;
+		currentY /= 1000;
+		
+		if (Double.doubleToLongBits(currentX) != Double.doubleToLongBits(otherX))
+			return false;
+		if (Double.doubleToLongBits(currentY) != Double.doubleToLongBits(otherY))
+			return false;
+		
+		return true;
+	}
+	
 	public double getX() {
 		return x;
 	}

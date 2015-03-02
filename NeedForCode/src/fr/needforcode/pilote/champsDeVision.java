@@ -61,7 +61,7 @@ public class champsDeVision {
 		
 		//Vecteur base du champs de vision, c.a.d perpendiculaire à la direction de la voiture et d'unité 1
 		Vecteur base = vTools.directionOrthogonaleNormale(this.voiture.getDirection());
-		
+
 		//Vecteur origine (point (0,0) du cdv)
 		Vecteur origine = vTools.addition(this.voiture.getPosition(),vTools.prodDouble(base, (int)(-(y+1) / 2)));
 		
@@ -76,9 +76,9 @@ public class champsDeVision {
 			for(int j = 0; j < y; j++){
 				try{
 					//s'il y a une voiture à la position du curseur, on l'ajoute au cdv, sinon on ajoute le terrain
-//					if(this.circuit.isCar(curseur, listeVoitures))
-//						champsDeVision[i][j] = Terrain.Voiture;
-//					else
+					if(this.circuit.isCar(curseur, listeVoitures))
+						champsDeVision[i][j] = Terrain.Voiture;
+					else
 						champsDeVision[i][j] = this.circuit.getTerrain(curseur);
 				}
 				catch(java.lang.ArrayIndexOutOfBoundsException ex){

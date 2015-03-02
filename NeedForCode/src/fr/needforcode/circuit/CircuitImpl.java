@@ -118,8 +118,9 @@ public class CircuitImpl implements CircuitModifiable {
 	@Override
 	public boolean isCar(Vecteur v, HashMap<Equipe,Voiture> listeVoitures){
 		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
-			if(entry.getValue().getPosition().equals(v))
+			if(entry.getValue().getPosition().equalsArrondi(v)){
 				return true;
+			}
 		}
 		return false;
 	}
