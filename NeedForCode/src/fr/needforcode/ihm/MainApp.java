@@ -1,33 +1,19 @@
 package fr.needforcode.ihm;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
 
 import fr.needforcode.circuit.Circuit;
-import fr.needforcode.circuit.CircuitImpl;
 import fr.needforcode.circuit.factory.CircuitFactory;
-import fr.needforcode.circuit.factory.CircuitFactoryImage;
 import fr.needforcode.ihm.controller.CourseRunningController;
 import fr.needforcode.ihm.controller.MainAppWindowController;
 import fr.needforcode.ihm.controller.MainMenuController;
-import fr.needforcode.ihm.listener.ResizeListener;
 import fr.needforcode.ihm.model.CircuitLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -126,7 +112,6 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             
             this.setMainContent(overviewPage);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

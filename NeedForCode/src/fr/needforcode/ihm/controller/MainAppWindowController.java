@@ -57,17 +57,20 @@ public class MainAppWindowController {
     @FXML
     private Text errorText;
 
-    // Référence à l'application principale
+    /**
+     * Référence à l'application principale
+     */
     private MainApp mainApp;
     
     // Variables utiles pour gérer le déplacement de la fenêtre
     private static double xOffset = 0;
     private static double yOffset = 0;
     
-    public static int BORDER_BOTTOM = 4;
-    public static int BORDER_TOP   	= 31;
-    public static int BORDER_LEFT  	= 4;
-    public static int BORDER_RIGHT 	= 4;
+    // Padding
+    public static int BORDER_BOTTOM = 5;
+    public static int BORDER_TOP   	= 32;
+    public static int BORDER_LEFT  	= 5;
+    public static int BORDER_RIGHT 	= 5;
 
     @FXML
     void initialize() {
