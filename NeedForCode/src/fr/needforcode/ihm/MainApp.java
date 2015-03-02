@@ -4,7 +4,10 @@ import java.io.IOException;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.factory.CircuitFactory;
+import fr.needforcode.course.Course;
+import fr.needforcode.equipe.EquipeCamille;
 import fr.needforcode.ihm.controller.CourseRunningController;
+import fr.needforcode.ihm.controller.CourseRunningController_Test;
 import fr.needforcode.ihm.controller.MainAppWindowController;
 import fr.needforcode.ihm.controller.MainMenuController;
 import fr.needforcode.ihm.model.CircuitLoader;
@@ -25,6 +28,8 @@ public class MainApp extends Application {
     private AnchorPane mainContentPane;
 
     private MainAppWindowController mainAppController;
+    
+    private final int framePerSecond = 60;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -44,7 +49,7 @@ public class MainApp extends Application {
             Scene scene = new Scene(mainAppWindow);
             
             this.primaryStage.setScene(scene);
-            this.primaryStage.setFullScreen(true);
+            this.primaryStage.setFullScreen(false);
             
             this.mainContentPane = this.mainAppController.getMainContentPane();
             
@@ -55,21 +60,18 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
         
-        try {
-			showMainMenu();
-		} catch (Exception e) {
-			this.setError("Impossible de lancer la course : " + e.getMessage());
-		}
+		showMainMenu();
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
+	/*
 	/**
      * Charge les composants et lance la vue qui permet de lancer la course
 	 * @throws Exception 
-     */
+     *
     public void showCourseRunning() throws Exception {
         try {
         	
@@ -94,6 +96,81 @@ public class MainApp extends Application {
     		controller.setVoiture();
             
             //mainContentPane.setCenter(overviewPage);
+    		this.setMainContent(overviewPage);
+            
+            controller.launchCourse();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    */
+	
+	public void showCourseRunning() throws Exception {
+        try {
+        	
+            FXMLLoader loader 		= new FXMLLoader(MainApp.class.getResource("view/CourseRunning.fxml"));
+            AnchorPane overviewPage = (AnchorPane) loader.load();
+            CourseRunningController controller = loader.getController();
+            CircuitLoader circuitLoader = new CircuitLoader();
+            
+            // Charge la liste des circuits
+            try { circuitLoader.loadCircuits(); } 
+            catch (Exception e) { e.printStackTrace(); }
+            
+            // Scratch
+            // TODO: Chargement dynamique des circuits
+            String name = "1_safe";
+    		String filename_trk = circuitLoader.getTrkPathFromName(name);
+    		String filename_img = circuitLoader.getImagePathFromName(name);
+    		CircuitFactory cF = new CircuitFactory(filename_trk);
+    		Circuit track = cF.build();
+    		
+    		/* Initialisation de la course */
+    		Course c = new Course(track, 15);
+    		c.addEquipe(new EquipeCamille("Camille", c));
+    		
+    		controller.setMainApp(this);
+    		controller.setCircuit(track, filename_img);
+    		controller.setCourse(c);
+            
+    		this.setMainContent(overviewPage);
+            
+            controller.launchCourse();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void showCourseRunning_Test() throws Exception {
+        try {
+        	
+            FXMLLoader loader 		= new FXMLLoader(MainApp.class.getResource("view/CourseRunning_Test.fxml"));
+            AnchorPane overviewPage = (AnchorPane) loader.load();
+            CourseRunningController_Test controller = loader.getController();
+            CircuitLoader circuitLoader = new CircuitLoader();
+            
+            // Charge la liste des circuits
+            try { circuitLoader.loadCircuits(); } 
+            catch (Exception e) { e.printStackTrace(); }
+            
+            // Scratch
+            // TODO: Chargement dynamique des circuits
+            String name = "1_safe";
+    		String filename_trk = circuitLoader.getTrkPathFromName(name);
+    		String filename_img = circuitLoader.getImagePathFromName(name);
+    		CircuitFactory cF = new CircuitFactory(filename_trk);
+    		Circuit track = cF.build();
+    		
+    		/* Initialisation de la course */
+    		Course c = new Course(track, 15);
+    		c.addEquipe(new EquipeCamille("Camille", c));
+    		
+    		controller.setMainApp(this);
+    		controller.setCircuit(track, filename_img);
+    		controller.setCourse(c);
+            
     		this.setMainContent(overviewPage);
             
             controller.launchCourse();
@@ -149,5 +226,13 @@ public class MainApp extends Application {
 	 */
 	public AnchorPane getMainContentPane() {
 		return this.mainContentPane;
+	}
+	
+	/**
+	 * Renvois le nombre d'images par secondes.
+	 * @return Nombre d'images par secondes
+	 */
+	public int getFramePerSecond() {
+		return this.framePerSecond;
 	}
 }

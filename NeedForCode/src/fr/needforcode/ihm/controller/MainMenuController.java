@@ -50,6 +50,18 @@ public class MainMenuController {
 				}
 			}
     	});
+    	
+    	buttonSettings.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent arg0) {
+				try {
+					mainApp.showCourseRunning_Test();
+				} catch (Exception e) {
+					//mainApp.setError(e.getMessage());
+					e.printStackTrace();
+				}
+			}
+    	});
     }
     
     public void setMainApp(MainApp m) {

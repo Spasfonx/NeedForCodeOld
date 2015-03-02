@@ -98,7 +98,6 @@ public class VoitureImpl implements Voiture {
 
 		if (!derapage && detection_derapage(c)) {
 			debut_derapage(c);
-			System.out.println("debut_derapage");
 		}
 		if (derapage) {
 			driveAvecDerapage(c);
@@ -164,7 +163,6 @@ public class VoitureImpl implements Voiture {
 		position.autoAdd(vTools.prodDouble(direction, vitesse));
 		if (vitesse < vitesse_sortie_derapage) {
 			fin_derapage();
-			System.out.println("fin_derapage");
 		}
 	}
 	

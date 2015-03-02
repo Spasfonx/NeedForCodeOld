@@ -50,9 +50,9 @@ public abstract class Equipe {
 	
 	/**
 	 * Méthode indispensable au fonctionnement du framework. C'est ici que
-	 * l'équipe va définir le comportement de leur voiture. Le controlleur
-	 * principal éxecute cette commande à chaque frame. La méthode retourne
-	 * une commande qui définis la direction et l'accelération de la voiture.
+	 * l'équipe va définir le <strong>comportement</strong> de leur voiture. 
+	 * Le controlleur principal éxecute cette commande à chaque frame. La méthode 
+	 * retourne une commande qui définis la direction et l'accelération de la voiture.
 	 * @return Commande qui définis la direction et l'accelération de la voiture.
 	 */
 	public abstract Commande run();

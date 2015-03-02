@@ -4,16 +4,24 @@ import fr.needforcode.course.Course;
 import fr.needforcode.voiture.Commande;
 
 public class EquipeCamille extends Equipe {
+	
+	private int i = 0;
 
 	public EquipeCamille(String n, Course c) {
 		super(n, c);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Commande run() {
-		// TODO Auto-generated method stub
-		return new Commande(1,1);
+		double a = 1;
+		double t = 0.005;
+		
+		if (i > 200) {
+			a = 0.1; t = 0.065;
+		}
+		
+		i++;
+		return new Commande(a, t);
 	}
 
 }

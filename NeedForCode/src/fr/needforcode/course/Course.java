@@ -2,6 +2,7 @@ package fr.needforcode.course;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Terrain;
@@ -82,16 +83,24 @@ public class Course {
 		return listeVoitures.get(e);
 	}
 	
-	public Circuit getCircuit() {
-		return circuit;
-	}
-	
 	public Terrain[][] getChampsDeVision(Equipe e) throws ParticipationEquipeException {
 		if (!listeVoitures.containsKey(e))
 			throw new ParticipationEquipeException("Cette équipe ne participe pas à la course");
 		
 		return this.circuit.getChampsDeVision(this.listeVoitures.get(e), listeVoitures);
 		
+	}
+	
+	public Circuit getCircuit() {
+		return circuit;
+	}
+
+	public EtatCourse getEtat() {
+		return this.etatCourse;
+	}
+
+	public HashMap<Equipe, Voiture> getListeVoitures() {
+		return this.listeVoitures;
 	}
 	
 }
