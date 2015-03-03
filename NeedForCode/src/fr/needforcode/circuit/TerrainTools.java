@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import fr.needforcode.circuit.factory.CircuitFactory;
+import fr.needforcode.geometrie.Vecteur;
 
 /**
  * Classe outils Terrain(méthodes static)
@@ -170,5 +172,4 @@ public class TerrainTools {
 			e.printStackTrace();
 		}
 	}
-	
 }

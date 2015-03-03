@@ -66,7 +66,7 @@ public class mainFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		//initialisation de la course
-		String filename = "./trk/testCam.trk";
+		String filename = "./trk/1_safe.trk";
 		CircuitFactory cf = new CircuitFactory(filename);
 		final Circuit ci = cf.build();
 		final Course maCourse = new Course(ci,2);
@@ -206,6 +206,7 @@ public class mainFrame extends JFrame {
 					maCourse.avancer();
 					im.setRGB((int) maCourse.getVoiture(e1).getPosition().getY(), (int) maCourse.getVoiture(e1).getPosition().getX(), Color.red.getRGB());
 					im.setRGB((int) maCourse.getVoiture(e2).getPosition().getY(), (int) maCourse.getVoiture(e2).getPosition().getX(), Color.yellow.getRGB());
+					/*
 					Terrain[][] cdv = maCourse.getChampsDeVision(e2);
 					File ff=new File("cdv.txt");
 					ff.createNewFile();
@@ -213,22 +214,24 @@ public class mainFrame extends JFrame {
 			    	for(int i = 0; i < cdv.length;i++){
 						for(int j = 0 ; j< cdv[0].length;j++){
 								ffw.write(TerrainTools.charFromTerrain(cdv[i][j]));	
-								System.out.print(TerrainTools.charFromTerrain(cdv[i][j]));
 						}
 						ffw.write("\n");
 						System.out.println();
 					}
 			    	ffw.close();
+			    	*/
 				} catch (VoitureException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ParticipationEquipeException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} catch (IOException e) {
+				
+				} /*catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
+				
 
         	}
         		

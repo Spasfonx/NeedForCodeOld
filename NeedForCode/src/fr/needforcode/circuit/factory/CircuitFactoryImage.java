@@ -4,9 +4,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
+
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.CircuitImpl;
+import fr.needforcode.circuit.Jalon;
 import fr.needforcode.circuit.Terrain;
 import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.geometrie.Vecteur;
@@ -25,6 +28,7 @@ public class CircuitFactoryImage {
 		Vecteur sensDepart = new Vecteur(0, 1);
 		Vecteur sensArrivee = new Vecteur(0, 1);
 		ArrayList<Vecteur> listeArrivees = new ArrayList<Vecteur>();
+		ArrayList<Jalon> listeJalons = new ArrayList<Jalon>();
 		BufferedImage im = null;
 		File file = new File(filename);
 		String filenameWithOutExt = file.getName();
@@ -49,7 +53,7 @@ public class CircuitFactoryImage {
 					listeArrivees.add(new Vecteur(i, j));
 			}
 		}
-		return new CircuitImpl(matrice, ptDepart, sensDepart, sensArrivee,listeArrivees, filenameWithOutExt);
+		return new CircuitImpl(matrice, ptDepart, sensDepart, sensArrivee,listeArrivees, filenameWithOutExt, listeJalons);
 	}
 
 }

@@ -1,5 +1,9 @@
 package fr.needforcode.geometrie;
 
+import fr.needforcode.circuit.Circuit;
+import fr.needforcode.circuit.OrientationJalon;
+import fr.needforcode.circuit.Terrain;
+
 public class vTools {
 	/**
 	 * Calcul la norme d'un vecteur v
@@ -154,5 +158,45 @@ public class vTools {
 		v.setX(vX * Math.cos(Math.PI / 2) - v.getY() * Math.sin(Math.PI / 2));
 		v.setY(vX * Math.sin(Math.PI / 2) + v.getY() * Math.cos(Math.PI / 2)); 
 		return vTools.normalisation(v);
+	}
+	
+	public static OrientationJalon calculOrientation(Circuit ci, Vecteur curseur){
+		Vecteur d, h, g, b;
+		d = curseur.cloneAsVecteur();
+		h = curseur.cloneAsVecteur();
+		g = curseur.cloneAsVecteur();
+		b = curseur.cloneAsVecteur();
+//		System.out.println("Curseur   : " + curseur.toString() + " Terrain : " + ci.getTerrain(curseur));
+		d.autoAdd(new Vecteur(0,1));
+//		System.out.println("-A droite : " + d.toString() + " Terrain : " + ci.getTerrain(d).toString());
+		h.autoAdd(new Vecteur(-1,0));
+//		System.out.println("-En haut  : " + h.toString() + " Terrain : " + ci.getTerrain(h).toString());
+		g.autoAdd(new Vecteur(0,-1));
+//		System.out.println("-A gauche : " + g.toString() + " Terrain : " + ci.getTerrain(g).toString());
+		b.autoAdd(new Vecteur(1,0));
+//		System.out.println("-En bas   : " + b.toString() + " Terrain : " + ci.getTerrain(b).toString());
+		Terrain td,th,tg, tb;
+		td = ci.getTerrain(d);
+		th = ci.getTerrain(h);
+		tg = ci.getTerrain(g);
+		tb = ci.getTerrain(b);
+		
+		if(td == Terrain.Herbe && th == Terrain.Herbe && tg == Terrain.Herbe && (tb == Terrain.BandeBlanche || tb == Terrain.BandeRouge || tb == Terrain.EndLine))
+			return OrientationJalon.Bas;
+		if(td == Terrain.Herbe && th == Terrain.Herbe && (tg == Terrain.BandeBlanche || tg == Terrain.BandeRouge) && tb == Terrain.Herbe)
+			return OrientationJalon.Gauche;
+		if(td == Terrain.Herbe && (th == Terrain.BandeBlanche || th == Terrain.BandeRouge) && tg == Terrain.Herbe && tb == Terrain.Herbe)
+			return OrientationJalon.Haut;
+		if((td == Terrain.BandeBlanche || td == Terrain.BandeRouge) && th == Terrain.Herbe && tg == Terrain.Herbe && tb == Terrain.Herbe)
+			return OrientationJalon.Droite;
+		if(td == Terrain.Herbe && th == Terrain.Herbe && (tg == Terrain.BandeBlanche || tg == Terrain.BandeRouge) && (tb == Terrain.BandeBlanche || tb == Terrain.BandeRouge))
+			return OrientationJalon.BasGauche;
+		if(td == Terrain.Herbe && (th == Terrain.BandeBlanche || th == Terrain.BandeRouge) && (tg == Terrain.BandeBlanche || tg == Terrain.BandeRouge) && tb == Terrain.Herbe)
+			return OrientationJalon.HautGauche;
+		if((td == Terrain.BandeBlanche || td == Terrain.BandeRouge) &&  (th == Terrain.BandeBlanche || th == Terrain.BandeRouge) && tg == Terrain.Herbe && tb == Terrain.Herbe)
+			return OrientationJalon.HautDroit;
+		if((td == Terrain.BandeBlanche || td == Terrain.BandeRouge) && th == Terrain.Herbe && tg == Terrain.Herbe && (tb == Terrain.BandeBlanche || tb == Terrain.BandeRouge))
+			return OrientationJalon.BasDroite;
+		return OrientationJalon.Null;
 	}
 }

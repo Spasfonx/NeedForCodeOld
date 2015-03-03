@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import fr.needforcode.equipe.Equipe;
 //import fr.needforcode.algo.Dijkstra;
 import fr.needforcode.geometrie.Vecteur;
+import fr.needforcode.geometrie.vTools;
 import fr.needforcode.pilote.champsDeVision;
 import fr.needforcode.voiture.Voiture;
 
@@ -24,9 +25,11 @@ public class CircuitImpl implements CircuitModifiable {
 	private Vecteur sensDepart;
 	private Vecteur sensArrivee;
 	private ArrayList<Vecteur> listeArrivees;
+	private ArrayList<Jalon> listeJalons;
 	private HashMap<Voiture,Vecteur> listeVoitures;
 	//private Dijkstra dijkstra;
 	private String name; /* nécessaire pour sauvegarder */
+	private Vecteur curseur;
 	
 	/**
 	 * Constructeur paramétré
@@ -37,20 +40,72 @@ public class CircuitImpl implements CircuitModifiable {
 	 * @param listeArrivees
 	 * @param name
 	 */
-	public CircuitImpl(Terrain[][] matrice, Vecteur ptDepart,Vecteur sensDepart, Vecteur sensArrivee,ArrayList<Vecteur> listeArrivees, String name) {
+	public CircuitImpl(Terrain[][] matrice, Vecteur ptDepart,Vecteur sensDepart, Vecteur sensArrivee,ArrayList<Vecteur> listeArrivees, String name, ArrayList<Jalon> listeJalons) {
 		this.matrice = matrice;
 		this.ptDepart = ptDepart;
 		this.sensDepart = sensDepart;
 		this.sensArrivee = sensArrivee;
 		this.listeArrivees = listeArrivees;
 		this.name = name;
+		this.listeJalons = listeJalons;
 		//dijkstra = new Dijkstra(this);
+		//System.out.println(this.listeArrivees.get(0).toString() + " TypeDep : " + this.getTerrain(this.listeArrivees.get(0)));
+		this.curseur = vTools.addition(this.listeArrivees.get(0),new Vecteur(-1,0));
+		makeJalons();
 	}
 	
 //	public void majDijkstra() {
 //		dijkstra = new Dijkstra(this);
 //	}
 	
+	private void next(Vecteur curseur){
+		if(vTools.calculOrientation(this,curseur) == OrientationJalon.Droite || vTools.calculOrientation(this,curseur) == OrientationJalon.BasDroite){
+			curseur.autoAdd(new Vecteur(-1,0));
+			if(vTools.calculOrientation(this,curseur) == OrientationJalon.Null){
+				curseur.autoAdd(new Vecteur(0,1));
+			}
+		}
+		else {
+			if(vTools.calculOrientation(this,curseur) == OrientationJalon.Gauche || vTools.calculOrientation(this,curseur) == OrientationJalon.HautGauche){
+				curseur.autoAdd(new Vecteur(1,0));
+				if(vTools.calculOrientation(this,curseur) == OrientationJalon.Null){
+					curseur.autoAdd(new Vecteur(0,-1));
+				}
+				
+			}
+			else {
+				if(vTools.calculOrientation(this,curseur) == OrientationJalon.Haut || vTools.calculOrientation(this,curseur) == OrientationJalon.HautDroit){
+					curseur.autoAdd(new Vecteur(0,-1));
+					if(vTools.calculOrientation(this,curseur) == OrientationJalon.Null){
+						curseur.autoAdd(new Vecteur(-1,0));
+					}
+					
+				}
+				else {
+					curseur.autoAdd(new Vecteur(0,1));
+					if(vTools.calculOrientation(this,curseur) == OrientationJalon.Null){
+						curseur.autoAdd(new Vecteur(1,0));
+					}
+				}
+			}
+		}
+
+	}
+	
+	private void makeJalons(){
+		//System.out.println(curseur.toString() + " Type : " + this.getTerrain(curseur));
+		//System.out.println(vTools.calculOrientation(this,curseur));
+		Vecteur origine = curseur.cloneAsVecteur();
+		next(curseur);
+		//System.out.println(curseur.toString() + " Type : " + this.getTerrain(curseur));
+		//int cpt = 0;
+		while(!curseur.equals(origine)){
+			//System.out.println(curseur.toString() + " Type : " + this.getTerrain(curseur));
+			//cpt++;
+			this.listeJalons.add(new Jalon(this,curseur));
+			next(curseur);
+		}
+	}
 	//getter et setters :
 	public String getName() {
 		return name;
