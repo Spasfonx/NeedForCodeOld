@@ -71,9 +71,9 @@ public class mainFrame extends JFrame {
 		final Circuit ci = cf.build();
 		final Course maCourse = new Course(ci,2);
 		final Equipe e1 = new EquipeCamille("EquipeCamille",maCourse);
-		final Equipe e2 = new EquipeDefault("EquipeDefault",maCourse);
+		//final Equipe e2 = new EquipeDefault("EquipeDefault",maCourse);
 		maCourse.addEquipe(e1);
-		maCourse.addEquipe(e2);
+		//maCourse.addEquipe(e2);
 		
 		final JLabel imgCircuitContainer = new JLabel("Circuit");
 		final BufferedImage im = TerrainTools.imageFromCircuit(ci);
@@ -203,11 +203,13 @@ public class mainFrame extends JFrame {
 		        //System.out.println("Temps écoulé : " + (java.lang.System.currentTimeMillis() - time));
 		        */
         		try {
-					maCourse.avancer();
-					im.setRGB((int) maCourse.getVoiture(e1).getPosition().getY(), (int) maCourse.getVoiture(e1).getPosition().getX(), Color.red.getRGB());
-					im.setRGB((int) maCourse.getVoiture(e2).getPosition().getY(), (int) maCourse.getVoiture(e2).getPosition().getX(), Color.yellow.getRGB());
-					/*
-					Terrain[][] cdv = maCourse.getChampsDeVision(e2);
+					for(int i = 0;i<350;i++)
+						maCourse.avancer();
+        			
+					//im.setRGB((int) maCourse.getVoiture(e1).getPosition().getY(), (int) maCourse.getVoiture(e1).getPosition().getX(), Color.red.getRGB());
+					//im.setRGB((int) maCourse.getVoiture(e2).getPosition().getY(), (int) maCourse.getVoiture(e2).getPosition().getX(), Color.yellow.getRGB());
+					
+					Terrain[][] cdv = maCourse.getChampsDeVision(e1);
 					File ff=new File("cdv.txt");
 					ff.createNewFile();
 					FileWriter ffw=new FileWriter(ff);
@@ -219,7 +221,7 @@ public class mainFrame extends JFrame {
 						System.out.println();
 					}
 			    	ffw.close();
-			    	*/
+			    	
 				} catch (VoitureException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -227,10 +229,10 @@ public class mainFrame extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				
-				} /*catch (IOException e) {
+				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}*/
+				}
 				
 
         	}

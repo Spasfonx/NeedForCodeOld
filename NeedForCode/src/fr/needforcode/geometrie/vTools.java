@@ -188,21 +188,21 @@ public class vTools {
 		tb = ci.getTerrain(b);
 		
 		if(td == Terrain.Herbe && th == Terrain.Herbe && tg == Terrain.Herbe && (tb == Terrain.BandeBlanche || tb == Terrain.BandeRouge || tb == Terrain.EndLine))
-			return OrientationJalon.Bas;
+			return OrientationJalon.BAS;
 		if(td == Terrain.Herbe && th == Terrain.Herbe && (tg == Terrain.BandeBlanche || tg == Terrain.BandeRouge) && tb == Terrain.Herbe)
-			return OrientationJalon.Gauche;
+			return OrientationJalon.GAUCHE;
 		if(td == Terrain.Herbe && (th == Terrain.BandeBlanche || th == Terrain.BandeRouge) && tg == Terrain.Herbe && tb == Terrain.Herbe)
-			return OrientationJalon.Haut;
+			return OrientationJalon.HAUT;
 		if((td == Terrain.BandeBlanche || td == Terrain.BandeRouge) && th == Terrain.Herbe && tg == Terrain.Herbe && tb == Terrain.Herbe)
-			return OrientationJalon.Droite;
+			return OrientationJalon.DROITE;
 		if(td == Terrain.Herbe && th == Terrain.Herbe && (tg == Terrain.BandeBlanche || tg == Terrain.BandeRouge) && (tb == Terrain.BandeBlanche || tb == Terrain.BandeRouge))
-			return OrientationJalon.BasGauche;
+			return OrientationJalon.BASGAUCHE;
 		if(td == Terrain.Herbe && (th == Terrain.BandeBlanche || th == Terrain.BandeRouge) && (tg == Terrain.BandeBlanche || tg == Terrain.BandeRouge) && tb == Terrain.Herbe)
-			return OrientationJalon.HautGauche;
+			return OrientationJalon.HAUTGAUCHE;
 		if((td == Terrain.BandeBlanche || td == Terrain.BandeRouge) &&  (th == Terrain.BandeBlanche || th == Terrain.BandeRouge) && tg == Terrain.Herbe && tb == Terrain.Herbe)
-			return OrientationJalon.HautDroit;
+			return OrientationJalon.HAUTDROITE;
 		if((td == Terrain.BandeBlanche || td == Terrain.BandeRouge) && th == Terrain.Herbe && tg == Terrain.Herbe && (tb == Terrain.BandeBlanche || tb == Terrain.BandeRouge))
-			return OrientationJalon.BasDroite;
-		return OrientationJalon.Null;
+			return OrientationJalon.BASDROITE;
+		return OrientationJalon.NULL;
 	}
 }

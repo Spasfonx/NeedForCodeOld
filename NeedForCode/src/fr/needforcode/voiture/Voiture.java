@@ -32,5 +32,7 @@ public interface Voiture {
 	public boolean getDerapage();
 	
 	public Pilote getPilote();
+	
+	public Vecteur[][] getPositionGraphique();
 
 }
