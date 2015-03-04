@@ -29,6 +29,8 @@ public class MainApp extends Application {
 
     private MainAppWindowController mainAppController;
     
+    private boolean debug = true;
+    
     private final int framePerSecond = 60;
 
 	@Override
@@ -36,76 +38,47 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
         this.primaryStage.initStyle(StageStyle.TRANSPARENT);
         
-        try {
-            // Charge le layout de la fenêtre pricipale
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MainAppWindowLayout.fxml"));
-            
+        /* Charge le layout de la fenêtre pricipale */
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MainAppWindowLayout.fxml"));
+        
+        try {   
             this.mainAppWindow = (AnchorPane) loader.load();
-            this.mainAppWindow.getStylesheets().add(MainApp.class.getResource("res/css/design.css").toExternalForm());
-            
-            this.mainAppController = loader.getController();
-            this.mainAppController.setMainApp(this);
-            
-            Scene scene = new Scene(mainAppWindow);
-            
-            this.primaryStage.setScene(scene);
-            this.primaryStage.setFullScreen(false);
-            
-            this.mainContentPane = this.mainAppController.getMainContentPane();
-            
-            this.primaryStage.show();
-            
         } catch (IOException e) {
-        	// Exception levée si le fxml ne peut pas être chargé
             e.printStackTrace();
         }
         
+        /* Charge les feuilles de styles */
+        this.mainAppWindow.getStylesheets().add(MainApp.class.getResource("res/css/design.css").toExternalForm());
+        
+        /* Charge le controller */
+        this.mainAppController = loader.getController();
+        this.mainAppController.setMainApp(this);
+        
+        this.mainContentPane = this.mainAppController.getMainContentPane();
+        
+        Scene scene = new Scene(mainAppWindow);
+        
+        /* Configuration et affichage de la fenêtre */
+        this.primaryStage.setScene(scene);
+        this.primaryStage.setFullScreen(true);
+        this.primaryStage.show();
+            
+        /* Affichage du menu principal */
 		showMainMenu();
 	}
 
+	/**
+	 * Point d'entrée du programme.
+	 * @param args - Arguments d'entrée
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
-	/*
 	/**
      * Charge les composants et lance la vue qui permet de lancer la course
 	 * @throws Exception 
-     *
-    public void showCourseRunning() throws Exception {
-        try {
-        	
-            FXMLLoader loader 		= new FXMLLoader(MainApp.class.getResource("view/CourseRunning.fxml"));
-            AnchorPane overviewPage = (AnchorPane) loader.load();
-            CourseRunningController controller = loader.getController();
-            CircuitLoader circuitLoader = new CircuitLoader();
-            
-            // Charge la liste des circuits
-            try { circuitLoader.loadCircuits(); } 
-            catch (Exception e) { e.printStackTrace(); }
-            
-            // Scratch
-            String name = "1_safe";
-    		String filename_trk = circuitLoader.getTrkPathFromName(name);
-    		String filename_img = circuitLoader.getImagePathFromName(name);
-    		CircuitFactory cF = new CircuitFactory(filename_trk);
-    		Circuit track = cF.build();
-    		
-    		controller.setMainApp(this);
-    		controller.setCircuit(track, filename_img);
-    		controller.setVoiture();
-            
-            //mainContentPane.setCenter(overviewPage);
-    		this.setMainContent(overviewPage);
-            
-            controller.launchCourse();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
-	
+     */
 	public void showCourseRunning() throws Exception {
         try {
         	
@@ -181,17 +154,20 @@ public class MainApp extends Application {
     }
     
     public void showMainMenu() {
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MainMenuLayout.fxml"));
+        BorderPane overviewPage = null;
+        
     	try {
-            FXMLLoader loader 		= new FXMLLoader(MainApp.class.getResource("view/MainMenuLayout.fxml"));
-            BorderPane overviewPage = (BorderPane) loader.load();
-            MainMenuController controller = loader.getController();
-            
-            controller.setMainApp(this);
-            
-            this.setMainContent(overviewPage);
-        } catch (IOException e) {
+            overviewPage = (BorderPane) loader.load();
+    	} catch (IOException e) {
             e.printStackTrace();
         }
+    	
+        MainMenuController controller = loader.getController();
+        
+        controller.setMainApp(this);
+        
+        this.setMainContent(overviewPage);
     }
     
     /**
