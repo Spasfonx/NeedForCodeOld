@@ -160,6 +160,12 @@ public class vTools {
 		return vTools.normalisation(v);
 	}
 	
+	/**
+	 * Methode permettant de déterminer l'orientation du Jalon en fonction de la position du curseur
+	 * @param ci
+	 * @param curseur
+	 * @return
+	 */
 	public static OrientationJalon calculOrientation(Circuit ci, Vecteur curseur){
 		Vecteur d, h, g, b;
 		d = curseur.cloneAsVecteur();

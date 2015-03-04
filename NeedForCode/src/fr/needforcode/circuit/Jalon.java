@@ -7,6 +7,11 @@ import fr.needforcode.chrono.Chrono;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.geometrie.Vecteur;
 
+/**
+ * Classe jalon, un jalon est un segment(ArrayList<vecteur>) symbolisant un passage obligatoire pendant la course
+ * @author camille
+ *
+ */
 public class Jalon {
 	
 	ArrayList<Vecteur> listeJalons;
@@ -14,10 +19,19 @@ public class Jalon {
 	private static int num;
 	private HashMap<Equipe,Chrono> passage;
 	
+	/**
+	 * Constructeur à partir d'un segment existant
+	 * @param lj ArrayList<Vecteur>
+	 */
 	public Jalon(ArrayList<Vecteur> lj){
 		this.listeJalons = lj;
 	}
 	
+	/**
+	 * Constructeur utilisé par la construction d'un circuit(construit le Jalon)
+	 * @param ci Circuit
+	 * @param curseur vecteur (permet la construction des jalons)
+	 */
 	public Jalon(Circuit ci, Vecteur curseur){
 		num++;
 		this.listeJalons = new ArrayList<Vecteur>();
@@ -25,7 +39,14 @@ public class Jalon {
 		tracerJalon(ci,curseur);
 	}
 	
+	/**
+	 * Methode permettant de déterminer l'orientation du Jalon en fonction de la position du curseur
+	 * @param ci
+	 * @param curseur
+	 */
 	public void setOrientation(Circuit ci, Vecteur curseur){
+		
+		// on reçoit les 4 cases adjacentes au curseur
 		Vecteur d, h, g, b;
 		d = curseur.cloneAsVecteur();
 		h = curseur.cloneAsVecteur();
@@ -41,6 +62,7 @@ public class Jalon {
 		tg = ci.getTerrain(g);
 		tb = ci.getTerrain(b);
 		
+		//ici on détermine l'orientation dans laquel on va tracer le Jalon
 		if(td == Terrain.Herbe && th == Terrain.Herbe && tg == Terrain.Herbe && (tb == Terrain.BandeBlanche || tb == Terrain.BandeRouge)){
 			this.orientation = OrientationJalon.Bas;
 		}
@@ -85,6 +107,11 @@ public class Jalon {
 		//System.out.println("Orientation : " + this.orientation.toString());
 	}
 	
+	/**
+	 * Méthode tracant le Jalon dans la direction précédemment établie
+	 * @param ci
+	 * @param curseurO
+	 */
 	public void tracerJalon(Circuit ci,Vecteur curseurO){
 		Vecteur curseur = curseurO.cloneAsVecteur();
 		switch(orientation){
@@ -161,6 +188,7 @@ public class Jalon {
 		//System.out.println("Jalon " + this.num + " crée");
 	}
 	
+
 	public ArrayList<Vecteur> getListeJalons() {
 		return listeJalons;
 	}
