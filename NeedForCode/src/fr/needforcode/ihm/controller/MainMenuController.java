@@ -1,11 +1,13 @@
 package fr.needforcode.ihm.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import fr.needforcode.ihm.MainApp;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -44,7 +46,8 @@ public class MainMenuController {
 			@Override
 			public void handle(MouseEvent arg0) {
 				try {
-					mainApp.showCourseRunning();
+					//mainApp.showCourseRunning();
+					showConfigCourseMenu();
 				} catch (Exception e) {
 					mainApp.setError(e.getMessage());
 				}
@@ -62,6 +65,23 @@ public class MainMenuController {
 				}
 			}
     	});
+    }
+    
+    public void showConfigCourseMenu() {
+    	FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/ConfigCourseMenuLayout.fxml"));
+        BorderPane overviewPage = null;
+        
+    	try {
+            overviewPage = (BorderPane) loader.load();
+    	} catch (IOException e) {
+            e.printStackTrace();
+        }
+    	
+        ConfigCourseMenuController controller = loader.getController();
+        
+        controller.setMainApp(this.mainApp);
+        
+        mainApp.setMainContent(overviewPage);
     }
     
     public void setMainApp(MainApp m) {

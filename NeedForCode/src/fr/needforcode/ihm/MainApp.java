@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -76,7 +77,7 @@ public class MainApp extends Application {
 	}
 	
 	/**
-     * Charge les composants et lance la vue qui permet de lancer la course
+     * Charge les composants et lance la vue qui permet de lancer la course.
 	 * @throws Exception 
      */
 	public void showCourseRunning() throws Exception {
@@ -87,7 +88,7 @@ public class MainApp extends Application {
             CourseRunningController controller = loader.getController();
             CircuitLoader circuitLoader = new CircuitLoader();
             
-            // Charge la liste des circuits
+            /* Charge la liste des circuits */
             try { circuitLoader.loadCircuits(); } 
             catch (Exception e) { e.printStackTrace(); }
             
@@ -174,7 +175,7 @@ public class MainApp extends Application {
      * Inclus la vue principale.
      * @param n Layout à inclure
      */
-    private void setMainContent(Node n) {
+    public void setMainContent(Node n) {
     	AnchorPane.setTopAnchor(n, 0d);
     	AnchorPane.setBottomAnchor(n, 0d);
     	AnchorPane.setLeftAnchor(n, 0d);

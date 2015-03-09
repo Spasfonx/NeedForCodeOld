@@ -220,7 +220,7 @@ public class CourseRunningController {
     
     
     /**
-     * Charge le circuit sur lequel va se dérouler la course
+     * Charge le circuit sur lequel va se dérouler la course.
      * 
      * @param circuit
      * @param pathImage

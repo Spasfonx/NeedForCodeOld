@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.*?>
+
+<fx:root type="javafx.scene.layout.BorderPane" id="ConfigCourseMenu" fx:id="configCourseMenu" prefHeight="455.0" prefWidth="451.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fr.needforcode.ihm.controller.ConfigCourseMenuController">
+  <bottom>
+    <Button fx:id="buttonSubmit" mnemonicParsing="false" styleClass="btn-submit" text="Lancer" BorderPane.alignment="CENTER" />
+  </bottom>
+  <center>
+    <VBox id="mainContent" fx:id="mainContentCourseMenu" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="8.0" BorderPane.alignment="TOP_LEFT">
+      <children>
+        <HBox id="HBox" fx:id="titleChoosePlayers" alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../res/img/partials/icon-volant.png" />
+              </image>
+              <HBox.margin>
+                <Insets top="2.0" fx:id="x1" />
+              </HBox.margin>
+            </ImageView>
+            <Text fx:id="textChoosePlayers" fill="WHITE" scaleX="1.000000731428553" scaleY="1.000004698971981" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title-section-menu" text="Choisir les joueurs" />
+          </children>
+        </HBox>
+        <GridPane fx:id="gridPlayers">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <HBox id="HBox" fx:id="titleSettingsCourse" alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" HBox.margin="$x1">
+              <image>
+                <Image url="@../res/img/partials/icon-settings-orange.png" />
+              </image>
+            </ImageView>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title-section-menu" text="Paramètres de la course" />
+          </children>
+        </HBox>
+        <VBox id="VBox" fx:id="linesSettingsCourse" alignment="CENTER" spacing="10.0">
+          <children>
+            <HBox fx:id="lineCircuit" prefHeight="-1.0" prefWidth="-1.0" spacing="5.0">
+              <children>
+                <Label fx:id="labelCircuit" prefWidth="120.0" text="Circuit :" textFill="WHITE" />
+                <ComboBox fx:id="comboBoxCircuit" prefHeight="21.0" prefWidth="103.0">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Item 1" />
+                      <String fx:value="Item 2" />
+                      <String fx:value="Item 3" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+              </children>
+            </HBox>
+            <HBox id="HBox" fx:id="lineNbTours" alignment="TOP_LEFT" spacing="5.0">
+              <children>
+                <Label fx:id="labelNbTours" prefWidth="120.0" text="Nombre de tours :" textFill="WHITE" />
+                <TextField fx:id="textFieldNbTours" prefWidth="45.0" />
+              </children>
+            </HBox>
+          </children>
+          <padding>
+            <Insets left="10.0" />
+          </padding>
+        </VBox>
+      </children>
+    </VBox>
+  </center>
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+  <right>
+    <StackPane fx:id="circuitPreviewPane" alignment="TOP_RIGHT" prefHeight="350.0" prefWidth="500.0" visible="false" BorderPane.alignment="TOP_RIGHT">
+      <children>
+        <VBox id="VBox" alignment="CENTER" spacing="5.0" StackPane.alignment="TOP_LEFT">
+          <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Prévisualisation">
+              <font>
+                <Font name="System Bold" size="24.0" />
+              </font>
+            </Text>
+            <ImageView fx:id="circuitPreviewContainer" fitHeight="350.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" />
+          </children>
+        </VBox>
+      </children>
+      <BorderPane.margin>
+        <Insets bottom="20.0" left="20.0" top="20.0" />
+      </BorderPane.margin>
+    </StackPane>
+  </right>
+  <stylesheets>
+    <URL value="@../res/css/design.css" />
+  </stylesheets>
+</fx:root>
