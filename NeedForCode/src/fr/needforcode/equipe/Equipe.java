@@ -1,6 +1,8 @@
 package fr.needforcode.equipe;
 
+import fr.needforcode.circuit.Terrain;
 import fr.needforcode.course.Course;
+import fr.needforcode.course.ParticipationEquipeException;
 import fr.needforcode.voiture.Commande;
 
 /**
@@ -57,4 +59,13 @@ public abstract class Equipe {
 	 */
 	public abstract Commande run();
 
+	protected Terrain[][] getChampsDeVision() {
+		try {
+			return this.course.getChampsDeVision(this);
+		} catch (ParticipationEquipeException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
