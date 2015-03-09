@@ -16,9 +16,10 @@ public class Jalon {
 	
 	private ArrayList<Vecteur> listeVecteurs;
 	private OrientationJalon orientation;
-	private static int num;
+	private int num;
 	private HashMap<Equipe,Chrono> passage;
 	private final static int DEBUGNUM = 172;
+
 	
 	/**
 	 * Constructeur à partir d'un segment existant
@@ -33,14 +34,12 @@ public class Jalon {
 	 * @param ci Circuit
 	 * @param curseur vecteur (permet la construction des jalons)
 	 */
-	public Jalon(Circuit ci, Vecteur curseur){
-		num++;
+	public Jalon(Circuit ci, Vecteur curseur,int num){
 		this.listeVecteurs = new ArrayList<Vecteur>();
+		this.num = num;
 		setOrientation(ci,curseur);
-		if(this.num % 5 == 0 )
-			tracerJalon(ci,curseur);
-		if(this.num == DEBUGNUM)
-			System.out.println("Type : " + ci.getTerrain(curseur) + " " + curseur.toString());
+		tracerJalon(ci,curseur);
+
 	}
 	
 	/**
@@ -65,12 +64,6 @@ public class Jalon {
 		th = ci.getTerrain(h);
 		tg = ci.getTerrain(g);
 		tb = ci.getTerrain(b);
-		if(this.num == DEBUGNUM){
-			System.out.println("DROITE:" + td.toString());
-			System.out.println("HAUT:" + th.toString());
-			System.out.println("GAUCHE:" + tg.toString());
-			System.out.println("BAS:" + tb.toString());
-		}
 		
 		//ici on détermine l'orientation dans laquel on va tracer le Jalon
 		if(td == Terrain.Herbe && th == Terrain.Herbe && tg == Terrain.Herbe && (tb == Terrain.BandeBlanche || tb == Terrain.BandeRouge)){
@@ -162,7 +155,7 @@ public class Jalon {
 			break;
 		case BASGAUCHE :
 			curseur.autoAdd(new Vecteur(1,-1));
-			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge)){
+			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge) || ci.getTerrain(curseur) == Terrain.EndLine){
 				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(1,-1));
 //				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
@@ -199,12 +192,13 @@ public class Jalon {
 		}
 		//System.out.println("Jalon " + this.num + " crée");
 	}
-	
 
-	
-	
-	public static int getNum() {
-		return num;
+	public void numDecremente() {
+		this.num--;
+	}
+
+	public int getNum() {
+		return this.num;
 	}
 
 	public ArrayList<Vecteur> getListeVecteurs() {

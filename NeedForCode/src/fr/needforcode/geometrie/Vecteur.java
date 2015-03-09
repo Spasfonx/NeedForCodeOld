@@ -66,6 +66,7 @@ public class Vecteur implements Serializable {
 	 * @param obj
 	 * @return
 	 */
+	@Deprecated
 	public boolean equalsArrondi(Object obj) {
 		if (this == obj)
 			return true;
@@ -91,6 +92,40 @@ public class Vecteur implements Serializable {
 		currentY = (double) Math.round(currentY);
 		currentX /= 1000;
 		currentY /= 1000;
+		
+		if (Double.doubleToLongBits(currentX) != Double.doubleToLongBits(otherX))
+			return false;
+		if (Double.doubleToLongBits(currentY) != Double.doubleToLongBits(otherY))
+			return false;
+		
+		return true;
+	}
+	
+	public boolean equalsArrondi(Object obj,double precision) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vecteur other = (Vecteur) obj;
+		Double otherX = other.getX();
+		Double otherY = other.getY();
+		otherX *= precision;
+		otherY *= precision;
+		otherX = (double) Math.round(otherX);
+		otherY = (double) Math.round(otherY);
+		otherX /= precision;
+		otherY /= precision;
+		
+		Double currentX = this.x;
+		Double currentY = this.y;
+		currentX *= precision;
+		currentY *= precision;
+		currentX = (double) Math.round(currentX);
+		currentY = (double) Math.round(currentY);
+		currentX /= precision;
+		currentY /= precision;
 		
 		if (Double.doubleToLongBits(currentX) != Double.doubleToLongBits(otherX))
 			return false;

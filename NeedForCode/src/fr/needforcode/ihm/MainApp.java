@@ -144,7 +144,6 @@ public class MainApp extends Application {
     		for(Jalon j : track.getListeJalons()){
     			this.debugVecteurDraw(j.getListeVecteurs().get(0), j.getListeVecteurs().get(j.getListeVecteurs().size()-1));
     		}
-    		
     		/* Initialisation de la course */
     		Course c = new Course(track, 15);
     		c.addEquipe(new EquipeCamille("Camille", c));

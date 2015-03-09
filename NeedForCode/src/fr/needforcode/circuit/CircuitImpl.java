@@ -95,21 +95,26 @@ public class CircuitImpl implements CircuitModifiable {
 	}
 	
 	private void makeJalons(){
-		//System.out.println(curseur.toString() + " Type : " + this.getTerrain(curseur));
-		//System.out.println(vTools.calculOrientation(this,curseur));
+		int num = 0;
 		Vecteur origine = curseur.cloneAsVecteur();
 		next(curseur);
-		//System.out.println(curseur.toString() + " Type : " + this.getTerrain(curseur));
-		//int cpt = 0;
-		while(!curseur.equals(origine)){
-			//System.out.println(curseur.toString() + " Type : " + this.getTerrain(curseur));
-			//cpt++;
-			Jalon j = new Jalon(this,curseur);
-			if(!j.getListeVecteurs().isEmpty() && !vTools.croiser(j,this.listeJalons) && j.getListeVecteurs().size() < this.largeurCircuit * 1.15){
-				this.listeJalons.add(j);
+		while(!curseur.equalsArrondi(origine)){
+			Jalon j = new Jalon(this,curseur,num);
+			if(!j.getListeVecteurs().isEmpty() && j.getListeVecteurs().size() < this.largeurCircuit * 1.10){
+				if(num == 0){
+					this.listeJalons.add(j);
+					num++;
+				}
+				else{
+					if(!vTools.croiser(j,this.listeJalons)){
+						this.listeJalons.add(j);
+						num++;
+					}
+				}
+				this.listeJalons.add(j);	
 			}
 			next(curseur);
-		}
+		}	
 	}
 	//getter et setters :
 	public String getName() {
