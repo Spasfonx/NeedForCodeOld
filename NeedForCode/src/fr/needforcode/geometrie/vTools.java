@@ -1,6 +1,9 @@
 package fr.needforcode.geometrie;
 
+import java.util.ArrayList;
+
 import fr.needforcode.circuit.Circuit;
+import fr.needforcode.circuit.Jalon;
 import fr.needforcode.circuit.OrientationJalon;
 import fr.needforcode.circuit.Terrain;
 
@@ -204,5 +207,21 @@ public class vTools {
 		if((td == Terrain.BandeBlanche || td == Terrain.BandeRouge) && th == Terrain.Herbe && tg == Terrain.Herbe && (tb == Terrain.BandeBlanche || tb == Terrain.BandeRouge))
 			return OrientationJalon.BASDROITE;
 		return OrientationJalon.NULL;
+	}
+	
+	public static boolean croiser(Jalon j, ArrayList<Jalon> jalonsCircuit){
+		int cpt = 0;
+		for(Jalon courant : jalonsCircuit){
+			for(Vecteur v : courant.getListeVecteurs()){
+				for(Vecteur v2 : j.getListeVecteurs()){
+					System.out.println(cpt);
+					cpt++;
+					if(v.equalsArrondi(v2)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

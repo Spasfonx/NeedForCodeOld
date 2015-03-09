@@ -27,6 +27,7 @@ public class CircuitImpl implements CircuitModifiable {
 	private ArrayList<Vecteur> listeArrivees;
 	private ArrayList<Jalon> listeJalons;
 	private HashMap<Voiture,Vecteur> listeVoitures;
+	private int largeurCircuit;
 	//private Dijkstra dijkstra;
 	private String name; /* nécessaire pour sauvegarder */
 	private Vecteur curseur;
@@ -48,6 +49,7 @@ public class CircuitImpl implements CircuitModifiable {
 		this.listeArrivees = listeArrivees;
 		this.name = name;
 		this.listeJalons = listeJalons;
+		this.largeurCircuit = listeArrivees.size();
 		//dijkstra = new Dijkstra(this);
 		//System.out.println(this.listeArrivees.get(0).toString() + " TypeDep : " + this.getTerrain(this.listeArrivees.get(0)));
 		this.curseur = vTools.addition(this.listeArrivees.get(0),new Vecteur(-1,0));
@@ -102,7 +104,10 @@ public class CircuitImpl implements CircuitModifiable {
 		while(!curseur.equals(origine)){
 			//System.out.println(curseur.toString() + " Type : " + this.getTerrain(curseur));
 			//cpt++;
-			this.listeJalons.add(new Jalon(this,curseur));
+			Jalon j = new Jalon(this,curseur);
+			if(!j.getListeVecteurs().isEmpty() && !vTools.croiser(j,this.listeJalons) && j.getListeVecteurs().size() < this.largeurCircuit * 1.15){
+				this.listeJalons.add(j);
+			}
 			next(curseur);
 		}
 	}
@@ -164,9 +169,18 @@ public class CircuitImpl implements CircuitModifiable {
 	@Override
 	public Terrain[][] getChampsDeVision(Voiture v,HashMap<Equipe,Voiture> listeVoitures){
 		return v.getPilote().getChampsDeVision(listeVoitures);
-		
 	}
 	
+	@Override
+	public int getLargeurCircuit() {
+		return largeurCircuit;
+	}
+
+	@Override
+	public void setLargeurCircuit(int largeurCircuit) {
+		this.largeurCircuit = largeurCircuit;
+	}
+
 	/**
 	 * Rtourne vrai si une voiture contenue dans listeVoitures se trouve à la position v
 	 */
@@ -183,5 +197,10 @@ public class CircuitImpl implements CircuitModifiable {
 			}
 		}
 		return false;	
+	}
+	
+	@Override
+	public ArrayList<Jalon> getListeJalons() {
+		return listeJalons;
 	}
 }
