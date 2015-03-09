@@ -1,6 +1,8 @@
 package fr.needforcode.ihm.controller;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,9 +11,12 @@ import java.util.ResourceBundle;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.CircuitImpl;
+import fr.needforcode.circuit.Terrain;
+import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.course.Course;
 import fr.needforcode.course.CourseRunningException;
 import fr.needforcode.course.EtatCourse;
+import fr.needforcode.course.ParticipationEquipeException;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.geometrie.vTools;
@@ -79,8 +84,8 @@ public class CourseRunningController_Test {
     private double scaleX;
     private double scaleY;
     
-    private final int TAILLE_LONGUEUR_VOITURE = 23;
-    private final int TAILLE_LARGEUR_VOITURE = 12;
+    private final int TAILLE_LONGUEUR_VOITURE = 23; //TODO: @deprecated
+    private final int TAILLE_LARGEUR_VOITURE = 12; // @deprecated
 
     @FXML
     void initialize() {
@@ -190,15 +195,39 @@ public class CourseRunningController_Test {
     	final Duration oneFrameAmt = Duration.millis(1000/framePerSecond);
    		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
    	    	new EventHandler<ActionEvent>() {
-   				
+   				int cpt = 0;
+   				int limit = 300;
    				@Override
    				public void handle(ActionEvent arg0) {
+   					cpt++;
+   					
    					try {
    						course.avancer();
    						updateVoituresGraphics(course.getListeVoitures());
+   						if(cpt == limit){
+	   						Terrain[][] cdv = course.getChampsDeVision((Equipe)course.getListeVoitures().keySet().toArray()[0]);
+	   						File ff=new File("cdv.txt");
+	   						ff.createNewFile();
+	   						FileWriter ffw=new FileWriter(ff);
+	   				    	for(int i = 0; i < cdv.length;i++){
+	   							for(int j = 0 ; j< cdv[0].length;j++){
+	   									ffw.write(TerrainTools.charFromTerrain(cdv[i][j]));	
+	   							}
+	   							ffw.write("\n");
+	   						}
+	   				    	ffw.close();
+   						}
    					} catch (VoitureException e) {
    						e.printStackTrace();
-   					} 
+   					} catch (ParticipationEquipeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+   					if(cpt==limit)
+   						timeline.stop();
    				}
    	    	});
        	

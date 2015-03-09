@@ -59,31 +59,31 @@ public class CircuitImpl implements CircuitModifiable {
 //	}
 	
 	private void next(Vecteur curseur){
-		if(vTools.calculOrientation(this,curseur) == OrientationJalon.Droite || vTools.calculOrientation(this,curseur) == OrientationJalon.BasDroite){
+		if(vTools.calculOrientation(this,curseur) == OrientationJalon.DROITE || vTools.calculOrientation(this,curseur) == OrientationJalon.BASDROITE){
 			curseur.autoAdd(new Vecteur(-1,0));
-			if(vTools.calculOrientation(this,curseur) == OrientationJalon.Null){
+			if(vTools.calculOrientation(this,curseur) == OrientationJalon.NULL){
 				curseur.autoAdd(new Vecteur(0,1));
 			}
 		}
 		else {
-			if(vTools.calculOrientation(this,curseur) == OrientationJalon.Gauche || vTools.calculOrientation(this,curseur) == OrientationJalon.HautGauche){
+			if(vTools.calculOrientation(this,curseur) == OrientationJalon.GAUCHE || vTools.calculOrientation(this,curseur) == OrientationJalon.HAUTGAUCHE){
 				curseur.autoAdd(new Vecteur(1,0));
-				if(vTools.calculOrientation(this,curseur) == OrientationJalon.Null){
+				if(vTools.calculOrientation(this,curseur) == OrientationJalon.NULL){
 					curseur.autoAdd(new Vecteur(0,-1));
 				}
 				
 			}
 			else {
-				if(vTools.calculOrientation(this,curseur) == OrientationJalon.Haut || vTools.calculOrientation(this,curseur) == OrientationJalon.HautDroit){
+				if(vTools.calculOrientation(this,curseur) == OrientationJalon.HAUT || vTools.calculOrientation(this,curseur) == OrientationJalon.HAUTDROITE){
 					curseur.autoAdd(new Vecteur(0,-1));
-					if(vTools.calculOrientation(this,curseur) == OrientationJalon.Null){
+					if(vTools.calculOrientation(this,curseur) == OrientationJalon.NULL){
 						curseur.autoAdd(new Vecteur(-1,0));
 					}
 					
 				}
 				else {
 					curseur.autoAdd(new Vecteur(0,1));
-					if(vTools.calculOrientation(this,curseur) == OrientationJalon.Null){
+					if(vTools.calculOrientation(this,curseur) == OrientationJalon.NULL){
 						curseur.autoAdd(new Vecteur(1,0));
 					}
 				}
@@ -173,11 +173,15 @@ public class CircuitImpl implements CircuitModifiable {
 	@Override
 	public boolean isCar(Vecteur v, HashMap<Equipe,Voiture> listeVoitures){
 		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
-			if(entry.getValue().getPosition().equalsArrondi(v)){
-				return true;
+			Voiture voiture = entry.getValue();
+			for(int i = 0;i<voiture.getPositionGraphique().length;i++){
+				for(int j = 0;j<voiture.getPositionGraphique()[0].length;j++){
+					if(voiture.getPositionGraphique()[i][j].equalsArrondi(v)){
+							return true;
+					}
+				}
 			}
 		}
-		return false;
+		return false;	
 	}
-	
 }

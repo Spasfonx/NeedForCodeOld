@@ -84,7 +84,7 @@ public class CourseRunningController {
 
     @FXML
     void initialize() {
-    	this.framePerSecond = 60;
+    	this.framePerSecond = 120;
     	this.listeVoitureGraphics = new HashMap<Voiture, Rectangle>();
     }
     

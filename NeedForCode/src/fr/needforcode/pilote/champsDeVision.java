@@ -17,7 +17,7 @@ import fr.needforcode.voiture.Voiture;
  */
 public class champsDeVision {
 	public Terrain[][] champsDeVision;
-	int x,y,yMin;
+	int x,y,yMin,xMin;
 	private Circuit circuit;
 	private Voiture voiture;
 	//private Vecteur directionCache;
@@ -39,6 +39,7 @@ public class champsDeVision {
 		//this.directionCache = v.getDirection();
 		//this.positionCache = v.getPosition();
 		this.yMin = 200;
+		this.xMin = 100;
 		
 	}
 	
@@ -48,7 +49,10 @@ public class champsDeVision {
 	 */
 	public void  refreshChampsDeVision(HashMap<Equipe,Voiture> listeVoitures){
 		//profondeur du champs de vision, dépend de la vitesse
-		this.x = (int) ((1 - this.voiture.getVitesse()) * 300);
+		if((int) ((1 - this.voiture.getVitesse()) * 300)< this.xMin)
+			this.x = xMin;
+		else
+			this.x = (int) ((1 - this.voiture.getVitesse()) * 300);
 		
 		//largeur du cdv, + ou - constant (=largeur du circuit, bords du circuit toujours apparants)
 		if((int) ((1 - this.voiture.getVitesse()) * 300)< this.yMin)
@@ -67,10 +71,10 @@ public class champsDeVision {
 		
 		//Vecteur curseur qui represente un point du cdv, qui se déplacera afin de remplir notre cdv
 		Vecteur curseur = origine.cloneAsVecteur();
-		
+	
 		//Vecteur normal (unité 1) de la direction de la voiture, utilisé pour déplacer le curseur
 		Vecteur normDirection = vTools.normalisation(this.voiture.getDirection());
-		
+
 		//Parcours du terrain devant notre voiture et remplissage du cdv
 		for(int i = 0; i < x; i++){
 			for(int j = 0; j < y; j++){
@@ -91,7 +95,7 @@ public class champsDeVision {
 			//on remet le curseur à l'origine (premiere colonne)
 			curseur = origine.cloneAsVecteur();
 			//on place le curseur sur la ligne suivante (au dessus)
-			curseur.autoAdd(vTools.prodDouble(normDirection,i));
+			curseur.autoAdd(vTools.prodDouble(normDirection,i+1));
 			//on recommence
 		}
 	}

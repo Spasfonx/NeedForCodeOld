@@ -1,4 +1,4 @@
-package fr.needforcode.geometrie.test;
+package fr.needforcode.tests;
 
 import static org.junit.Assert.*;
 
