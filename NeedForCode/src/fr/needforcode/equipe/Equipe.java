@@ -68,4 +68,22 @@ public abstract class Equipe {
 		
 		return null;
 	}
+	/**
+	 * Methode permettant de déterminer l'angle entre la voiture et un pixel du champ de vision actuel de la voiture
+	 * @param int x
+	 * @param int y
+	 * @return double 
+	 */
+	
+	public double goTo(int x, int y){
+		Terrain[][] monChamp = this.getChampsDeVision();
+		int yMax = monChamp[0].length;
+		if (y<yMax){
+			return Math.toRadians(90)-Math.atan(x/((yMax/2)-y));
+		}else if(y>yMax){
+			return Math.toRadians(90)-Math.atan(x/(y-(yMax/2)));
+		}else{
+			return 0.0;
+		}
+	}
 }

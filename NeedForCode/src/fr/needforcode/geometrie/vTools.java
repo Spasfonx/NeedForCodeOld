@@ -3,6 +3,7 @@ package fr.needforcode.geometrie;
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.OrientationJalon;
 import fr.needforcode.circuit.Terrain;
+import java.lang.Math;
 
 public class vTools {
 	/**
@@ -205,4 +206,6 @@ public class vTools {
 			return OrientationJalon.BASDROITE;
 		return OrientationJalon.NULL;
 	}
+	
+
 }
