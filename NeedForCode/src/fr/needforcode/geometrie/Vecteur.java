@@ -126,7 +126,8 @@ public class Vecteur implements Serializable {
 		currentY = (double) Math.round(currentY);
 		currentX /= precision;
 		currentY /= precision;
-		
+		//System.out.println("X : [" + currentX + ";" + otherX + "]");
+		//System.out.println("Y : [" + currentY + ";" + otherY + "]");
 		if (Double.doubleToLongBits(currentX) != Double.doubleToLongBits(otherX))
 			return false;
 		if (Double.doubleToLongBits(currentY) != Double.doubleToLongBits(otherY))

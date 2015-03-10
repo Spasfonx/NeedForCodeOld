@@ -212,16 +212,14 @@ public class vTools {
 	public static boolean croiser(Jalon j, ArrayList<Jalon> jalonsCircuit){
 		int nb = 0;
 		if(j.getNum() > 0){
-			System.out.println(j.getListeVecteurs().toString());
-			for(int i = 1; i <= 2;i++){
+			for(int i = 1; i <= 50;i++){
 				nb = j.getNum() - i;
 				if(nb >= 1){
 					Jalon courant = jalonsCircuit.get(nb);
-					System.out.println(courant.getListeVecteurs().toString());
 					for(Vecteur v2 : j.getListeVecteurs()){
 						for(Vecteur v : courant.getListeVecteurs()){
-							if(v.equalsArrondi(v2,0.001)){
-								System.out.println(j.getNum() + " Croisement!");
+							if(v.equalsArrondi(v2,100)){
+								//System.out.println(j.getNum() + " Croisement!");
 								return true;
 							}
 						}
@@ -229,7 +227,7 @@ public class vTools {
 				}
 			}
 		} 
-		System.out.println(j.getNum() + " NO Croisement!");
+		//System.out.println(j.getNum() + " NO Croisement!");
 		return false;
 	}
 }
