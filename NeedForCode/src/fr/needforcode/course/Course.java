@@ -2,7 +2,6 @@ package fr.needforcode.course;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Terrain;

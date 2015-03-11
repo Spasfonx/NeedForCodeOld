@@ -68,4 +68,8 @@ public abstract class Equipe {
 		
 		return null;
 	}
+	
+	public String getNom() {
+		return this.nom;
+	}
 }

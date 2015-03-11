@@ -1,6 +1,5 @@
-package fr.needforcode.equipe;
-
 import fr.needforcode.course.Course;
+import fr.needforcode.equipe.Equipe;
 import fr.needforcode.voiture.Commande;
 
 public class EquipeCamille extends Equipe {

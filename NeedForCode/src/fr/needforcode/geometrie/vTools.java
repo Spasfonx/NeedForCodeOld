@@ -218,6 +218,7 @@ public class vTools {
 					Jalon courant = jalonsCircuit.get(nb);
 					for(Vecteur v2 : j.getListeVecteurs()){
 						for(Vecteur v : courant.getListeVecteurs()){
+							//System.out.println(v + " : " + v2 + " - " + v.equals(v2));
 							if(v.equalsArrondi(v2,100)){
 								//System.out.println(j.getNum() + " Croisement!");
 								return true;

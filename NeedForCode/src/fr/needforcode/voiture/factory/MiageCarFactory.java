@@ -29,7 +29,7 @@ public class MiageCarFactory implements VoitureFactory {
 	
 	public Voiture build() {
 		return new VoitureImpl(vmax, braquage, alpha_c, alpha_f, beta_f,
-		alpha_derapage, vitesse, position, direction,
+		alpha_derapage, vitesse, position.cloneAsVecteur(), direction.cloneAsVecteur(),
 		vitesse_sortie_derapage,trk);
 	}
 	

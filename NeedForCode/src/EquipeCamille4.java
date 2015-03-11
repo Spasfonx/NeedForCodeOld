@@ -1,17 +1,16 @@
-package fr.needforcode.equipe;
-
 import fr.needforcode.course.Course;
+import fr.needforcode.equipe.Equipe;
 import fr.needforcode.voiture.Commande;
 
-public class EquipeCamille extends Equipe {
+public class EquipeCamille4 extends Equipe {
 	
 	private int i = 0;
 
-	public EquipeCamille(String n, Course c) {
+	public EquipeCamille4(String n, Course c) {
 		super("Camille", c);
 	}
 	
-	public EquipeCamille() {
+	public EquipeCamille4() {
 		super("Camille");
 	}
 

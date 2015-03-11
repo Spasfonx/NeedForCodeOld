@@ -30,7 +30,7 @@
             <Text fx:id="textChoosePlayers" fill="WHITE" scaleX="1.000000731428553" scaleY="1.000004698971981" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title-section-menu" text="Choisir les joueurs" />
           </children>
         </HBox>
-        <GridPane fx:id="gridPlayers">
+        <GridPane fx:id="gridPlayers" gridLinesVisible="false">
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -59,9 +59,6 @@
                 <ComboBox fx:id="comboBoxCircuit" prefHeight="21.0" prefWidth="103.0">
                   <items>
                     <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Item 1" />
-                      <String fx:value="Item 2" />
-                      <String fx:value="Item 3" />
                     </FXCollections>
                   </items>
                 </ComboBox>
@@ -79,6 +76,9 @@
           </padding>
         </VBox>
       </children>
+      <BorderPane.margin>
+        <Insets left="20.0" right="20.0" />
+      </BorderPane.margin>
     </VBox>
   </center>
   <padding>
@@ -99,7 +99,7 @@
         </VBox>
       </children>
       <BorderPane.margin>
-        <Insets bottom="20.0" left="20.0" top="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
       </BorderPane.margin>
     </StackPane>
   </right>

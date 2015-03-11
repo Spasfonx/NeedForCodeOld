@@ -64,7 +64,6 @@ public class MainApp extends Application {
         /* Configuration et affichage de la fenêtre */
         this.primaryStage.setScene(scene);
         this.primaryStage.setFullScreen(false);
-        //this.primaryStage.setFullScreen(true);
         this.primaryStage.show();
             
         /* Affichage du menu principal */
@@ -83,33 +82,16 @@ public class MainApp extends Application {
      * Charge les composants et lance la vue qui permet de lancer la course.
 	 * @throws Exception 
      */
-	public void showCourseRunning() throws Exception {
+	public void showCourseRunning(Course course, String pathImageCircuit) throws Exception {
         try {
         	
             FXMLLoader loader 		= new FXMLLoader(MainApp.class.getResource("view/CourseRunning.fxml"));
             AnchorPane overviewPage = (AnchorPane) loader.load();
             CourseRunningController controller = loader.getController();
-            CircuitLoader circuitLoader = new CircuitLoader();
-            
-            /* Charge la liste des circuits */
-            try { circuitLoader.loadCircuits(); } 
-            catch (Exception e) { e.printStackTrace(); }
-            
-            // Scratch
-            // TODO: Chargement dynamique des circuits
-            String name = "1_safe";
-    		String filename_trk = circuitLoader.getTrkPathFromName(name);
-    		String filename_img = circuitLoader.getImagePathFromName(name);
-    		CircuitFactory cF = new CircuitFactory(filename_trk);
-    		Circuit track = cF.build();
-    		
-    		/* Initialisation de la course */
-    		Course c = new Course(track, 15);
-    		c.addEquipe(new EquipeCamille("Camille", c));
     		
     		controller.setMainApp(this);
-    		controller.setCircuit(track, filename_img);
-    		controller.setCourse(c);
+    		controller.setCircuit(course.getCircuit(), pathImageCircuit);
+    		controller.setCourse(course);
             
     		this.setMainContent(overviewPage);
             
@@ -199,6 +181,7 @@ public class MainApp extends Application {
     
     public void setError(String message) {
     	this.mainAppController.setError(message);
+    	System.out.println(message);
     }
 
     /**
