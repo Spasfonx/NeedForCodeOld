@@ -11,6 +11,7 @@ import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Jalon;
 import fr.needforcode.circuit.OrientationJalon;
 import fr.needforcode.circuit.Terrain;
+import java.lang.Math;
 
 public class vTools {
 	/**
@@ -212,7 +213,7 @@ public class vTools {
 			return OrientationJalon.BASDROITE;
 		return OrientationJalon.NULL;
 	}
-	
+
 	public static boolean croiserJalons(Jalon j, ArrayList<Jalon> jalonsCircuit){
 		int nb = 0;
 		for(int i = 1; i <= 50;i++){
@@ -235,4 +236,5 @@ public class vTools {
 	public static boolean croiser(Vecteur a, Vecteur b, Vecteur c, Vecteur d){
 		return false;
 	}
+	
 }

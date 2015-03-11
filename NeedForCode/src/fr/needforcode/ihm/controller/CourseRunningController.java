@@ -84,7 +84,7 @@ public class CourseRunningController {
 
     @FXML
     void initialize() {
-    	this.framePerSecond = 120;
+    	this.framePerSecond = 60;
     	this.listeVoitureGraphics = new HashMap<Voiture, Rectangle>();
     }
     
@@ -257,7 +257,7 @@ public class CourseRunningController {
     }
     
     public void initVoitures() {
-    	if (this.course != null) { // TODO: Sortir exception
+    	if (this.course != null) {
     		for(Voiture v : course.getListeVoitures().values()) {
     			Rectangle voitureGraphics = new Rectangle(
 	    	    			(int) circuit.getPointDepart().getY() * scaleX, 

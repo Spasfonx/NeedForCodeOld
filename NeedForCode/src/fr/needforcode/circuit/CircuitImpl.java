@@ -109,10 +109,10 @@ public class CircuitImpl implements CircuitModifiable {
 				else{
 					//System.out.println(vTools.croiserJalons(j,this.listeJalons));
 					if(!vTools.croiserJalons(j,this.listeJalons)){
+
 						this.listeJalons.add(j);
 						num++;
 					}
-
 				}
 			}
 			cpt++;
