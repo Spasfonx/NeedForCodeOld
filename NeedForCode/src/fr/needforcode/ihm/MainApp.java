@@ -72,7 +72,7 @@ public class MainApp extends Application {
 
 	/**
 	 * Point d'entrée du programme.
-	 * @param args - Arguments d'entrée
+	 * @param args - Arguments d'entrée 
 	 */
 	public static void main(String[] args) {
 		launch(args);
