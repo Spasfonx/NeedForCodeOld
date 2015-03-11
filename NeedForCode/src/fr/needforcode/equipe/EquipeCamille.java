@@ -22,6 +22,7 @@ public class EquipeCamille extends Equipe {
 		
 		i++;
 		return new Commande(a, t);
+		
 
 	}
 

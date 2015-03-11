@@ -3,9 +3,11 @@ package fr.needforcode.ihm;
 import java.io.IOException;
 
 import fr.needforcode.circuit.Circuit;
+import fr.needforcode.circuit.Jalon;
 import fr.needforcode.circuit.factory.CircuitFactory;
 import fr.needforcode.course.Course;
 import fr.needforcode.equipe.EquipeCamille;
+import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.ihm.controller.CourseRunningController;
 import fr.needforcode.ihm.controller.CourseRunningController_Test;
 import fr.needforcode.ihm.controller.MainAppWindowController;
@@ -30,7 +32,7 @@ public class MainApp extends Application {
 
     private MainAppWindowController mainAppController;
     
-    private boolean debug = true;
+    private boolean debug = true; //@deprecated
     
     private final int framePerSecond = 60;
 
@@ -61,7 +63,8 @@ public class MainApp extends Application {
         
         /* Configuration et affichage de la fenêtre */
         this.primaryStage.setScene(scene);
-        this.primaryStage.setFullScreen(true);
+        this.primaryStage.setFullScreen(false);
+        //this.primaryStage.setFullScreen(true);
         this.primaryStage.show();
             
         /* Affichage du menu principal */
@@ -137,6 +140,10 @@ public class MainApp extends Application {
     		CircuitFactory cF = new CircuitFactory(filename_trk);
     		Circuit track = cF.build();
     		
+    		//affichage des jalons
+    		for(Jalon j : track.getListeJalons()){
+    			this.debugVecteurDraw(j.getListeVecteurs().get(0), j.getListeVecteurs().get(j.getListeVecteurs().size()-1));
+    		}
     		/* Initialisation de la course */
     		Course c = new Course(track, 15);
     		c.addEquipe(new EquipeCamille("Camille", c));
@@ -145,7 +152,7 @@ public class MainApp extends Application {
     		controller.setCircuit(track, filename_img);
     		controller.setCourse(c);
             
-    		this.setMainContent(overviewPage);
+    		//this.setMainContent(overviewPage);
             
             controller.launchCourse();
 
@@ -169,6 +176,11 @@ public class MainApp extends Application {
         controller.setMainApp(this);
         
         this.setMainContent(overviewPage);
+    }
+    
+    public void debugVecteurDraw(Vecteur a, Vecteur b){
+    	Line trace = new Line(a.getY(),a.getX(),b.getY(),b.getX());
+    	this.mainContentPane.getChildren().add(trace);
     }
     
     /**

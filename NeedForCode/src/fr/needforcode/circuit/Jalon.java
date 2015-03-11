@@ -14,17 +14,19 @@ import fr.needforcode.geometrie.Vecteur;
  */
 public class Jalon {
 	
-	ArrayList<Vecteur> listeJalons;
+	private ArrayList<Vecteur> listeVecteurs;
 	private OrientationJalon orientation;
-	private static int num;
+	private int num;
 	private HashMap<Equipe,Chrono> passage;
+	private final static int DEBUGNUM = 172;
+
 	
 	/**
 	 * Constructeur à partir d'un segment existant
 	 * @param lj ArrayList<Vecteur>
 	 */
 	public Jalon(ArrayList<Vecteur> lj){
-		this.listeJalons = lj;
+		this.listeVecteurs = lj;
 	}
 	
 	/**
@@ -32,11 +34,12 @@ public class Jalon {
 	 * @param ci Circuit
 	 * @param curseur vecteur (permet la construction des jalons)
 	 */
-	public Jalon(Circuit ci, Vecteur curseur){
-		num++;
-		this.listeJalons = new ArrayList<Vecteur>();
+	public Jalon(Circuit ci, Vecteur curseur,int num){
+		this.listeVecteurs = new ArrayList<Vecteur>();
+		this.num = num;
 		setOrientation(ci,curseur);
 		tracerJalon(ci,curseur);
+
 	}
 	
 	/**
@@ -112,6 +115,8 @@ public class Jalon {
 	 * @param ci
 	 * @param curseurO
 	 */
+	
+	//TODO: commentaires debug a virer
 	public void tracerJalon(Circuit ci,Vecteur curseurO){
 		Vecteur curseur = curseurO.cloneAsVecteur();
 		switch(orientation){
@@ -119,7 +124,7 @@ public class Jalon {
 			curseur.autoAdd(new Vecteur(1,0));
 			
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge)){
-				this.listeJalons.add(curseur.cloneAsVecteur());
+				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(1,0));
 //				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
@@ -127,7 +132,7 @@ public class Jalon {
 		case GAUCHE :
 			curseur.autoAdd(new Vecteur(0,-1));
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge)){
-				this.listeJalons.add(curseur.cloneAsVecteur());
+				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(0,-1));
 //				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
@@ -135,7 +140,7 @@ public class Jalon {
 		case HAUT :
 			curseur.autoAdd(new Vecteur(-1,0));
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge)){
-				this.listeJalons.add(curseur.cloneAsVecteur());
+				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(-1,0));
 //				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
@@ -143,15 +148,15 @@ public class Jalon {
 		case DROITE :
 			curseur.autoAdd(new Vecteur(0,1));
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge)){
-				this.listeJalons.add(curseur.cloneAsVecteur());
+				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(0,1));
 //				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case BASGAUCHE :
 			curseur.autoAdd(new Vecteur(1,-1));
-			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge)){
-				this.listeJalons.add(curseur.cloneAsVecteur());
+			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge) || ci.getTerrain(curseur) == Terrain.EndLine){
+				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(1,-1));
 //				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
@@ -159,23 +164,23 @@ public class Jalon {
 		case HAUTGAUCHE :
 			curseur.autoAdd(new Vecteur(-1,-1));
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge)){
-				this.listeJalons.add(curseur.cloneAsVecteur());
+				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(-1,-1));
 //				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case HAUTDROITE :
-			curseur.autoAdd(new Vecteur(1,-1));
+			curseur.autoAdd(new Vecteur(-1,1));
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge)){
-				this.listeJalons.add(curseur.cloneAsVecteur());
-				curseur.autoAdd(new Vecteur(1,-1));
+				this.listeVecteurs.add(curseur.cloneAsVecteur());
+				curseur.autoAdd(new Vecteur(-1,1));
 //				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case BASDROITE :
 			curseur.autoAdd(new Vecteur(1,1));
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge)){
-				this.listeJalons.add(curseur.cloneAsVecteur());
+				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(1,1));
 //				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
@@ -187,13 +192,20 @@ public class Jalon {
 		}
 		//System.out.println("Jalon " + this.num + " crée");
 	}
-	
 
-	public ArrayList<Vecteur> getListeJalons() {
-		return listeJalons;
+	public void numDecremente() {
+		this.num--;
 	}
 
-	public void setListeJalons(ArrayList<Vecteur> listeJalons) {
-		this.listeJalons = listeJalons;
+	public int getNum() {
+		return this.num;
+	}
+
+	public ArrayList<Vecteur> getListeVecteurs() {
+		return listeVecteurs;
+	}
+
+	public void setListeVecteurs(ArrayList<Vecteur> listeVecteurs) {
+		this.listeVecteurs = listeVecteurs;
 	}
 }
