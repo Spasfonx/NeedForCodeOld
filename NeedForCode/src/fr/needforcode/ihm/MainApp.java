@@ -139,7 +139,6 @@ public class MainApp extends Application {
     		String filename_img = circuitLoader.getImagePathFromName(name);
     		CircuitFactory cF = new CircuitFactory(filename_trk);
     		Circuit track = cF.build();
-    		
     		//affichage des jalons
     		for(Jalon j : track.getListeJalons()){
     			this.debugVecteurDraw(j.getListeVecteurs().get(0), j.getListeVecteurs().get(j.getListeVecteurs().size()-1));

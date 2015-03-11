@@ -52,7 +52,7 @@ public class CircuitImpl implements CircuitModifiable {
 		this.largeurCircuit = listeArrivees.size();
 		//dijkstra = new Dijkstra(this);
 		//System.out.println(this.listeArrivees.get(0).toString() + " TypeDep : " + this.getTerrain(this.listeArrivees.get(0)));
-		this.curseur = vTools.addition(this.listeArrivees.get(0),new Vecteur(-1,0));
+		this.curseur = vTools.addition(this.listeArrivees.get(0),new Vecteur(-1,1));
 		makeJalons();
 	}
 	
@@ -95,24 +95,27 @@ public class CircuitImpl implements CircuitModifiable {
 	}
 	
 	private void makeJalons(){
+		int cpt = 0;
 		int num = 0;
 		Vecteur origine = curseur.cloneAsVecteur();
 		next(curseur);
-		while(!curseur.equalsArrondi(origine)){
+		while(!curseur.equalsArrondi(origine,1000)){
 			Jalon j = new Jalon(this,curseur,num);
-			if(!j.getListeVecteurs().isEmpty() && j.getListeVecteurs().size() < this.largeurCircuit * 1.10){
+			if(!j.getListeVecteurs().isEmpty() && j.getListeVecteurs().size() < this.largeurCircuit * 1.05 && cpt % 5 == 0){
 				if(num == 0){
 					this.listeJalons.add(j);
 					num++;
 				}
 				else{
-					if(!vTools.croiser(j,this.listeJalons)){
+					//System.out.println(vTools.croiserJalons(j,this.listeJalons));
+					if(!vTools.croiserJalons(j,this.listeJalons)){
 						this.listeJalons.add(j);
 						num++;
 					}
+
 				}
-				this.listeJalons.add(j);	
 			}
+			cpt++;
 			next(curseur);
 		}	
 	}
