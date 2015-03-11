@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.*?>
 
-<fx:root type="javafx.scene.layout.BorderPane" id="ConfigCourseMenu" fx:id="configCourseMenu" prefHeight="455.0" prefWidth="451.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fr.needforcode.ihm.controller.ConfigCourseMenuController">
+<BorderPane id="ConfigCourseMenu" fx:id="configCourseMenu" prefHeight="455.0" prefWidth="451.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fr.needforcode.ihm.controller.ConfigCourseMenuController">
   <bottom>
     <Button fx:id="buttonSubmit" mnemonicParsing="false" styleClass="btn-submit" text="Lancer" BorderPane.alignment="CENTER" />
   </bottom>
@@ -106,4 +106,4 @@
   <stylesheets>
     <URL value="@../res/css/design.css" />
   </stylesheets>
-</fx:root>
+</BorderPane>
