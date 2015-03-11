@@ -6,6 +6,7 @@ import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Jalon;
 import fr.needforcode.circuit.OrientationJalon;
 import fr.needforcode.circuit.Terrain;
+import java.lang.Math;
 
 public class vTools {
 	/**
@@ -231,4 +232,5 @@ public class vTools {
 		//System.out.println(j.getNum() + " NO Croisement!");
 		return false;
 	}
+	
 }
