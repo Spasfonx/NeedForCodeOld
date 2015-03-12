@@ -101,7 +101,8 @@ public class CircuitImpl implements CircuitModifiable {
 		next(curseur);
 		while(!curseur.equalsArrondi(origine,1000)){
 			Jalon j = new Jalon(this,curseur,num);
-			if(!j.getListeVecteurs().isEmpty() && j.getListeVecteurs().size() < this.largeurCircuit * 1.05 && cpt % 5 == 0){
+			//System.out.println(curseur.toString() + " " + this.getTerrain(curseur));
+			if(!j.getListeVecteurs().isEmpty() && j.getListeVecteurs().size() < this.largeurCircuit * 1 && cpt % 5 == 0){
 				if(num == 0){
 					this.listeJalons.add(j);
 					num++;
@@ -109,7 +110,6 @@ public class CircuitImpl implements CircuitModifiable {
 				else{
 					//System.out.println(vTools.croiserJalons(j,this.listeJalons));
 					if(!vTools.croiserJalons(j,this.listeJalons)){
-
 						this.listeJalons.add(j);
 						num++;
 					}

@@ -63,7 +63,7 @@ public class MainApp extends Application {
         
         /* Configuration et affichage de la fenêtre */
         this.primaryStage.setScene(scene);
-        this.primaryStage.setFullScreen(false);
+        this.primaryStage.setFullScreen(true);
         this.primaryStage.show();
             
         /* Affichage du menu principal */
@@ -116,7 +116,7 @@ public class MainApp extends Application {
             
             // Scratch
             // TODO: Chargement dynamique des circuits
-            String name = "1_safe";
+            String name = "4_safe";
     		String filename_trk = circuitLoader.getTrkPathFromName(name);
     		String filename_img = circuitLoader.getImagePathFromName(name);
     		CircuitFactory cF = new CircuitFactory(filename_trk);
@@ -133,7 +133,7 @@ public class MainApp extends Application {
     		controller.setCircuit(track, filename_img);
     		controller.setCourse(c);
             
-    		//this.setMainContent(overviewPage);
+    		this.setMainContent(overviewPage);
             
             controller.launchCourse();
 
@@ -161,7 +161,7 @@ public class MainApp extends Application {
     
     public void debugVecteurDraw(Vecteur a, Vecteur b){
     	Line trace = new Line(a.getY(),a.getX(),b.getY(),b.getX());
-    	this.mainContentPane.getChildren().add(trace);
+    	this.mainAppWindow.getChildren().add(trace);
     }
     
     /**
