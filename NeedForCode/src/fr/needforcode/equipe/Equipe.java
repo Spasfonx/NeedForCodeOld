@@ -64,13 +64,14 @@ public abstract class Equipe {
 	 * @return Matrice de type Terrain[][] contenant le champs de vision de la voiture.
 	 */
 	protected Terrain[][] getChampsDeVision() {
+		Terrain[][] cdv = null;
 		try {
-			return this.course.getChampsDeVision(this);
+			cdv = this.course.getChampsDeVision(this);
 		} catch (ParticipationEquipeException e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return cdv;
 	}
 	
 	/**

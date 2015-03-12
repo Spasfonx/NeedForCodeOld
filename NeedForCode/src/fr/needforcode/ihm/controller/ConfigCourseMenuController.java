@@ -43,6 +43,9 @@ import javafx.scene.text.Text;
  */
 public class ConfigCourseMenuController {
 
+	/**
+	 * Nombre de colonnes dans la grille pour l'affichage des équipes.
+	 */
 	private static final int NB_COL_EQUIPES = 3;
 
 	@FXML

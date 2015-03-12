@@ -3,7 +3,9 @@ package fr.needforcode.ihm.controller;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Map.Entry;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.course.Course;
@@ -15,7 +17,6 @@ import fr.needforcode.ihm.MainApp;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
 import fr.needforcode.voiture.VoitureImpl;
-import fr.needforcode.voiture.factory.MiageCarFactory;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -27,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 /**
@@ -38,7 +40,11 @@ public class CourseRunningController {
 	
 	/* Composants FXML */
 	
-    @FXML
+    private static final double TOOLTIP_OFFSET_X = 10;
+
+	private static final double TOOLTIP_OFFSET_Y = 10;
+
+	@FXML
     private ResourceBundle resources;
 
     @FXML
@@ -70,6 +76,8 @@ public class CourseRunningController {
      */
     private HashMap<Voiture, Rectangle> listeVoitureGraphics;
     
+    private HashMap<Voiture, Text> listeVoitureTooltip;
+    
     /**
      * Timeline pour l'animation des objets.
      */
@@ -96,6 +104,7 @@ public class CourseRunningController {
     @FXML
     void initialize() {
     	this.listeVoitureGraphics = new HashMap<Voiture, Rectangle>();
+    	this.listeVoitureTooltip = new HashMap<Voiture, Text>();
     }
     
     /**
@@ -205,7 +214,7 @@ public class CourseRunningController {
      */
     public void initVoituresGraphics() {
     	if (this.course != null) {
-    		for(Voiture v : course.getListeVoitures().values()) {
+    		for( Entry<Equipe, Voiture> e : course.getListeVoitures().entrySet() ) {
     			Rectangle voitureGraphics = new Rectangle(
 	    	    			(int) circuit.getPointDepart().getY() * scaleX, 
 	    	    			(int) circuit.getPointDepart().getX() * scaleY, 
@@ -213,9 +222,23 @@ public class CourseRunningController {
 	    	    			VoitureImpl.LARGEUR_VOITURE * scaleX
 						);
     			
-    	    	voitureGraphics.setFill(Color.BLUE);
+    			Random r = new Random();
+    			
+    	    	voitureGraphics.setFill(Color.rgb(
+    	    			r.nextInt(255), 
+    	    			r.nextInt(255),
+    	    			r.nextInt(255))
+    	    	);
+    	    	
+    	    	Text tooltip = new Text(e.getKey().getNom());
+    	    	tooltip.setFill(Color.WHITE);
+    	    	tooltip.setX(voitureGraphics.getX() - TOOLTIP_OFFSET_X);
+    	    	tooltip.setY(voitureGraphics.getY() - TOOLTIP_OFFSET_Y);
+    	    	
+    	    	this.courseContainer.getChildren().add(tooltip);
     	    	this.courseContainer.getChildren().add(voitureGraphics);
-    			this.listeVoitureGraphics.put(v, voitureGraphics);
+    			this.listeVoitureGraphics.put(e.getValue(), voitureGraphics);
+    			this.listeVoitureTooltip.put(e.getValue(), tooltip);
     		}
     	}
     }
@@ -241,6 +264,8 @@ public class CourseRunningController {
     private void setPositionVoiture(Voiture v, Rectangle r) {
     	r.setX(v.getPosition().getY() * scaleX); // Les X et les Y sont inversés dans l'objet voiture
 		r.setY(v.getPosition().getX() * scaleY);
+		this.listeVoitureTooltip.get(v).setX(r.getX() - TOOLTIP_OFFSET_X);
+		this.listeVoitureTooltip.get(v).setY(r.getY() - TOOLTIP_OFFSET_Y);
     }
     
     /**

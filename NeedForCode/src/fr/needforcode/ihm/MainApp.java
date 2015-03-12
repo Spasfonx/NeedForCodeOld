@@ -37,8 +37,6 @@ public class MainApp extends Application {
 
     private MainAppWindowController mainAppController;
     
-    private boolean debug = true; //@deprecated
-    
     public final static int FRAMES_PER_SECOND = 60;
 
     /**
