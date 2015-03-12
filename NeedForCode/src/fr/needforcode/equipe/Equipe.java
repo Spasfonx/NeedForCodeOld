@@ -80,9 +80,9 @@ public abstract class Equipe {
 	 * @param int y Coordonnées y du pixel dans la matrice du champs de vision
 	 * @return Angle en radian vers la position du pixel choisis
 	 */
-	public double goToPixel(int x, int y){
-		Terrain[][] monChamp = this.getChampsDeVision();
-		double yMax = monChamp[0].length;
+	public double goToPixel(Terrain[][] cdv, int x, int y){
+		//Terrain[][] cdv = this.getChampsDeVision();
+		double yMax = cdv[0].length;
 		if (y<y/2){
 			return Math.toRadians(90)-Math.atan(x/((yMax/2)-y));
 		}else if(y>y/2){
