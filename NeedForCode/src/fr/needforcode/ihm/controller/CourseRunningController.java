@@ -2,46 +2,38 @@ package fr.needforcode.ihm.controller;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import fr.needforcode.circuit.Circuit;
-import fr.needforcode.circuit.CircuitImpl;
 import fr.needforcode.course.Course;
 import fr.needforcode.course.CourseRunningException;
 import fr.needforcode.course.EtatCourse;
 import fr.needforcode.equipe.Equipe;
-import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.geometrie.vTools;
 import fr.needforcode.ihm.MainApp;
-import fr.needforcode.voiture.Commande;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
+import fr.needforcode.voiture.VoitureImpl;
 import fr.needforcode.voiture.factory.MiageCarFactory;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.animation.TimelineBuilder;
-import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2DBuilder;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.RectangleBuilder;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
+/**
+ * Controlleur du déroulement de la course.
+ * @author Christophe
+ * @version 1.0
+ */
 public class CourseRunningController {
 	
 	/* Composants FXML */
@@ -57,137 +49,72 @@ public class CourseRunningController {
     
     @FXML
     private ImageView circuitContainer;
-
-    @FXML
-    private Label labelTest; // TODO: Virer
     
     /* Composants de classe */
     
+    /**
+     * Référence à l'application principale.
+     */
     private MainApp mainApp;
     
+    /**
+     * Course en cours de déroulement.
+     */
     private Course course;
     
     private Circuit circuit; // @deprecated
-    private Voiture voiture; // @deprecated
     private Rectangle voitureImg; // @deprecated
     
+    /**
+     * Liste objets graphiques liés au voitures.
+     */
     private HashMap<Voiture, Rectangle> listeVoitureGraphics;
     
+    /**
+     * Timeline pour l'animation des objets.
+     */
     private Timeline timeline;
-    private int framePerSecond;
     
+    /**
+     * Echelle appliquée sur l'axe X. 
+     */
     private double scaleX;
+    
+    /**
+     * Echelle appliquée sur l'axe Y.
+     */
     private double scaleY;
     
+    @Deprecated
     private final int TAILLE_LONGUEUR_VOITURE = 23;
+    @Deprecated
     private final int TAILLE_LARGEUR_VOITURE = 12;
 
+    /**
+     * Initialisation du controlleur.
+     */
     @FXML
     void initialize() {
-    	this.framePerSecond = 60;
     	this.listeVoitureGraphics = new HashMap<Voiture, Rectangle>();
     }
     
-    /*@SuppressWarnings("deprecation")
-	public void launchCourse() {
-    	Timeline timeline = new Timeline();
-    	
-    	MiageCarFactory miageCarFactory = new MiageCarFactory(this.circuit);
-    	this.voiture = miageCarFactory.build();
-    	
-    	final ArrayList<ArrayList<Commande>> coms = new ArrayList<ArrayList<Commande>>(); //Contiendra toutes les commandes a executer
-		
-		//on determine les ArrayList de commandes :
-		final ArrayList<Commande> c1 = new ArrayList<Commande>();
-        for(int i=0; i<200; i++) c1.add(new Commande(1,0.005)); //tout droit à fond en serrant a gauche
-        
-        final ArrayList<Commande> c2 = new ArrayList<Commande>();
-        for(int i=0; i<200; i++) c2.add(new Commande(0.1,0.065)); // tourner large à gauche sans accélerer
-        
-        final ArrayList<Commande> c3 = new ArrayList<Commande>(); //etc....
-        for(int i=0; i<200; i++) c3.add(new Commande(1,0));
-        
-        final ArrayList<Commande> c4 = new ArrayList<Commande>(); //etc....
-        for(int i=0; i<200; i++) c4.add(new Commande(0.3,-0.03));
-        
-        final ArrayList<Commande> c5 = new ArrayList<Commande>(); //etc....
-        for(int i=0; i<100; i++) c5.add(new Commande(1,0.001));
-        
-        final ArrayList<Commande> c6 = new ArrayList<Commande>(); //etc....
-        for(int i=0; i<100; i++) c6.add(new Commande(0.1,0.065));
-        
-        // on ajoute toutes les ArrayList de commande à l'ArrayList générale
-        coms.add(c1);
-        coms.add(c2);
-        coms.add(c3);
-        coms.add(c4);
-        coms.add(c5);
-        coms.add(c6);
-    	
-    	final Duration oneFrameAmt = Duration.millis(1000/60);
-		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
-	    	new EventHandler<ActionEvent>() {
-				private int indexComs = 0;
-				private int indexCg = 0;
-				private Vecteur prevDirection = voiture.getDirection().cloneAsVecteur();
-				
-				@Override
-				public void handle(ActionEvent arg0) {
-					Commande c = coms.get(indexComs).get(indexCg);
-					
-					if(indexCg < coms.get(indexComs).size() - 1) {
-						indexCg++;
-					}
-					else {
-						if (indexComs < coms.size() - 1)
-							indexComs++;
-							
-						indexCg = 0;
-					}
-					
-					try {
-						voiture.piloter(c);
-					} catch (VoitureException e) {
-						e.printStackTrace();
-					}
-					
-					setPositionVoiture(voiture.getPosition().getY(), voiture.getPosition().getX()); // Les X et les Y sont inversés dans l'objet voiture
-					setDirectionVoiture( 
-							Math.toDegrees( vTools.angle(prevDirection, voiture.getDirection()) ) 
-						);
-					
-					this.prevDirection = voiture.getDirection().cloneAsVecteur(); 
-				}
-	    	}); // oneFrame
-    	 
-    	// Boucle de la course (Timeline)
-    	timeline = (TimelineBuilder.create()
-	    	.cycleCount(Animation.INDEFINITE)
-	    	.keyFrames(oneFrame)
-	    	.build());
-    	
-    	timeline.play();
-    }*/
-    
-    public void setCourse(Course c) throws CourseRunningException {
-    	if (this.course != null && this.course.getEtat().equals(EtatCourse.RUN))
-    		throw new CourseRunningException("Impossible de modifier la course lorsque celle-ci est en cours");
-    	
-    	this.course = c;
-    }
-    
+    /**
+     * Lance la course.
+     */
    	public void launchCourse() {
-       	MiageCarFactory miageCarFactory = new MiageCarFactory(this.circuit); // TODO: Virer
-       	this.voiture = miageCarFactory.build(); // TODO: Virer
-       	
-       	initVoitures();
+    	this.course.setEtatCourse(EtatCourse.RUN);
+    	
+       	initVoituresGraphics();
        	buildAndSetGameLoop();
        	beginGameLoop();
     }
     
+   	/**
+   	 * Initialise la boucle de jeu.
+   	 */
     private void buildAndSetGameLoop() {
     	
-    	final Duration oneFrameAmt = Duration.millis(1000/framePerSecond);
+    	final Duration oneFrameAmt = Duration.millis(1000/MainApp.FRAMES_PER_SECOND);
    		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
    	    	new EventHandler<ActionEvent>() {
    				
@@ -207,26 +134,43 @@ public class CourseRunningController {
        	
     }
     
+    /**
+     * Lance l'animation la boucle de jeu.
+     */
     public void beginGameLoop() {
     	this.timeline.play();
     }
     
+    /**
+     * Met à jour la position des composants graphiques associés aux voitures.
+     * @param voitures Liste des voitures concernées.
+     */
     public void updateVoituresGraphics(HashMap<Equipe, Voiture> voitures) {
     	for(Voiture v : voitures.values()) {
     		setPositionVoiture(v, listeVoitureGraphics.get(v));
-			setDirectionVoiture(v, listeVoitureGraphics.get(v));
+			setDirectionVoiture(v);
     	}
     }
     
+    /**
+     * Change/associe la course au controlleur.
+     * @param c Course
+     * @throws CourseRunningException Si une course est déjà en cours.
+     */
+    public void setCourse(Course c) throws CourseRunningException {
+    	if (this.course != null && this.course.getEtat().equals(EtatCourse.RUN))
+    		throw new CourseRunningException("Impossible de modifier la course lorsque celle-ci est en cours");
+    	
+    	this.course = c;
+    }
     
     /**
      * Charge le circuit sur lequel va se dérouler la course.
-     * 
-     * @param circuit
-     * @param pathImage
+     * @param circuit Circuit sur lequel se déroule la course.
+     * @param pathImage Chemin d'accès à l'image représentant le circuit.
      */
     public void setCircuit(Circuit circuit, String pathImage) {
-    	// On adapte le path pour le composant Image
+    	/* On adapte le path pour le composant Image */
     	pathImage = "file:" + File.separator + pathImage;
     	
     	this.circuit = circuit;
@@ -242,9 +186,9 @@ public class CourseRunningController {
     	
     	this.circuitContainer.setImage(circuitImage);
     	this.courseContainer.setPrefSize(circuit.getHeight() * scaleY, circuit.getWidth() * scaleX);
-    	//this.circuit = circuit;
     }
     
+    @Deprecated
     public void setVoiture() {
     	this.voitureImg = new Rectangle(
     			(int) circuit.getPointDepart().getY() * scaleX, 
@@ -256,14 +200,17 @@ public class CourseRunningController {
     	this.courseContainer.getChildren().add(voitureImg);
     }
     
-    public void initVoitures() {
+    /**
+     * Initialise la liste des composants graphiques associés aux voitures.
+     */
+    public void initVoituresGraphics() {
     	if (this.course != null) {
     		for(Voiture v : course.getListeVoitures().values()) {
     			Rectangle voitureGraphics = new Rectangle(
 	    	    			(int) circuit.getPointDepart().getY() * scaleX, 
 	    	    			(int) circuit.getPointDepart().getX() * scaleY, 
-	    	    			this.TAILLE_LONGUEUR_VOITURE * scaleY,
-	    	    			this.TAILLE_LARGEUR_VOITURE * scaleX
+	    	    			VoitureImpl.LONGUEUR_VOITURE * scaleY,
+	    	    			VoitureImpl.LARGEUR_VOITURE * scaleX
 						);
     			
     	    	voitureGraphics.setFill(Color.BLUE);
@@ -285,6 +232,12 @@ public class CourseRunningController {
 		this.voitureImg.setY(y * scaleY);
     }
     
+    /**
+     * Change la position d'un composant graphique associé à une voiture en fonction de la position
+     * de l'objet Voiture.
+     * @param v Voiture associée
+     * @param r Composant graphique concerné
+     */
     private void setPositionVoiture(Voiture v, Rectangle r) {
     	r.setX(v.getPosition().getY() * scaleX); // Les X et les Y sont inversés dans l'objet voiture
 		r.setY(v.getPosition().getX() * scaleY);
@@ -300,15 +253,27 @@ public class CourseRunningController {
     	this.voitureImg.setRotate(angle);
     }
     
-    private void setDirectionVoiture(Voiture v, Rectangle r) {
+    /**
+     * Effectue une rotation sur le composant graphique associé à la voiture en fonction de la direction de
+     * l'objet Voiture.
+     * @param v Voiture associée
+     */
+    private void setDirectionVoiture(Voiture v) {
     	double angle = Math.toDegrees(vTools.angle(circuit.getDirectionDepart(), v.getDirection()));
     	this.listeVoitureGraphics.get(v).setRotate(-angle);
     }
     
+    /**
+     * Sert à faire le lien entre le controlleur et le point d'entrée de l'application.
+     * @param m Point d'entrée de l'application.
+     */
     public void setMainApp(MainApp m) {
     	this.mainApp = m;
     }
     
+    /**
+     * Rafraichi l'échelle en fonction de la taille de la fenêtre.
+     */
     public void refreshScale() {
     	int borderWidth = MainAppWindowController.BORDER_LEFT + MainAppWindowController.BORDER_RIGHT;
     	int borderHeight = MainAppWindowController.BORDER_TOP + MainAppWindowController.BORDER_BOTTOM;    	

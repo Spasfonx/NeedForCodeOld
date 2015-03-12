@@ -36,7 +36,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-
+/**
+ * Controlleur de la vue ConfigCourseMenuLayout. Permet le pré-réglage d'une course avant son lancement.
+ * @author Christophe
+ * @version 1.0
+ */
 public class ConfigCourseMenuController {
 
 	private static final int NB_COL_EQUIPES = 3;
@@ -95,16 +99,34 @@ public class ConfigCourseMenuController {
     @FXML
     private ImageView circuitPreviewContainer;
 
+    /**
+     * Référence à l'application principale.
+     */
 	private MainApp mainApp;
 	
+	/**
+	 * Liste des noms des circuits.
+	 */
 	private ArrayList<String> circuitsData = new ArrayList<String>();
 	
+	/**
+	 * CircuitLoader. Utile pour charger les circuits ainsi que leurs images associées.
+	 */
 	private CircuitLoader circuitLoader = new CircuitLoader();
 
+	/**
+	 * Liste des équipes dans le dossier concerné.
+	 */
 	private ArrayList<Equipe> equipesData;
 	
+	/**
+	 * Liste des cases à cochées associées aux équipes.
+	 */
 	private ArrayList<CheckBox> checkBoxesEquipes = new ArrayList<CheckBox>();
 
+	/**
+	 * Initialisation du controlleur.
+	 */
     @FXML
     void initialize() {
     	loadCircuitsData();
@@ -113,10 +135,9 @@ public class ConfigCourseMenuController {
     	loadEquipesGraphics();
     }
     
-    public void setMainApp(MainApp m) {
-    	this.mainApp = m;
-    }
-    
+    /**
+     * Charge la liste des équipes depuis le répertoire concerné.
+     */
     public void loadEquipesData() {
     	EquipeLoader el = new EquipeLoader();
     	try {
@@ -126,6 +147,9 @@ public class ConfigCourseMenuController {
 		}
     }
     
+    /**
+     * Alimente la grille de choix d'équipe avec des cases à cocher.
+     */
     public void loadEquipesGraphics() {
     	loadEquipesData();
     	
@@ -153,6 +177,9 @@ public class ConfigCourseMenuController {
     	}
     }
     
+    /**
+     * Charge les informations des circuits et alimente la liste déroulante.
+     */
     public void loadCircuitsData() {
     	try {
     		/* Chargement des circuits */
@@ -171,6 +198,10 @@ public class ConfigCourseMenuController {
 		}
     }
     
+    /**
+     * Initialise l'évênement sur la liste déroulante des circuits. Lance une prévisualisation du circuit
+     * à chaque changement d'index.
+     */
     public void initEventChangedComboCircuit() {
     	this.comboBoxCircuit.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String name) {
@@ -199,6 +230,9 @@ public class ConfigCourseMenuController {
           });
     }
 
+    /**
+     * Initialise le bouton de lancement de course après que les réglages soient faits.
+     */
     public void initClickButtonSubmit() {
     	this.buttonSubmit.setOnMouseClicked(new EventHandler<MouseEvent>() {
     		@Override
@@ -257,5 +291,13 @@ public class ConfigCourseMenuController {
 				}
     		}
     	});
+    }
+    
+    /**
+     * Sert à faire le lien entre le controlleur et le point d'entrée de l'application.
+     * @param m Point d'entrée de l'application.
+     */
+    public void setMainApp(MainApp m) {
+    	this.mainApp = m;
     }
 }

@@ -59,6 +59,10 @@ public abstract class Equipe {
 	 */
 	public abstract Commande run();
 
+	/**
+	 * Retourne le champs de vision de la voiture associée à l'équipe.
+	 * @return Matrice de type Terrain[][] contenant le champs de vision de la voiture.
+	 */
 	protected Terrain[][] getChampsDeVision() {
 		try {
 			return this.course.getChampsDeVision(this);
@@ -70,12 +74,11 @@ public abstract class Equipe {
 	}
 	
 	/**
-	 * Methode permettant de déterminer l'angle entre la voiture et un pixel du champ de vision actuel de la voiture
-	 * @param int x
-	 * @param int y
-	 * @return double 
+	 * Methode permettant de déterminer l'angle entre la voiture et un pixel du champ de vision actuel de la voiture.
+	 * @param int x Coordonnées x du pixel dans la matrice champs de visions
+	 * @param int y Coordonnées y du pixel dans la matrice du champs de vision
+	 * @return Angle en radian vers la position du pixel choisis
 	 */
-	
 	public double goToPixel(int x, int y){
 		Terrain[][] monChamp = this.getChampsDeVision();
 		double yMax = monChamp[0].length;
@@ -89,6 +92,10 @@ public abstract class Equipe {
 		}
 	}
 	
+	/**
+	 * Getter de la variable nom.
+	 * @return Nom de l'équipe
+	 */
 	public String getNom() {
 		return this.nom;
 	}
