@@ -1,6 +1,11 @@
 package fr.needforcode.geometrie;
 
+import java.awt.Shape;
 import java.util.ArrayList;
+
+import javafx.scene.shape.Line;
+
+import com.sun.javafx.geom.Line2D;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Jalon;
@@ -101,7 +106,6 @@ public class vTools {
 		v.setY(vX * Math.sin(angle) + v.getY() * Math.cos(angle));
 	}
 	
-	// Ci dessous non testé :
 	/**
 	 * normalisation d'un vecteur v
 	 * @author Camille
@@ -209,27 +213,27 @@ public class vTools {
 			return OrientationJalon.BASDROITE;
 		return OrientationJalon.NULL;
 	}
-	
-	public static boolean croiser(Jalon j, ArrayList<Jalon> jalonsCircuit){
+
+	public static boolean croiserJalons(Jalon j, ArrayList<Jalon> jalonsCircuit){
 		int nb = 0;
-		if(j.getNum() > 0){
-			for(int i = 1; i <= 50;i++){
-				nb = j.getNum() - i;
-				if(nb >= 1){
-					Jalon courant = jalonsCircuit.get(nb);
-					for(Vecteur v2 : j.getListeVecteurs()){
-						for(Vecteur v : courant.getListeVecteurs()){
-							//System.out.println(v + " : " + v2 + " - " + v.equals(v2));
-							if(v.equalsArrondi(v2,100)){
-								//System.out.println(j.getNum() + " Croisement!");
-								return true;
-							}
+		for(int i = 1; i <= 50;i++){
+			nb = j.getNum() - i;
+			if(nb >= 1 && nb <= jalonsCircuit.size()){
+				Jalon courant = jalonsCircuit.get(nb);
+				for(Vecteur v2 : j.getListeVecteurs()){
+					for(Vecteur v : courant.getListeVecteurs()){
+						if(v.equalsArrondi(v2,10)){
+							return true;
 						}
 					}
 				}
 			}
-		} 
-		//System.out.println(j.getNum() + " NO Croisement!");
+		}
+		return false;
+	}
+	
+	@Deprecated
+	public static boolean croiser(Vecteur a, Vecteur b, Vecteur c, Vecteur d){
 		return false;
 	}
 	
