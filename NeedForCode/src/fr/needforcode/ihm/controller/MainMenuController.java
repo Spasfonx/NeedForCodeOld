@@ -13,6 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Controlleur du menu principal.
+ * @author Christophe
+ * @version 1.0
+ */
 public class MainMenuController {
 
     @FXML
@@ -35,18 +40,23 @@ public class MainMenuController {
     
     private MainApp mainApp;
 
-
+    /**
+     * Initialise le controlleur du menu principal.
+     */
     @FXML
     void initialize() {
     	initButtonLaunch();
     }
     
+    /**
+     * Initialise le bouton de lancement de lancement d'une partie. 
+     * Redirige vers le pré-réglage d'une course.
+     */
     private void initButtonLaunch() {
     	buttonLaunch.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent arg0) {
 				try {
-					//mainApp.showCourseRunning();
 					showConfigCourseMenu();
 				} catch (Exception e) {
 					mainApp.setError(e.getMessage());
@@ -66,7 +76,10 @@ public class MainMenuController {
 			}
     	});
     }
-    
+
+    /**
+     * Affiche la vue de pré-réglage d'une course.
+     */
     public void showConfigCourseMenu() {
     	FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/ConfigCourseMenuLayout.fxml"));
         BorderPane overviewPage = null;
@@ -84,6 +97,10 @@ public class MainMenuController {
         mainApp.setMainContent(overviewPage);
     }
     
+    /**
+     * Sert à faire le lien entre le controlleur et le point d'entrée de l'application.
+     * @param m Point d'entrée de l'application.
+     */
     public void setMainApp(MainApp m) {
     	this.mainApp = m;
     }

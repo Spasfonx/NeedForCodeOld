@@ -72,6 +72,7 @@ public class VoitureImpl implements Voiture {
 		this.derapage = false;
 		this.driver = new Pilote(this,track);
 		this.positionGraphique = new Vecteur[LONGUEUR_VOITURE][LARGEUR_VOITURE];
+		setListePosition(); // TODO:Check avec camille
 	}
 	
 	/**
@@ -90,7 +91,7 @@ public class VoitureImpl implements Voiture {
 		this.vitesse_sortie_derapage = model.vitesse_sortie_derapage;
 		derapage = model.derapage;
 		this.positionGraphique = new Vecteur[LONGUEUR_VOITURE][LARGEUR_VOITURE];
-
+		setListePosition(); //TODO: Check avec camille
 	}
 
 	/**
@@ -239,8 +240,8 @@ public class VoitureImpl implements Voiture {
 		Vecteur curseur = this.position.cloneAsVecteur();
 		Vecteur normDirection = vTools.normalisation(this.direction);
 		
-		for(int i = 0; i < this.LONGUEUR_VOITURE; i++){
-			for(int j = 0; j < this.LARGEUR_VOITURE; j++){
+		for(int i = 0; i < VoitureImpl.LONGUEUR_VOITURE; i++){
+			for(int j = 0; j < VoitureImpl.LARGEUR_VOITURE; j++){
 				this.positionGraphique[i][j] = curseur.cloneAsVecteur();
 				curseur.autoAdd(base);
 			}

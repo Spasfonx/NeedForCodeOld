@@ -203,24 +203,27 @@ public class mainFrame extends JFrame {
 		        //System.out.println("Temps écoulé : " + (java.lang.System.currentTimeMillis() - time));
 		        */
         		try {
-					for(int i = 0;i<350;i++)
+					for(int i = 0;i<350;i++){
 						maCourse.avancer();
-        			
-					//im.setRGB((int) maCourse.getVoiture(e1).getPosition().getY(), (int) maCourse.getVoiture(e1).getPosition().getX(), Color.red.getRGB());
-					//im.setRGB((int) maCourse.getVoiture(e2).getPosition().getY(), (int) maCourse.getVoiture(e2).getPosition().getX(), Color.yellow.getRGB());
-					
-					Terrain[][] cdv = maCourse.getChampsDeVision(e1);
-					File ff=new File("cdv.txt");
-					ff.createNewFile();
-					FileWriter ffw=new FileWriter(ff);
-			    	for(int i = 0; i < cdv.length;i++){
-						for(int j = 0 ; j< cdv[0].length;j++){
-								ffw.write(TerrainTools.charFromTerrain(cdv[i][j]));	
+						Terrain[][] cdv = maCourse.getChampsDeVision(e1);
+						File ff=new File("cdv.txt");
+						ff.createNewFile();
+						FileWriter ffw=new FileWriter(ff);
+						System.out.println(cdv.length + " par " + cdv[0].length + " point [50;100] = " + cdv[50][100].toString());
+				    	for(int j = 0; j < cdv.length;j++){
+							for(int k = 0 ; k< cdv[0].length;k++){
+									ffw.write(TerrainTools.charFromTerrain(cdv[j][k]));	
+							}
+							ffw.write("\n");
 						}
-						ffw.write("\n");
-						System.out.println();
-					}
-			    	ffw.close();
+				    	ffw.close();
+						}
+        			
+						//im.setRGB((int) maCourse.getVoiture(e1).getPosition().getY(), (int) maCourse.getVoiture(e1).getPosition().getX(), Color.red.getRGB());
+						//im.setRGB((int) maCourse.getVoiture(e2).getPosition().getY(), (int) maCourse.getVoiture(e2).getPosition().getX(), Color.yellow.getRGB());
+						
+					
+
 			    	
 				} catch (VoitureException e) {
 					// TODO Auto-generated catch block

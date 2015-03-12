@@ -23,6 +23,11 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * Application principale. Sert de controlleur principal.
+ * @author Christophe
+ * @version 1.0
+ */
 public class MainApp extends Application {
 	
 	private Stage primaryStage;
@@ -32,10 +37,11 @@ public class MainApp extends Application {
 
     private MainAppWindowController mainAppController;
     
-    private boolean debug = true; //@deprecated
-    
-    private final int framePerSecond = 60;
+    public final static int FRAMES_PER_SECOND = 60;
 
+    /**
+     * Lancement de l'application.
+     */
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -63,7 +69,7 @@ public class MainApp extends Application {
         
         /* Configuration et affichage de la fenêtre */
         this.primaryStage.setScene(scene);
-        this.primaryStage.setFullScreen(false);
+        this.primaryStage.setFullScreen(true);
         this.primaryStage.show();
             
         /* Affichage du menu principal */
@@ -102,6 +108,7 @@ public class MainApp extends Application {
         }
     }
 	
+	@Deprecated
 	public void showCourseRunning_Test() throws Exception {
         try {
         	
@@ -116,12 +123,11 @@ public class MainApp extends Application {
             
             // Scratch
             // TODO: Chargement dynamique des circuits
-            String name = "1_safe";
+            String name = "4_safe";
     		String filename_trk = circuitLoader.getTrkPathFromName(name);
     		String filename_img = circuitLoader.getImagePathFromName(name);
     		CircuitFactory cF = new CircuitFactory(filename_trk);
     		Circuit track = cF.build();
-    		
     		//affichage des jalons
     		for(Jalon j : track.getListeJalons()){
     			this.debugVecteurDraw(j.getListeVecteurs().get(0), j.getListeVecteurs().get(j.getListeVecteurs().size()-1));
@@ -134,7 +140,7 @@ public class MainApp extends Application {
     		controller.setCircuit(track, filename_img);
     		controller.setCourse(c);
             
-    		//this.setMainContent(overviewPage);
+    		this.setMainContent(overviewPage);
             
             controller.launchCourse();
 
@@ -143,6 +149,9 @@ public class MainApp extends Application {
         }
     }
     
+	/**
+	 * Affiche la vue du menu principal.
+	 */
     public void showMainMenu() {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MainMenuLayout.fxml"));
         BorderPane overviewPage = null;
@@ -162,7 +171,7 @@ public class MainApp extends Application {
     
     public void debugVecteurDraw(Vecteur a, Vecteur b){
     	Line trace = new Line(a.getY(),a.getX(),b.getY(),b.getX());
-    	this.mainContentPane.getChildren().add(trace);
+    	this.mainAppWindow.getChildren().add(trace);
     }
     
     /**
@@ -179,9 +188,13 @@ public class MainApp extends Application {
     	this.mainContentPane.getChildren().add(n);
     }
     
+    /**
+     * Affiche les messages d'erreurs.
+     * @param message Message de l'erreur.
+     */
     public void setError(String message) {
     	this.mainAppController.setError(message);
-    	System.out.println(message);
+    	System.out.println(message); // TODO: Virer
     }
 
     /**
@@ -200,11 +213,4 @@ public class MainApp extends Application {
 		return this.mainContentPane;
 	}
 	
-	/**
-	 * Renvois le nombre d'images par secondes.
-	 * @return Nombre d'images par secondes
-	 */
-	public int getFramePerSecond() {
-		return this.framePerSecond;
-	}
 }
