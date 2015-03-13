@@ -55,6 +55,7 @@ public class CircuitLoader {
 	 * Charge les circuits dans un HashMap.
 	 * @throws Exception
 	 */
+	//TODO:Générer les png avant d'ajouter au dictionaire de circuits
 	public void loadCircuits() throws Exception {
 		File dir = new File(this.pathCircuits);
 		

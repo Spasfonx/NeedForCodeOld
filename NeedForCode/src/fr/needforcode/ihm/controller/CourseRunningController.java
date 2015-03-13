@@ -218,8 +218,8 @@ public class CourseRunningController {
     			Rectangle voitureGraphics = new Rectangle(
 	    	    			(int) circuit.getPointDepart().getY() * scaleX, 
 	    	    			(int) circuit.getPointDepart().getX() * scaleY, 
-	    	    			VoitureImpl.LONGUEUR_VOITURE * scaleY,
-	    	    			VoitureImpl.LARGEUR_VOITURE * scaleX
+	    	    			23 * scaleY,
+	    	    			12 * scaleX
 						);
     			
     			Random r = new Random();

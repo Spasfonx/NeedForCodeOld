@@ -191,14 +191,16 @@ public class CircuitImpl implements CircuitModifiable {
 
 	/**
 	 * Rtourne vrai si une voiture contenue dans listeVoitures se trouve à la position v
+	 * n'est pas utilisé
 	 */
+	/*
 	@Override
 	public boolean isCar(Vecteur v, HashMap<Equipe,Voiture> listeVoitures){
 		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
 			Voiture voiture = entry.getValue();
 			for(int i = 0;i<voiture.getPositionGraphique().length;i++){
 				for(int j = 0;j<voiture.getPositionGraphique()[0].length;j++){
-					if(voiture.getPositionGraphique()[i][j].equalsArrondi(v)){
+					if(voiture.getPositionGraphique()[i][j].equalsArrondi(v,1000)){
 							return true;
 					}
 				}
@@ -206,6 +208,7 @@ public class CircuitImpl implements CircuitModifiable {
 		}
 		return false;	
 	}
+	*/
 	
 	@Override
 	public ArrayList<Jalon> getListeJalons() {

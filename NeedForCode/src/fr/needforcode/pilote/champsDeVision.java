@@ -79,11 +79,7 @@ public class champsDeVision {
 		for(int i = 0; i < x; i++){
 			for(int j = 0; j < y; j++){
 				try{
-					//s'il y a une voiture à la position du curseur, on l'ajoute au cdv, sinon on ajoute le terrain
-					if(this.circuit.isCar(curseur, listeVoitures))
-						champsDeVision[i][j] = Terrain.Voiture;
-					else
-						champsDeVision[i][j] = this.circuit.getTerrain(curseur);
+					champsDeVision[i][j] = this.circuit.getTerrain(curseur);
 				}
 				catch(java.lang.ArrayIndexOutOfBoundsException ex){
 					//si le curseur est en dehors du circuit, on indique un Terrain.Out dans le cdv
@@ -102,7 +98,7 @@ public class champsDeVision {
 	public Terrain[][] getChampsDeVision(HashMap<Equipe,Voiture> listeVoitures){
 		//A vérifier, ce test n'est plus possible si on veut afficher les autre voiture dans le cdv
 		//if(voiture.getDirection() != this.directionCache || voiture.getPosition() != this.positionCache)
-			refreshChampsDeVision(listeVoitures);
+		refreshChampsDeVision(listeVoitures);
 		return this.champsDeVision;
 	}
 	

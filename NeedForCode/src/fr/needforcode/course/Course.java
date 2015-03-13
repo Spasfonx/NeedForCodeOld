@@ -28,7 +28,7 @@ public class Course {
 
 	/**
 	 * Constructeur Course.
-	 * @param c Circuit sur lequel la course va se dérouler
+	 * @param c - Circuit sur lequel la course va se dérouler
 	 * @param lt Nombre de tours
 	 */
 	public Course(Circuit c, int lt) {
@@ -42,7 +42,7 @@ public class Course {
 	}
 	
 	/**
-	 * Méthode qui pilote toutes les voitures à chaque frame.
+	 * Méthode qui pilote toutes les voitures.
 	 * @throws VoitureException Si levée par une voiture
 	 */
 	public void avancer() throws VoitureException {
@@ -53,6 +53,11 @@ public class Course {
 		}
 	}
 	
+	/**
+	 * Ajoute une équipe à la course et lui affecte une voiture.
+	 * @param e - Equipe à ajouter
+	 * @throws CourseRunningException - Si on essaye d'ajouter une équipe à une course déjà lancée.  
+	 */
 	public void addEquipe(Equipe e) throws CourseRunningException {
 		if (this.etatCourse != EtatCourse.PREPARE)
 			throw new CourseRunningException("Impossible de rajouter une équipe lorsque la course est en cours de déroulement");
@@ -64,6 +69,11 @@ public class Course {
 		e.setCourse(this);
 	}
 	
+	/**
+	 * Retire une équipe de la course.
+	 * @param e - Equipe à retirer
+	 * @throws CourseRunningException Si on essaye de retirer l'équipe d'une course déjà lancée.
+	 */
 	public void removeEquipe(Equipe e) throws CourseRunningException {
 		if (this.etatCourse != EtatCourse.PREPARE)
 			throw new CourseRunningException("Impossible de supprimer une équipe lorsque la course est en cours de déroulement");
@@ -75,10 +85,20 @@ public class Course {
 		e.setCourse(null);
 	}
 	
+	/**
+	 * Modifie l'état de la course.
+	 * @param e - Etat de la course.
+	 */
 	public void setEtatCourse(EtatCourse e) {
 		this.etatCourse = e;
 	}
 	
+	/**
+	 * Retourne la voiture associée à l'équipe donnée en paramètre.
+	 * @param e - L'équipe concernée
+	 * @return La voiture associée à l'équipe donnée en paramètre 
+	 * @throws ParticipationEquipeException Si l'équipe ne participe pas à cette course
+	 */
 	public Voiture getVoiture(Equipe e) throws ParticipationEquipeException {
 		if (!listeVoitures.containsKey(e))
 			throw new ParticipationEquipeException("Cette équipe ne participe pas à la course");
@@ -86,6 +106,12 @@ public class Course {
 		return listeVoitures.get(e);
 	}
 	
+	/**
+	 * Retourne le champs de vision de la voiture de l'équipe passée en paramètres.
+	 * @param e - L'équipe concernée
+	 * @return Matrice de type Terrain[][] représentant les pixels du champs de vision de la voiture
+	 * @throws ParticipationEquipeException Si l'équipe ne participe pas à la course
+	 */
 	public Terrain[][] getChampsDeVision(Equipe e) throws ParticipationEquipeException {
 		if (!listeVoitures.containsKey(e))
 			throw new ParticipationEquipeException("Cette équipe ne participe pas à la course");
@@ -94,14 +120,26 @@ public class Course {
 		
 	}
 	
+	/**
+	 * Retourne le circuit sur laquelle la course se déroule.
+	 * @return Circuit sur laquelle la course se déroule
+	 */
 	public Circuit getCircuit() {
 		return circuit;
 	}
 
+	/**
+	 * Retourne l'état dans lequel se trouve la course.
+	 * @return Etat de la course
+	 */
 	public EtatCourse getEtat() {
 		return this.etatCourse;
 	}
 
+	/**
+	 * Retourne la liste des Equipe avec leurs voitures associées.
+	 * @return Dictionnaire composé des équipes avec leurs voitures
+	 */
 	public HashMap<Equipe, Voiture> getListeVoitures() {
 		return this.listeVoitures;
 	}

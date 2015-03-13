@@ -37,7 +37,7 @@ public interface Circuit {
 	
 	public Terrain[][] getChampsDeVision(Voiture v,HashMap<Equipe,Voiture> listeVoitures);
 	
-	public boolean isCar(Vecteur pos, HashMap<Equipe,Voiture> listeVoitures);
+	//public boolean isCar(Vecteur pos, HashMap<Equipe,Voiture> listeVoitures);
 	
 	public ArrayList<Jalon> getListeJalons();
 	
