@@ -1,3 +1,4 @@
+import fr.needforcode.circuit.Terrain;
 import fr.needforcode.course.Course;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.voiture.Commande;
@@ -24,7 +25,9 @@ public class EquipeCamille extends Equipe {
 		}
 		
 		i++;
-		return new Commande(a, t);
+		//Terrain[][] cdv = this.getChampsDeVision();
+		//System.out.println(cdv.length + " par " + cdv[0].length + " point [" + cdv.length/2 + ";100] = " + cdv[cdv.length/2][100].toString());
+		return new Commande(1, 0);
 
 	}
 

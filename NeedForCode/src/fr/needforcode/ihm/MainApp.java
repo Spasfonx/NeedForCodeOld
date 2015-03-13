@@ -63,7 +63,7 @@ public class MainApp extends Application {
         
         /* Configuration et affichage de la fenêtre */
         this.primaryStage.setScene(scene);
-        this.primaryStage.setFullScreen(true);
+        this.primaryStage.setFullScreen(false);
         this.primaryStage.show();
             
         /* Affichage du menu principal */
@@ -116,7 +116,7 @@ public class MainApp extends Application {
             
             // Scratch
             // TODO: Chargement dynamique des circuits
-            String name = "4_safe";
+            String name = "1_safe";
     		String filename_trk = circuitLoader.getTrkPathFromName(name);
     		String filename_img = circuitLoader.getImagePathFromName(name);
     		CircuitFactory cF = new CircuitFactory(filename_trk);

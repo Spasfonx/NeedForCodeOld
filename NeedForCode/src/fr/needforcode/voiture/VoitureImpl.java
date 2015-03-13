@@ -72,6 +72,7 @@ public class VoitureImpl implements Voiture {
 		this.derapage = false;
 		this.driver = new Pilote(this,track);
 		this.positionGraphique = new Vecteur[LONGUEUR_VOITURE][LARGEUR_VOITURE];
+		setListePosition();
 	}
 	
 	/**
@@ -90,7 +91,7 @@ public class VoitureImpl implements Voiture {
 		this.vitesse_sortie_derapage = model.vitesse_sortie_derapage;
 		derapage = model.derapage;
 		this.positionGraphique = new Vecteur[LONGUEUR_VOITURE][LARGEUR_VOITURE];
-
+		setListePosition();
 	}
 
 	/**

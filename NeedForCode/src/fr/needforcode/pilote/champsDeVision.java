@@ -102,7 +102,7 @@ public class champsDeVision {
 	public Terrain[][] getChampsDeVision(HashMap<Equipe,Voiture> listeVoitures){
 		//A vérifier, ce test n'est plus possible si on veut afficher les autre voiture dans le cdv
 		//if(voiture.getDirection() != this.directionCache || voiture.getPosition() != this.positionCache)
-			refreshChampsDeVision(listeVoitures);
+		refreshChampsDeVision(listeVoitures);
 		return this.champsDeVision;
 	}
 	

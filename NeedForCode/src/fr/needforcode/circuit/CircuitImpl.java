@@ -198,7 +198,7 @@ public class CircuitImpl implements CircuitModifiable {
 			Voiture voiture = entry.getValue();
 			for(int i = 0;i<voiture.getPositionGraphique().length;i++){
 				for(int j = 0;j<voiture.getPositionGraphique()[0].length;j++){
-					if(voiture.getPositionGraphique()[i][j].equalsArrondi(v)){
+					if(voiture.getPositionGraphique()[i][j].equalsArrondi(v,1000)){
 							return true;
 					}
 				}
