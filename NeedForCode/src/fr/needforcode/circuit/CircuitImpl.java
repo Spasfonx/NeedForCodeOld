@@ -191,7 +191,9 @@ public class CircuitImpl implements CircuitModifiable {
 
 	/**
 	 * Rtourne vrai si une voiture contenue dans listeVoitures se trouve à la position v
+	 * n'est pas utilisé
 	 */
+	/*
 	@Override
 	public boolean isCar(Vecteur v, HashMap<Equipe,Voiture> listeVoitures){
 		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
@@ -206,6 +208,7 @@ public class CircuitImpl implements CircuitModifiable {
 		}
 		return false;	
 	}
+	*/
 	
 	@Override
 	public ArrayList<Jalon> getListeJalons() {

@@ -79,11 +79,7 @@ public class champsDeVision {
 		for(int i = 0; i < x; i++){
 			for(int j = 0; j < y; j++){
 				try{
-					//s'il y a une voiture à la position du curseur, on l'ajoute au cdv, sinon on ajoute le terrain
-					if(this.circuit.isCar(curseur, listeVoitures))
-						champsDeVision[i][j] = Terrain.Voiture;
-					else
-						champsDeVision[i][j] = this.circuit.getTerrain(curseur);
+					champsDeVision[i][j] = this.circuit.getTerrain(curseur);
 				}
 				catch(java.lang.ArrayIndexOutOfBoundsException ex){
 					//si le curseur est en dehors du circuit, on indique un Terrain.Out dans le cdv

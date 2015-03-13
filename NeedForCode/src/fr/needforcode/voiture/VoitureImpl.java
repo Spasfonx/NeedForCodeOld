@@ -23,9 +23,9 @@ public class VoitureImpl implements Voiture {
 	private Vecteur direction_derapage;
 	private double sens_derapage;
 	private Pilote driver;
-	private Vecteur[][] positionGraphique;
-	public final static int LONGUEUR_VOITURE = 23;
-	public final static int LARGEUR_VOITURE = 12;
+	//private Vecteur[][] positionGraphique;
+	//public final static int LONGUEUR_VOITURE = 23;
+	//public final static int LARGEUR_VOITURE = 12;
 	
 	
 	
@@ -71,8 +71,9 @@ public class VoitureImpl implements Voiture {
 		this.vitesse_sortie_derapage = vitesse_sortie_derapage;
 		this.derapage = false;
 		this.driver = new Pilote(this,track);
-		this.positionGraphique = new Vecteur[LONGUEUR_VOITURE][LARGEUR_VOITURE];
-		setListePosition();
+		//this.positionGraphique = new Vecteur[LONGUEUR_VOITURE][LARGEUR_VOITURE];
+		//setListePosition(); // TODO:Check avec camille
+
 	}
 	
 	/**
@@ -90,8 +91,9 @@ public class VoitureImpl implements Voiture {
 		this.alpha_derapage = model.alpha_derapage;
 		this.vitesse_sortie_derapage = model.vitesse_sortie_derapage;
 		derapage = model.derapage;
-		this.positionGraphique = new Vecteur[LONGUEUR_VOITURE][LARGEUR_VOITURE];
-		setListePosition();
+		//this.positionGraphique = new Vecteur[LONGUEUR_VOITURE][LARGEUR_VOITURE];
+		//setListePosition(); //TODO: Check avec camille
+
 	}
 
 	/**
@@ -111,7 +113,7 @@ public class VoitureImpl implements Voiture {
 		} else {
 			driveSansDerapage(c);
 		}
-		setListePosition();
+		//setListePosition();
 	}
 	
 	/**
@@ -232,7 +234,9 @@ public class VoitureImpl implements Voiture {
 	
 	/**
 	 * méthode qui met a jour le tableau positionGraphique
+	 * n'est plus utilisé
 	 */
+	/*
 	private void setListePosition(){
 		Vecteur base = this.direction.cloneAsVecteur();
 		vTools.rotation(base, - Math.PI/2);
@@ -240,8 +244,8 @@ public class VoitureImpl implements Voiture {
 		Vecteur curseur = this.position.cloneAsVecteur();
 		Vecteur normDirection = vTools.normalisation(this.direction);
 		
-		for(int i = 0; i < this.LONGUEUR_VOITURE; i++){
-			for(int j = 0; j < this.LARGEUR_VOITURE; j++){
+		for(int i = 0; i < VoitureImpl.LONGUEUR_VOITURE; i++){
+			for(int j = 0; j < VoitureImpl.LARGEUR_VOITURE; j++){
 				this.positionGraphique[i][j] = curseur.cloneAsVecteur();
 				curseur.autoAdd(base);
 			}
@@ -250,13 +254,14 @@ public class VoitureImpl implements Voiture {
 
 		}
 	}
+	*/
 	
 	
-	
+	/*
 	public Vecteur[][] getPositionGraphique() {
 		return positionGraphique;
 	}
-
+	*/
 	public Pilote getPilote(){
 		return this.driver;
 	}

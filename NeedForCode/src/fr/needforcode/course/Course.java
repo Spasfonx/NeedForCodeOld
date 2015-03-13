@@ -75,6 +75,10 @@ public class Course {
 		e.setCourse(null);
 	}
 	
+	public void setEtatCourse(EtatCourse e) {
+		this.etatCourse = e;
+	}
+	
 	public Voiture getVoiture(Equipe e) throws ParticipationEquipeException {
 		if (!listeVoitures.containsKey(e))
 			throw new ParticipationEquipeException("Cette équipe ne participe pas à la course");

@@ -23,6 +23,11 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * Application principale. Sert de controlleur principal.
+ * @author Christophe
+ * @version 1.0
+ */
 public class MainApp extends Application {
 	
 	private Stage primaryStage;
@@ -32,10 +37,11 @@ public class MainApp extends Application {
 
     private MainAppWindowController mainAppController;
     
-    private boolean debug = true; //@deprecated
-    
-    private final int framePerSecond = 60;
+    public final static int FRAMES_PER_SECOND = 60;
 
+    /**
+     * Lancement de l'application.
+     */
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -102,6 +108,7 @@ public class MainApp extends Application {
         }
     }
 	
+	@Deprecated
 	public void showCourseRunning_Test() throws Exception {
         try {
         	
@@ -142,6 +149,9 @@ public class MainApp extends Application {
         }
     }
     
+	/**
+	 * Affiche la vue du menu principal.
+	 */
     public void showMainMenu() {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MainMenuLayout.fxml"));
         BorderPane overviewPage = null;
@@ -178,9 +188,13 @@ public class MainApp extends Application {
     	this.mainContentPane.getChildren().add(n);
     }
     
+    /**
+     * Affiche les messages d'erreurs.
+     * @param message Message de l'erreur.
+     */
     public void setError(String message) {
     	this.mainAppController.setError(message);
-    	System.out.println(message);
+    	System.out.println(message); // TODO: Virer
     }
 
     /**
@@ -199,11 +213,4 @@ public class MainApp extends Application {
 		return this.mainContentPane;
 	}
 	
-	/**
-	 * Renvois le nombre d'images par secondes.
-	 * @return Nombre d'images par secondes
-	 */
-	public int getFramePerSecond() {
-		return this.framePerSecond;
-	}
 }
