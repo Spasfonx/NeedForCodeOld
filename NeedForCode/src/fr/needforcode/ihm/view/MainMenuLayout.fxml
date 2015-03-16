@@ -18,11 +18,4 @@
       </children>
     </Group>
   </center>
-  <top>
-    <Text fill="WHITE" stroke="#990000" strokeType="OUTSIDE" strokeWidth="3.5" text="H - Birthday Fradé !" BorderPane.alignment="CENTER">
-      <font>
-        <Font size="72.0" />
-      </font>
-    </Text>
-  </top>
 </BorderPane>

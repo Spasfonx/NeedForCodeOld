@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import java.util.Map.Entry;
 
 import fr.needforcode.circuit.Circuit;
+import fr.needforcode.circuit.Terrain;
+import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.course.Course;
 import fr.needforcode.course.CourseRunningException;
 import fr.needforcode.course.EtatCourse;
@@ -23,8 +25,10 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -38,11 +42,11 @@ import javafx.util.Duration;
  */
 public class CourseRunningController {
 	
-	/* Composants FXML */
-	
     private static final double TOOLTIP_OFFSET_X = 10;
 
 	private static final double TOOLTIP_OFFSET_Y = 10;
+	
+	/* Composants FXML */
 
 	@FXML
     private ResourceBundle resources;
@@ -55,6 +59,9 @@ public class CourseRunningController {
     
     @FXML
     private ImageView circuitContainer;
+    
+    @FXML 
+    private Button btnStopCourse;
     
     /* Composants de classe */
     
@@ -93,6 +100,11 @@ public class CourseRunningController {
      */
     private double scaleY;
     
+    /**
+     * Deux clicks pour valider la fermeture de la course.
+     */
+    private boolean verifBtnStopCourse = false;
+    
     @Deprecated
     private final int TAILLE_LONGUEUR_VOITURE = 23;
     @Deprecated
@@ -105,6 +117,8 @@ public class CourseRunningController {
     void initialize() {
     	this.listeVoitureGraphics = new HashMap<Voiture, Rectangle>();
     	this.listeVoitureTooltip = new HashMap<Voiture, Text>();
+    	
+    	initBtnStopCourseClick();
     }
     
     /**
@@ -159,6 +173,12 @@ public class CourseRunningController {
     		setPositionVoiture(v, listeVoitureGraphics.get(v));
 			setDirectionVoiture(v);
     	}
+    }
+    
+    public void checkVoitureHorsCircuit(Voiture v) {
+    	Terrain currentPixel = course.getCircuit().getTerrain(v.getPosition());
+    	if (!TerrainTools.isRunnable(currentPixel))
+    		System.out.println("Voiture out");
     }
     
     /**
@@ -243,6 +263,37 @@ public class CourseRunningController {
     	}
     }
     
+    private void initBtnStopCourseClick() {
+    	btnStopCourse.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    		
+			@Override
+			public void handle(MouseEvent arg0) {
+				if (!verifBtnStopCourse) {
+					btnStopCourse.setText("Etes-vous sûr ?");
+					btnStopCourse.setStyle("-fx-background-color: firebrick");
+					verifBtnStopCourse = true;
+				} else {
+					btnStopCourse.setText("Arrêter la course");
+					btnStopCourse.setStyle("-fx-background-color: #3e3e3e");
+					course.setEtatCourse(EtatCourse.END);
+					timeline.stop();
+					mainApp.showMainMenu();
+				}
+			}
+			
+    	});
+    	
+    	btnStopCourse.setOnMouseExited(new EventHandler<MouseEvent>() {
+    		
+			@Override
+			public void handle(MouseEvent arg0) {
+				verifBtnStopCourse = false;
+				btnStopCourse.setText("Arrêter la course");
+				btnStopCourse.setStyle("-fx-background-color: #3e3e3e");
+			}
+			
+    	});
+    }
     
     /**
      * Règle la position de la voiture sur le circuit (graphiquement).

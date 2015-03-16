@@ -195,3 +195,15 @@
 	-fx-padding: 10;
 	-fx-background-color: #464646;
 }
+
+/*
+ * Boutons course 
+ */
+ 
+ .btn-control-run {
+ 	-fx-opacity: 0.3;
+ }
+ 
+ .btn-control-run:hover {
+ 	-fx-opacity: 0.8;
+ }
