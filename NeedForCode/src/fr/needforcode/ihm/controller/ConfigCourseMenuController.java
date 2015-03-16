@@ -46,7 +46,9 @@ public class ConfigCourseMenuController {
 	/**
 	 * Nombre de colonnes dans la grille pour l'affichage des équipes.
 	 */
-	private static final int NB_COL_EQUIPES = 3;
+	private final static int NB_COL_EQUIPES = 3;
+	
+	private final static int NB_TOUR_DEFAUT = 20;
 
 	@FXML
     private ResourceBundle resources;
@@ -132,6 +134,8 @@ public class ConfigCourseMenuController {
 	 */
     @FXML
     void initialize() {
+    	this.textFieldNbTours.setText(Integer.toString(NB_TOUR_DEFAUT));
+    	
     	loadCircuitsData();
     	initEventChangedComboCircuit();
     	initClickButtonSubmit();
