@@ -83,10 +83,12 @@ public abstract class Equipe {
 	public double goToPixel(Terrain[][] cdv, int x, int y){
 		//Terrain[][] cdv = this.getChampsDeVision();
 		double yMax = cdv[0].length;
-		if (y<y/2){
-			return Math.toRadians(90)-Math.atan(x/((yMax/2)-y));
-		}else if(y>y/2){
-			return -(Math.toRadians(90)-Math.atan(x/(y-(yMax/2))));
+		if (y<yMax/2){
+			System.out.println(Math.atan(x/((yMax/2)-y)));
+			return -(Math.toRadians(90)-Math.atan(x/((yMax/2)-y)));
+		}else if(y>yMax/2){
+			System.out.println(Math.atan(x/(y-(yMax/2))));
+			return (Math.toRadians(90)-Math.atan(x/(y-(yMax/2))));
 			
 		}else{
 			return 0.0;
