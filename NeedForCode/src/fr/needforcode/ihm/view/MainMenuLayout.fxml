@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet ../res/css/design.css?>
 
 <BorderPane fx:id="mainMenu" prefHeight="500.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="fr.needforcode.ihm.controller.MainMenuController">
@@ -17,4 +18,11 @@
       </children>
     </Group>
   </center>
+  <top>
+    <Text fill="WHITE" stroke="#990000" strokeType="OUTSIDE" strokeWidth="3.5" text="H - Birthday Fradé !" BorderPane.alignment="CENTER">
+      <font>
+        <Font size="72.0" />
+      </font>
+    </Text>
+  </top>
 </BorderPane>
