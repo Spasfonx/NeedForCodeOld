@@ -84,16 +84,21 @@ public abstract class Equipe {
 		//Terrain[][] cdv = this.getChampsDeVision();
 		double yMax = cdv[0].length;
 		if (y<yMax/2){
-			System.out.println(Math.atan(x/((yMax/2)-y)));
+			//System.out.println(Math.atan(x/((yMax/2)-y)));
 			return -(Math.toRadians(90)-Math.atan(x/((yMax/2)-y)));
 		}else if(y>yMax/2){
-			System.out.println(Math.atan(x/(y-(yMax/2))));
+			//System.out.println(Math.atan(x/(y-(yMax/2))));
 			return (Math.toRadians(90)-Math.atan(x/(y-(yMax/2))));
 			
 		}else{
 			return 0.0;
 		}
 	}
+	
+	//TODO: getVitesse() pour le joueur
+	//TODO: getDirection() pour le joueur
+	//TODO: getPosition() pour le joueur
+	//TODO: getOrigineChampsDeVision() pour le joueur
 	
 	/**
 	 * Getter de la variable nom.

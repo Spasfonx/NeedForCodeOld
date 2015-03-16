@@ -153,7 +153,7 @@ public class TerrainTools {
 	 * @return True si le terrain peut être parcouru, false sinon
 	 */
 	public static boolean isRunnable(Terrain t) {
-		if (t == Terrain.BandeBlanche || t == Terrain.BandeRouge || t == Terrain.Route )
+		if (t == Terrain.BandeBlanche || t == Terrain.BandeRouge || t == Terrain.Route || t == Terrain.Out )
 			return true;
 		return false;
 	}

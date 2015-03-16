@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import fr.needforcode.circuit.Circuit;
+import fr.needforcode.circuit.Jalon;
 import fr.needforcode.circuit.Terrain;
+import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.equipe.Equipe;
+import fr.needforcode.geometrie.vTools;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
 import fr.needforcode.voiture.factory.MiageCarFactory;
@@ -47,10 +50,42 @@ public class Course {
 	 */
 	public void avancer() throws VoitureException {
 		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
-			entry.getValue().piloter(
-					entry.getKey().run()
-				);
+			if(!checkPosition(entry.getValue())){
+				//TODO: Eliminer la voiture(l'équipe)
+			}
+			if(checkEndLine(entry.getValue())){
+				Integer tour = listeEquipes.get(entry.getKey());
+				tour++;
+				listeEquipes.put(entry.getKey(), tour);
+				System.out.println(listeEquipes.get(entry.getKey()));
+
+			}
+			entry.getValue().piloter(entry.getKey().run());
 		}
+	}
+	
+	public boolean checkEndLine(Voiture v){
+		Terrain t = circuit.getTerrain((int) v.getPosition().getX(), (int) v.getPosition().getY());
+		if (t == Terrain.EndLine && vTools.scalaire(circuit.getDirectionArrivee(), v.getDirection()) > 0 && allJalonOk(v)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean allJalonOk(Voiture v){
+		boolean ret = false;
+		for(Jalon j : circuit.getListeJalons()){
+			
+		}
+		return true;
+	}
+	
+	public boolean checkPosition (Voiture v){
+		Terrain t = circuit.getTerrain((int) v.getPosition().getX(), (int) v.getPosition().getY());
+		if (!TerrainTools.isRunnable(t)) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
