@@ -57,7 +57,7 @@ public class EquipeCamille extends Equipe {
 			}
 			
 	
-			System.out.println("yBordureFin = " + yBordureFin + "; yBordureDebut = " + yBordureDebut);
+			//System.out.println("yBordureFin = " + yBordureFin + "; yBordureDebut = " + yBordureDebut);
 			
 			double a = 0.8;
 			double t = goToPixel(monChampDeVision,(yBordureFin-yBordureDebut)/2,(xBordureFin+xBordureDebut)/2);
