@@ -15,7 +15,7 @@ import fr.needforcode.voiture.Voiture;
  * @author camille
  * classe champs de vision
  */
-public class champsDeVision {
+public class ChampsDeVision {
 	public Terrain[][] champsDeVision;
 	int x,y,yMin,xMin;
 	private Circuit circuit;
@@ -29,7 +29,7 @@ public class champsDeVision {
 	 * @param v
 	 * @param c
 	 */
-	public champsDeVision(Voiture v, Circuit c){
+	public ChampsDeVision(Voiture v, Circuit c){
 		 
 		this.circuit = c;
 		this.voiture = v;

@@ -55,5 +55,4 @@ public class CircuitFactoryImage {
 		}
 		return new CircuitImpl(matrice, ptDepart, sensDepart, sensArrivee,listeArrivees, filenameWithOutExt, listeJalons);
 	}
-
 }

@@ -11,7 +11,7 @@ import fr.needforcode.equipe.Equipe;
 //import fr.needforcode.algo.Dijkstra;
 import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.geometrie.vTools;
-import fr.needforcode.pilote.champsDeVision;
+import fr.needforcode.pilote.ChampsDeVision;
 import fr.needforcode.voiture.Voiture;
 
 /**

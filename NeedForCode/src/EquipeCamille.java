@@ -3,7 +3,7 @@ import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.course.Course;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.voiture.Commande;
-import fr.needforcode.pilote.champsDeVision;
+import fr.needforcode.pilote.ChampsDeVision;
 
 
 public class EquipeCamille extends Equipe {

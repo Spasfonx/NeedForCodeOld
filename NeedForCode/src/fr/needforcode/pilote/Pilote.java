@@ -16,13 +16,13 @@ import fr.needforcode.voiture.Voiture;
 public class Pilote {
 	private Circuit circuit;
 	private Voiture voiture;
-	private	champsDeVision champs;
+	private	ChampsDeVision champs;
 	
 	
 	public Pilote(Voiture v, Circuit c){
 		this.circuit = c;
 		this.voiture = v;
-		this.champs = new champsDeVision(v,c);		
+		this.champs = new ChampsDeVision(v,c);		
 	}
 	
 	public Terrain[][] getChampsDeVision(HashMap<Equipe,Voiture> listeVoitures){
