@@ -37,7 +37,7 @@ public class MainApp extends Application {
 
     private MainAppWindowController mainAppController;
     
-    public final static int FRAMES_PER_SECOND = 60;
+    public final static int FRAMES_PER_SECOND = 120;
 
     /**
      * Lancement de l'application.
