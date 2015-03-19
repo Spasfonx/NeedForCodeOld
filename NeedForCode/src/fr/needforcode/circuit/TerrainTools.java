@@ -75,12 +75,12 @@ public class TerrainTools {
 			case Voiture:
 				return 'v';
 			default:
-				return '.'; /* herbe */
+				return 'n';
 		}
 	}
 	
 	/**
-	 * Conversion terrain/color
+	 * Conversion color/terrain
 	 * @param colr valeur
 	 * @return Terrain correspondant à la color
 	 */

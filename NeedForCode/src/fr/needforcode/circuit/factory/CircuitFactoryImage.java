@@ -14,6 +14,13 @@ import fr.needforcode.circuit.Terrain;
 import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.geometrie.Vecteur;
 
+/**
+ * Class CircuitFactoryImage
+ * Idem CircuitFactory mais se base sur une image.
+ * Non utilisé et non testé.
+ * @author camille
+ *
+ */
 public class CircuitFactoryImage {
 	
 	private String filename;

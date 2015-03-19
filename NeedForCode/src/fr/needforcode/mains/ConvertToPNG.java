@@ -4,7 +4,7 @@ import fr.needforcode.circuit.*;
 import fr.needforcode.circuit.factory.CircuitFactory;
 
 /**
- * class permettant le lancement de l'algorythme de conversion d'un fichier trk en png
+ * class permettant le lancement de l'algorithme de conversion d'un fichier trk en png
  * @author camille
  *
  */

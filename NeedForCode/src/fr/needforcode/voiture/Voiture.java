@@ -33,6 +33,6 @@ public interface Voiture {
 	
 	public Pilote getPilote();
 	
-	//public Vecteur[][] getPositionGraphique();
+	public Vecteur[][] getPositionGraphique();
 
 }

@@ -3,7 +3,7 @@ import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.course.Course;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.voiture.Commande;
-import fr.needforcode.pilote.ChampsDeVision;
+import fr.needforcode.pilote.ChampDeVision;
 
 
 public class EquipeCamille extends Equipe {
@@ -24,14 +24,14 @@ public class EquipeCamille extends Equipe {
 		
 		if(nbExec % 1 == 0){
 			
-			Terrain [][] monChampDeVision = getChampsDeVision();
-			int xMax = monChampDeVision.length;
-			int yMax = monChampDeVision[0].length;
+			ChampDeVision monChampDeVision = getChampsDeVision();
+			int xMax = monChampDeVision.getMatrice().length;
+			int yMax = monChampDeVision.getMatrice()[0].length;
 			int xBordureDebut = 0, yBordureDebut = 0, xBordureFin = 0, yBordureFin = 0;
 			
 			for(int i =  xMax - 1; i >= 0; i--){
 				for(int j = 0; j <= yMax - 1; j++){
-					if(TerrainTools.isRunnable(monChampDeVision[i][j])){
+					if(TerrainTools.isRunnable(monChampDeVision.getMatrice()[i][j])){
 						xBordureDebut = i;
 						yBordureDebut = j;
 					}
@@ -44,7 +44,7 @@ public class EquipeCamille extends Equipe {
 			
 			for(int i = xBordureDebut - 1; i > 0; i--){
 				for(int j = yBordureDebut - 1; j < yMax; j++){
-					if(TerrainTools.isRunnable(monChampDeVision[i][j])){
+					if(TerrainTools.isRunnable(monChampDeVision.getMatrice()[i][j])){
 						xBordureFin = i;
 						yBordureFin = j;
 					}
@@ -60,7 +60,7 @@ public class EquipeCamille extends Equipe {
 			System.out.println("yBordureFin = " + yBordureFin + "; yBordureDebut = " + yBordureDebut);
 			
 			double a = 0.8;
-			double t = goToPixel(monChampDeVision,(yBordureFin-yBordureDebut)/2,(xBordureFin+xBordureDebut)/2);
+			double t = goToPixel((yBordureFin-yBordureDebut)/2,(xBordureFin+xBordureDebut)/2);
 			//double t = goToPixel(monChampDeVision,(xBordureDebut+xBordureFin)/2, (yBordureDebut+yBordureFin)/2);
 			//t = goToPixel(100, 160);
 			System.out.println(t);

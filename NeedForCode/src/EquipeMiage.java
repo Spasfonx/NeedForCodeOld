@@ -2,6 +2,7 @@ import fr.needforcode.circuit.Terrain;
 import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.course.Course;
 import fr.needforcode.equipe.Equipe;
+import fr.needforcode.pilote.ChampDeVision;
 import fr.needforcode.voiture.Commande;
 
 public class EquipeMiage extends Equipe {
@@ -20,9 +21,9 @@ public class EquipeMiage extends Equipe {
 	@Override
 	public Commande run() {
 
-		Terrain [][] monChampDeVision = getChampsDeVision();
-		int xMax = monChampDeVision.length;
-		int yMax = monChampDeVision[0].length;
+		ChampDeVision monChampDeVision = getChampsDeVision();
+		int xMax = monChampDeVision.getMatrice().length;
+		int yMax = monChampDeVision.getMatrice()[0].length;
 		int xBordureDebut = 0, yBordureDebut = 0, xBordureFin = 0, yBordureFin = 0, j = yMax - 1 , i = xMax - 1;
 		boolean sortie = false;
 
@@ -42,14 +43,14 @@ public class EquipeMiage extends Equipe {
 		i = pas;
 		j = yMax / 2;
 		
-		while(TerrainTools.isRunnable(monChampDeVision[i][j]) && j > 0) {
+		while(TerrainTools.isRunnable(monChampDeVision.getMatrice()[i][j]) && j > 0 && i > 0) {
 			j--;
 		}
 		
 		xBordureDebut = i;
 		yBordureDebut = j;
 
-		double t = goToPixel(monChampDeVision,xBordureDebut,yBordureDebut);
+		double t = goToPixel(xBordureDebut,yBordureDebut);
 		double a = 0.9;
 
 		return new Commande(a, t);

@@ -8,17 +8,17 @@ import java.awt.Color;
  *
  */
 public enum Terrain {
-	Route, Herbe, Eau, Obstacle, BandeRouge, BandeBlanche, StartPoint, EndLine, m, Out, Voiture;
+	Route, Herbe, Eau, Obstacle, BandeRouge, BandeBlanche, StartPoint, EndLine, Out, Voiture;
 	
 	/**
 	 * Tableau de correspondance Terrain/char
 	 */
-	public static char[] conversion = {'.', 'g', 'b', 'o', 'r', 'w', '*', '!', 'm','n','v'};
+	public static char[] conversion = {'.', 'g', 'b', '%', 'r', 'w', '*', '!','n','v'};
 	
 	/**
 	 * Tableau de correspondance Terrain/color
 	 */
 	public static Color[] convColor = {Color.gray, Color.green.darker(),
 		Color.blue, Color.black, Color.red, Color.white,
-		Color.cyan, Color.cyan, new Color(200, 150, 128),Color.darkGray};
+		Color.magenta, Color.cyan, new Color(200, 150, 128),Color.darkGray};
 }

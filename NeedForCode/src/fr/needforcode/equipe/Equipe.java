@@ -3,6 +3,8 @@ package fr.needforcode.equipe;
 import fr.needforcode.circuit.Terrain;
 import fr.needforcode.course.Course;
 import fr.needforcode.course.ParticipationEquipeException;
+import fr.needforcode.geometrie.Vecteur;
+import fr.needforcode.pilote.ChampDeVision;
 import fr.needforcode.voiture.Commande;
 
 /**
@@ -61,12 +63,12 @@ public abstract class Equipe {
 
 	/**
 	 * Retourne le champs de vision de la voiture associée à l'équipe.
-	 * @return Matrice de type Terrain[][] contenant le champs de vision de la voiture.
+	 * @return Le champs de vision de la voiture.
 	 */
-	protected Terrain[][] getChampsDeVision() {
-		Terrain[][] cdv = null;
+	protected ChampDeVision getChampsDeVision() {
+		ChampDeVision cdv = null;
 		try {
-			cdv = this.course.getChampsDeVision(this);
+			cdv = this.course.getChampDeVision(this);
 		} catch (ParticipationEquipeException e) {
 			e.printStackTrace();
 		}
@@ -75,13 +77,73 @@ public abstract class Equipe {
 	}
 	
 	/**
+	 * Retourne l'origine absolue de la matrice du champ de vision
+	 * @return Vecteur position de l'origine de la matrice
+	 */
+	protected Vecteur getOrigineChampDeVision(){
+		return this.getChampsDeVision().getOrigine();
+	}
+	
+	/**
+	 * Retourne la position de la voiture de l'équipe
+	 * @return position de la voiture de l'équipe
+	 * @throws ParticipationEquipeException
+	 */
+	protected Vecteur getPositionVoiture() throws ParticipationEquipeException{
+		return this.course.getVoiture(this).getPosition();
+	}
+	
+	/**
+	 * Retourne la direction de la voiture de l'équipe
+	 * @return la direction de la voiture de l'équipe
+	 * @throws ParticipationEquipeException
+	 */
+	protected Vecteur getDirectionVoiture() throws ParticipationEquipeException{
+		return this.course.getVoiture(this).getDirection();
+	}
+	
+	/**
+	 * Retourne la vitesse de la voiture de l'équipe
+	 * @return vitesse de la voiture de l'équipe
+	 * @throws ParticipationEquipeException
+	 */
+	protected double getVitesseVoiture() throws ParticipationEquipeException{
+		return this.course.getVoiture(this).getVitesse();
+	}
+	
+	/**
+	 * Retourne vrai si la voiture de l'équipe dérape, faux sinon.
+	 * @return dérapage de la voiture?
+	 * @throws ParticipationEquipeException
+	 */
+	protected boolean isDerapageVoiture() throws ParticipationEquipeException{
+		return this.course.getVoiture(this).getDerapage();
+	}
+	
+	/**
+	 * Retourne la hauteur du circuit
+	 * @return hauteur du circuit
+	 */
+	protected int getHeightCircuit(){
+		return this.course.getCircuit().getHeight();
+	}
+	
+	/**
+	 * Retourne la largeur du circuit
+	 * @return largeur du circuit
+	 */
+	protected int getWidthCircuit(){
+		return this.course.getCircuit().getWidth();
+	}
+	
+	/**
 	 * Methode permettant de déterminer l'angle entre la voiture et un pixel du champ de vision actuel de la voiture.
 	 * @param int x Coordonnées x du pixel dans la matrice champs de visions
 	 * @param int y Coordonnées y du pixel dans la matrice du champs de vision
 	 * @return Angle en radian vers la position du pixel choisis
 	 */
-	public double goToPixel(Terrain[][] cdv, int x, int y){
-		//Terrain[][] cdv = this.getChampsDeVision();
+	public double goToPixel(int x, int y){
+		Terrain[][] cdv = this.getChampsDeVision().getMatrice();
 		double yMax = cdv[0].length;
 		if (y<yMax/2){
 			//System.out.println(Math.atan(x/((yMax/2)-y)));
@@ -94,11 +156,6 @@ public abstract class Equipe {
 			return 0.0;
 		}
 	}
-	
-	//TODO: getVitesse() pour le joueur
-	//TODO: getDirection() pour le joueur
-	//TODO: getPosition() pour le joueur
-	//TODO: getOrigineChampsDeVision() pour le joueur
 	
 	/**
 	 * Getter de la variable nom.

@@ -23,9 +23,9 @@ public class VoitureImpl implements Voiture {
 	private Vecteur direction_derapage;
 	private double sens_derapage;
 	private Pilote driver;
-	//private Vecteur[][] positionGraphique;
-	//public final static int LONGUEUR_VOITURE = 23;
-	//public final static int LARGEUR_VOITURE = 12;
+	private Vecteur[][] positionGraphique;
+	public final static int LONGUEUR_VOITURE = 23;
+	public final static int LARGEUR_VOITURE = 12;
 	
 	
 	
@@ -233,10 +233,10 @@ public class VoitureImpl implements Voiture {
 	
 	
 	/**
-	 * méthode qui met a jour le tableau positionGraphique
+	 * méthode qui met a jour le tableau positionGraphique, nécéssaire à la détection
+	 * des autres voitures dans le champ de vision.
 	 * n'est plus utilisé
 	 */
-	/*
 	private void setListePosition(){
 		Vecteur base = this.direction.cloneAsVecteur();
 		vTools.rotation(base, - Math.PI/2);
@@ -254,14 +254,12 @@ public class VoitureImpl implements Voiture {
 
 		}
 	}
-	*/
 	
 	
-	/*
 	public Vecteur[][] getPositionGraphique() {
 		return positionGraphique;
 	}
-	*/
+	
 	public Pilote getPilote(){
 		return this.driver;
 	}
