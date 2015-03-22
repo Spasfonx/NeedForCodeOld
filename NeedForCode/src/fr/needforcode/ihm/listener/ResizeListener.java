@@ -6,6 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * Classe utile pour la redimension de fenêtre. Non terminée, à revoir.
+ * @author Christophe
+ */
 public class ResizeListener implements EventHandler<MouseEvent> {
 	
 	private double dx;
