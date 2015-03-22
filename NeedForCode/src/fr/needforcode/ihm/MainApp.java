@@ -6,7 +6,6 @@ import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Jalon;
 import fr.needforcode.circuit.factory.CircuitFactory;
 import fr.needforcode.course.Course;
-import fr.needforcode.equipe.EquipeCamille;
 import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.ihm.controller.CourseRunningController;
 import fr.needforcode.ihm.controller.CourseRunningController_Test;
@@ -37,7 +36,7 @@ public class MainApp extends Application {
 
     private MainAppWindowController mainAppController;
     
-    public final static int FRAMES_PER_SECOND = 120;
+    public final static int FRAMES_PER_SECOND = 60;
 
     /**
      * Lancement de l'application.
@@ -108,6 +107,10 @@ public class MainApp extends Application {
         }
     }
 	
+	/**
+	 * Utilisé pour test uniquement.
+	 * @throws Exception
+	 */
 	@Deprecated
 	public void showCourseRunning_Test() throws Exception {
         try {
@@ -122,7 +125,6 @@ public class MainApp extends Application {
             catch (Exception e) { e.printStackTrace(); }
             
             // Scratch
-            // TODO: Chargement dynamique des circuits
             String name = "1_safe";
     		String filename_trk = circuitLoader.getTrkPathFromName(name);
     		String filename_img = circuitLoader.getImagePathFromName(name);
@@ -134,7 +136,7 @@ public class MainApp extends Application {
     		}
     		/* Initialisation de la course */
     		Course c = new Course(track, 15);
-    		c.addEquipe(new EquipeCamille("Camille", c));
+    		//c.addEquipe(new EquipeXXXX("Camille", c));
     		
     		controller.setMainApp(this);
     		controller.setCircuit(track, filename_img);

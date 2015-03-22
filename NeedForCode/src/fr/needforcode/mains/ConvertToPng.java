@@ -8,10 +8,10 @@ import fr.needforcode.circuit.factory.CircuitFactory;
  * @author camille
  *
  */
-public class ConvertToPNG {
+public class ConvertToPng {
 	public static void main(String[] args) {
 		if (args.length != 1) {
-			System.err.println("Usage : java -classpath bin fr.needforcode.mains.ConvertToPNG ../trk/file.trk");
+			System.err.println("Usage : java -classpath bin fr.needforcode.mains.ConvertToPng file.trk");
 		return;
 		}
 			TerrainTools.previsualisation(args[0]);

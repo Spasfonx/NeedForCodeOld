@@ -3,12 +3,15 @@ package fr.needforcode.circuit;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import fr.needforcode.circuit.factory.CircuitFactory;
+import fr.needforcode.circuit.factory.CircuitFactoryImage;
 import fr.needforcode.geometrie.Vecteur;
 
 /**
@@ -163,13 +166,35 @@ public class TerrainTools {
 	 * @param filename Nom du fichier source
 	 */
 	public static void previsualisation(String filename) {
-		CircuitFactory cF = new CircuitFactory(filename);
+		CircuitFactory cF = new CircuitFactory("./trk/" + filename);
 		Circuit c = cF.build();
 		BufferedImage im = imageFromCircuit(c);
 		try {
-			ImageIO.write(im, "png", new File("./png/" + filename.substring(6) + ".png"));
+			ImageIO.write(im, "png", new File("./png/" + filename.substring(0, filename.length()-4) 	+ ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void convertToTrk(String filename) {
+		CircuitFactoryImage cF = new CircuitFactoryImage("./png/" + filename);
+		Circuit c = cF.build();
+		try {
+			FileOutputStream output = new FileOutputStream("./trk/" + filename.substring(0, filename.length()-4) 	+ ".trk");
+			PrintStream p = new PrintStream(output);
+			int h = c.getHeight();
+			int w = c.getWidth();
+			p.println(w);
+			p.println(h);
+			for (int i = 0; i < h; i++) {
+				for (int j = 0; j < w; j++) {
+					p.print(charFromTerrain(c.getTerrain(i, j)));
+				}
+				p.println();
+			}
+			output.close();
+		} catch (IOException e) {
+			System.err.println("Can't open file " + filename + ".convert.trk for writting... Saving aborted");
 		}
 	}
 }

@@ -58,7 +58,7 @@ public class vTools {
 	 * @author Camille
 	 * @param a Vecteur 1
 	 * @param b vecteur 2
-	 * @return Vecteur
+	 * @return Vecteur résultant
 	 */
 	public static Vecteur addition(Vecteur a, Vecteur b){
 		//Nouveau vecteur n :
@@ -72,7 +72,7 @@ public class vTools {
 	 * @author Camille
 	 * @param a Vecteur 1
 	 * @param b vecteur 2
-	 * @return Vecteur
+	 * @return Vecteur résultant
 	 */
 	public static Vecteur soustraction(Vecteur a, Vecteur b){
 		//Nouveau vecteur n :
@@ -86,7 +86,7 @@ public class vTools {
 	 * @author Camille
 	 * @param a Vecteur 1
 	 * @param b double scalaire
-	 * @return Vecteur
+	 * @return Vecteur résultant
 	 */
 	public static Vecteur prodDouble(Vecteur v, double d) {
 		
@@ -98,7 +98,7 @@ public class vTools {
 	 * @author Camille
 	 * @param a Vecteur 1
 	 * @param angle de rotation
-	 * @return
+	 * @return void
 	 */
 	public static void rotation(Vecteur v, double angle) {
 		double vX = v.getX();
@@ -133,7 +133,7 @@ public class vTools {
 	 * Calcul de la composanteZ des vecteur u et v
 	 * @param Vecteur u
 	 * @param Vecteur v
-	 * @return 
+	 * @return double composanteZ
 	 */
 	public static double composanteZ(Vecteur u, Vecteur v) {
 		double a = u.getX() * v.getY() - u.getY() * v.getX();
@@ -156,9 +156,9 @@ public class vTools {
 	
 	
 	/**
-	 * Retourne un Vecteur direction orthogonal au vecteur initial
-	 * @param v1
-	 * @return
+	 * Retourne un Vecteur de direction orthogonal au vecteur initial
+	 * @param v1 Vecteur initial
+	 * @return Vecteur orthogonal
 	 */
 	public static Vecteur directionOrthogonaleNormale(Vecteur v1){
 		Vecteur v = v1.cloneAsVecteur();
@@ -170,9 +170,9 @@ public class vTools {
 	
 	/**
 	 * Methode permettant de déterminer l'orientation du Jalon en fonction de la position du curseur
-	 * @param ci
-	 * @param curseur
-	 * @return
+	 * @param ci Circuit courant
+	 * @param curseur Vecteur
+	 * @return OrientationJalon calculée
 	 */
 	public static OrientationJalon calculOrientation(Circuit ci, Vecteur curseur){
 		Vecteur d, h, g, b;
@@ -213,7 +213,13 @@ public class vTools {
 			return OrientationJalon.BASDROITE;
 		return OrientationJalon.NULL;
 	}
-
+	
+	/**
+	 * Méthode déterminant si le Jalon j croise un des Jalon de la liste de Jalon passée en paramètre.
+	 * @param j Jalon testé.
+	 * @param jalonsCircuit liste de Jalon à inspecter.
+	 * @return true si croisement, false sinon.
+	 */
 	public static boolean croiserJalons(Jalon j, ArrayList<Jalon> jalonsCircuit){
 		int nb = 0;
 		for(int i = 1; i <= 50;i++){
@@ -232,7 +238,16 @@ public class vTools {
 		return false;
 	}
 	
-	@Deprecated
+	/**
+	 * Méthode déterminant si [ab] coupe [cd].
+	 * Non développée.
+	 * @param a Xa-Ya
+	 * @param b Xb-Yb
+	 * @param c Xc-Yc
+	 * @param d Xd-Yd
+	 * @return true si croisement, false sinon.
+	 */
+	//TODO: Developper cette méthode.
 	public static boolean croiser(Vecteur a, Vecteur b, Vecteur c, Vecteur d){
 		return false;
 	}

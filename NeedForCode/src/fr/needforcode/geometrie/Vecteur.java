@@ -7,15 +7,15 @@ import java.io.Serializable;
  *
  */
 public class Vecteur implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Coordonnées x et y.
+	 */
 	private double x,y;
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par défaut.
 	 * @param x
 	 * @param y
 	 */
@@ -25,7 +25,7 @@ public class Vecteur implements Serializable {
 	}
 	
 	/**
-	 * Constructeur paramétré
+	 * Constructeur paramétré.
 	 * @param v1
 	 * @param v2
 	 */
@@ -62,9 +62,10 @@ public class Vecteur implements Serializable {
 	}
 	
 	/**
-	 * Cette méthode permet de comparer l'égalité de vecteur à 10-3 près
-	 * @param obj
-	 * @return
+	 * Cette méthode permet de comparer l'égalité de vecteur à 10-3 près.
+	 * Derecated : utiliser "public boolean equalsArrondi(Object obj,double precision)"
+	 * @param obj Vecteur à comparer
+	 * @return boolean
 	 */
 	@Deprecated
 	public boolean equalsArrondi(Object obj) {
@@ -101,6 +102,11 @@ public class Vecteur implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * Cette méthode permet de comparer l'égalité de Vecteur.
+	 * @param obj Vecteur à comparer
+	 * @return boolean
+	 */
 	public boolean equalsArrondi(Object obj,double precision) {
 		if (this == obj)
 			return true;

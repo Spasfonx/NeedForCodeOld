@@ -17,7 +17,7 @@ import fr.needforcode.geometrie.Vecteur;
 /**
  * Class CircuitFactoryImage
  * Idem CircuitFactory mais se base sur une image.
- * Non utilisé et non testé.
+ * Utilisé pour la génération de trk à partir d'une image.
  * @author camille
  *
  */
