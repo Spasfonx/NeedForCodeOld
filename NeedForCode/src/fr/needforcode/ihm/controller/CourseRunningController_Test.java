@@ -21,6 +21,7 @@ import fr.needforcode.equipe.Equipe;
 import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.geometrie.vTools;
 import fr.needforcode.ihm.MainApp;
+import fr.needforcode.pilote.ChampDeVision;
 import fr.needforcode.voiture.Commande;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
@@ -205,13 +206,13 @@ public class CourseRunningController_Test {
    						course.avancer();
    						updateVoituresGraphics(course.getListeVoitures());
    						if(cpt == limit){
-	   						Terrain[][] cdv = course.getChampsDeVision((Equipe)course.getListeVoitures().keySet().toArray()[0]);
+	   						ChampDeVision cdv = course.getChampDeVision((Equipe)course.getListeVoitures().keySet().toArray()[0]);
 	   						File ff=new File("cdv.txt");
 	   						ff.createNewFile();
 	   						FileWriter ffw=new FileWriter(ff);
-	   				    	for(int i = 0; i < cdv.length;i++){
-	   							for(int j = 0 ; j< cdv[0].length;j++){
-	   									ffw.write(TerrainTools.charFromTerrain(cdv[i][j]));	
+	   				    	for(int i = 0; i < cdv.getMatrice().length;i++){
+	   							for(int j = 0 ; j< cdv.getMatrice()[0].length;j++){
+	   									ffw.write(TerrainTools.charFromTerrain(cdv.getMatrice()[i][j]));	
 	   							}
 	   							ffw.write("\n");
 	   						}

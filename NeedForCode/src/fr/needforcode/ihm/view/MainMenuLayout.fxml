@@ -14,7 +14,6 @@
     <Group id="Group" fx:id="groupButtons">
       <children>
         <Button fx:id="buttonLaunch" layoutX="0.0" layoutY="0.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0" styleClass="btn-main-menu, btn-main-menu-launch" text="Démarrer" wrapText="false" />
-        <Button fx:id="buttonSettings" layoutX="265.0" layoutY="0.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="250.0" styleClass="btn-main-menu, btn-main-menu-settings" text="Réglages" />
       </children>
     </Group>
   </center>

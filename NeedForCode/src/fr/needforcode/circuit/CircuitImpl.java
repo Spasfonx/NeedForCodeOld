@@ -11,7 +11,7 @@ import fr.needforcode.equipe.Equipe;
 //import fr.needforcode.algo.Dijkstra;
 import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.geometrie.vTools;
-import fr.needforcode.pilote.champsDeVision;
+import fr.needforcode.pilote.ChampDeVision;
 import fr.needforcode.voiture.Voiture;
 
 /**
@@ -20,20 +20,59 @@ import fr.needforcode.voiture.Voiture;
  *
  */
 public class CircuitImpl implements CircuitModifiable {
+	/**
+	 * matrice Terrain, contient le circuit logique.
+	 */
 	private Terrain[][] matrice;
+	
+	/**
+	 * Position du point de départ.
+	 */
 	private Vecteur ptDepart;
+	
+	/**
+	 * Sens de départ des voiture (0,1) par défaut.
+	 */
 	private Vecteur sensDepart;
+	
+	/**
+	 * Sens d'arrivé (0,1) par défaut.
+	 */
 	private Vecteur sensArrivee;
+	
+	/**
+	 * Liste de Vecteur correspondant à toutes les
+	 * position des pixels EndLine.
+	 */
 	private ArrayList<Vecteur> listeArrivees;
+	
+	/**
+	 * Liste de Jalon mis en place sur le circuit.
+	 */
 	private ArrayList<Jalon> listeJalons;
-	private HashMap<Voiture,Vecteur> listeVoitures;
+	
+	/**
+	 * Liste de voiture ainsi que leur postion, non utilisé.
+	 */
+	//private HashMap<Voiture,Vecteur> listeVoitures;
+	
+	/**
+	 * Largeur en pixel du circuit.
+	 */
 	private int largeurCircuit;
-	//private Dijkstra dijkstra;
-	private String name; /* nécessaire pour sauvegarder */
+
+	/**
+	 * Nom du circuit.
+	 */
+	private String name; 
+	
+	/**
+	 * Curseur utilisé pour la création des Jalons.
+	 */
 	private Vecteur curseur;
 	
 	/**
-	 * Constructeur paramétré
+	 * Constructeur paramétré utlisé par la factory
 	 * @param matrice terrain
 	 * @param ptDepart
 	 * @param sensDepart
@@ -50,16 +89,16 @@ public class CircuitImpl implements CircuitModifiable {
 		this.name = name;
 		this.listeJalons = listeJalons;
 		this.largeurCircuit = listeArrivees.size();
-		//dijkstra = new Dijkstra(this);
-		//System.out.println(this.listeArrivees.get(0).toString() + " TypeDep : " + this.getTerrain(this.listeArrivees.get(0)));
 		this.curseur = vTools.addition(this.listeArrivees.get(0),new Vecteur(-1,1));
 		makeJalons();
 	}
 	
-//	public void majDijkstra() {
-//		dijkstra = new Dijkstra(this);
-//	}
-	
+	/**
+	 * Méthode next utilisé lors de la génération de Jalon.
+	 * Cette methode déplace le curseur le long du bord intérieur du circuit en fonction des orientations
+	 * de Jalons
+	 * @param curseur se déplacant le lond du bord
+	 */
 	private void next(Vecteur curseur){
 		if(vTools.calculOrientation(this,curseur) == OrientationJalon.DROITE || vTools.calculOrientation(this,curseur) == OrientationJalon.BASDROITE){
 			curseur.autoAdd(new Vecteur(-1,0));
@@ -94,6 +133,9 @@ public class CircuitImpl implements CircuitModifiable {
 
 	}
 	
+	/**
+	 * méthode créant tous les jalons à l'instanciation d'un Circuit.
+	 */
 	private void makeJalons(){
 		int cpt = 0;
 		int num = 0;
@@ -101,14 +143,12 @@ public class CircuitImpl implements CircuitModifiable {
 		next(curseur);
 		while(!curseur.equalsArrondi(origine,1000)){
 			Jalon j = new Jalon(this,curseur,num);
-			//System.out.println(curseur.toString() + " " + this.getTerrain(curseur));
 			if(!j.getListeVecteurs().isEmpty() && j.getListeVecteurs().size() < this.largeurCircuit * 1 && cpt % 5 == 0){
 				if(num == 0){
 					this.listeJalons.add(j);
 					num++;
 				}
 				else{
-					//System.out.println(vTools.croiserJalons(j,this.listeJalons));
 					if(!vTools.croiserJalons(j,this.listeJalons)){
 						this.listeJalons.add(j);
 						num++;
@@ -119,6 +159,7 @@ public class CircuitImpl implements CircuitModifiable {
 			next(curseur);
 		}	
 	}
+	
 	//getter et setters :
 	public String getName() {
 		return name;
@@ -168,15 +209,12 @@ public class CircuitImpl implements CircuitModifiable {
 		matrice[i][j] = t;
 	}
 	
+	/**
+	 * Retourne le champs de vision de la voiture v.
+	 */
 	@Override
-	public double getDist(int i, int j) {
-		//return dijkstra.getDist(i, j);
-		return 0.0;
-	}
-	
-	@Override
-	public Terrain[][] getChampsDeVision(Voiture v,HashMap<Equipe,Voiture> listeVoitures){
-		return v.getPilote().getChampsDeVision(listeVoitures);
+	public ChampDeVision getChampDeVision(Voiture v){
+		return v.getPilote().getChampDeVision();
 	}
 	
 	@Override
@@ -193,8 +231,6 @@ public class CircuitImpl implements CircuitModifiable {
 	 * Rtourne vrai si une voiture contenue dans listeVoitures se trouve à la position v
 	 * n'est pas utilisé
 	 */
-	/*
-	@Override
 	public boolean isCar(Vecteur v, HashMap<Equipe,Voiture> listeVoitures){
 		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
 			Voiture voiture = entry.getValue();
@@ -208,7 +244,6 @@ public class CircuitImpl implements CircuitModifiable {
 		}
 		return false;	
 	}
-	*/
 	
 	@Override
 	public ArrayList<Jalon> getListeJalons() {

@@ -14,6 +14,13 @@ import fr.needforcode.circuit.Terrain;
 import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.geometrie.Vecteur;
 
+/**
+ * Class CircuitFactoryImage
+ * Idem CircuitFactory mais se base sur une image.
+ * Utilisé pour la génération de trk à partir d'une image.
+ * @author camille
+ *
+ */
 public class CircuitFactoryImage {
 	
 	private String filename;
@@ -55,5 +62,4 @@ public class CircuitFactoryImage {
 		}
 		return new CircuitImpl(matrice, ptDepart, sensDepart, sensArrivee,listeArrivees, filenameWithOutExt, listeJalons);
 	}
-
 }

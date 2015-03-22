@@ -30,9 +30,6 @@ public class MainMenuController {
     private Button buttonLaunch;
 
     @FXML
-    private Button buttonSettings;
-
-    @FXML
     private Group groupButtons;
 
     @FXML
@@ -60,18 +57,6 @@ public class MainMenuController {
 					showConfigCourseMenu();
 				} catch (Exception e) {
 					mainApp.setError(e.getMessage());
-				}
-			}
-    	});
-    	
-    	buttonSettings.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent arg0) {
-				try {
-					mainApp.showCourseRunning_Test();
-				} catch (Exception e) {
-					//mainApp.setError(e.getMessage());
-					e.printStackTrace();
 				}
 			}
     	});

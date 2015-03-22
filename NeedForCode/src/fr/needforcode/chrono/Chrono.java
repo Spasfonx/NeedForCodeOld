@@ -1,5 +1,10 @@
 package fr.needforcode.chrono;
 
+/**
+ * Prototype d'une classe Chronomètre.
+ * @author camille
+ *
+ */
 public class Chrono {
 	// Fonctions pour le chronometre
 	long time;

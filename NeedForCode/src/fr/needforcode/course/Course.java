@@ -9,6 +9,7 @@ import fr.needforcode.circuit.Terrain;
 import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.geometrie.vTools;
+import fr.needforcode.pilote.ChampDeVision;
 import fr.needforcode.voiture.Voiture;
 import fr.needforcode.voiture.VoitureException;
 import fr.needforcode.voiture.factory.MiageCarFactory;
@@ -144,16 +145,17 @@ public class Course {
 	/**
 	 * Retourne le champs de vision de la voiture de l'équipe passée en paramètres.
 	 * @param e - L'équipe concernée
-	 * @return Matrice de type Terrain[][] représentant les pixels du champs de vision de la voiture
+	 * @return Champs de vision de la voiture
 	 * @throws ParticipationEquipeException Si l'équipe ne participe pas à la course
 	 */
-	public Terrain[][] getChampsDeVision(Equipe e) throws ParticipationEquipeException {
+	public ChampDeVision getChampDeVision(Equipe e) throws ParticipationEquipeException {
 		if (!listeVoitures.containsKey(e))
 			throw new ParticipationEquipeException("Cette équipe ne participe pas à la course");
 		
-		return this.circuit.getChampsDeVision(this.listeVoitures.get(e), listeVoitures);
-		
+		return this.circuit.getChampDeVision(this.listeVoitures.get(e));	
 	}
+	
+	
 	
 	/**
 	 * Retourne le circuit sur laquelle la course se déroule.

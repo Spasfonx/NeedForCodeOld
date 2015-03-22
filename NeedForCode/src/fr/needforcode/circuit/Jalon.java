@@ -8,16 +8,38 @@ import fr.needforcode.equipe.Equipe;
 import fr.needforcode.geometrie.Vecteur;
 
 /**
- * Classe jalon, un jalon est un segment(ArrayList<vecteur>) symbolisant un passage obligatoire pendant la course
+ * Classe jalon, un jalon est un segment(ArrayList<Vecteur>) symbolisant un passage obligatoire pendant la course
  * @author camille
  *
  */
 public class Jalon {
 	
+	/**
+	 * Liste de Vecteurs composants le Jalon.
+	 */
 	private ArrayList<Vecteur> listeVecteurs;
+	
+	/**
+	 * Orientation du Jalon. (cf orientationJalon pour la liste des orientations possibles)
+	 */
 	private OrientationJalon orientation;
+	
+	/**
+	 * numéro du jalon.
+	 */
 	private int num;
-	private HashMap<Equipe,Chrono> passage;
+	
+	/**
+	 * Enregistrement des passages de voiture
+	 * où Integer est le numéro du tour
+	 * et Equipe l'équipe passée.
+	 * Fonctionnalité à developper.
+	 */
+	private HashMap<Integer,Equipe> passage;
+	
+	/**
+	 * Variable de débug pour filtrer le numéro de Jalon souhaité.
+	 */
 	private final static int DEBUGNUM = 172;
 
 	
@@ -25,6 +47,7 @@ public class Jalon {
 	 * Constructeur à partir d'un segment existant
 	 * @param lj ArrayList<Vecteur>
 	 */
+	@Deprecated
 	public Jalon(ArrayList<Vecteur> lj){
 		this.listeVecteurs = lj;
 	}
@@ -107,7 +130,6 @@ public class Jalon {
 				}
 			}
 		}
-		//System.out.println("Orientation : " + this.orientation.toString());
 	}
 	
 	/**
@@ -115,8 +137,6 @@ public class Jalon {
 	 * @param ci
 	 * @param curseurO
 	 */
-	
-	//TODO: commentaires debug a virer
 	public void tracerJalon(Circuit ci,Vecteur curseurO){
 		Vecteur curseur = curseurO.cloneAsVecteur();
 		switch(orientation){
@@ -125,7 +145,6 @@ public class Jalon {
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge || ci.getTerrain(curseur) == Terrain.StartPoint)|| ci.getTerrain(curseur) == Terrain.EndLine){
 				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(1,0));
-//				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case GAUCHE :
@@ -133,7 +152,6 @@ public class Jalon {
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge || ci.getTerrain(curseur) == Terrain.StartPoint)|| ci.getTerrain(curseur) == Terrain.EndLine){
 				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(0,-1));
-//				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case HAUT :
@@ -141,7 +159,6 @@ public class Jalon {
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge || ci.getTerrain(curseur) == Terrain.StartPoint)|| ci.getTerrain(curseur) == Terrain.EndLine){
 				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(-1,0));
-//				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case DROITE :
@@ -149,7 +166,6 @@ public class Jalon {
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge || ci.getTerrain(curseur) == Terrain.StartPoint)|| ci.getTerrain(curseur) == Terrain.EndLine){
 				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(0,1));
-//				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case BASGAUCHE :
@@ -157,7 +173,6 @@ public class Jalon {
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge || ci.getTerrain(curseur) == Terrain.StartPoint)|| ci.getTerrain(curseur) == Terrain.EndLine){
 				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(1,-1));
-//				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case HAUTGAUCHE :
@@ -165,7 +180,6 @@ public class Jalon {
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge || ci.getTerrain(curseur) == Terrain.StartPoint)|| ci.getTerrain(curseur) == Terrain.EndLine){
 				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(-1,-1));
-//				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case HAUTDROITE :
@@ -173,7 +187,6 @@ public class Jalon {
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge || ci.getTerrain(curseur) == Terrain.StartPoint)|| ci.getTerrain(curseur) == Terrain.EndLine){
 				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(-1,1));
-//				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case BASDROITE :
@@ -181,7 +194,6 @@ public class Jalon {
 			while(ci.getTerrain(curseur) == Terrain.Route || (ci.getTerrain(curseur) == Terrain.BandeBlanche || ci.getTerrain(curseur) == Terrain.BandeRouge || ci.getTerrain(curseur) == Terrain.StartPoint)|| ci.getTerrain(curseur) == Terrain.EndLine){
 				this.listeVecteurs.add(curseur.cloneAsVecteur());
 				curseur.autoAdd(new Vecteur(1,1));
-//				System.out.println(curseur.toString() + " Type : " + ci.getTerrain(curseur) + " ajouté au jalon numéro : " + this.num);
 			}
 			break;
 		case NULL :
@@ -189,9 +201,9 @@ public class Jalon {
 		default :
 			break;
 		}
-		//System.out.println("Jalon " + this.num + " crée");
 	}
-
+	
+	//getters et setters
 	public int getNum() {
 		return this.num;
 	}

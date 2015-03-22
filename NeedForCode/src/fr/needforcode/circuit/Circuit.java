@@ -5,11 +5,12 @@ import java.util.HashMap;
 
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.geometrie.Vecteur;
-import fr.needforcode.pilote.champsDeVision;
+import fr.needforcode.pilote.ChampDeVision;
 import fr.needforcode.voiture.Voiture;
 
 /**
- * Interface circuit!
+ * Interface Circuit
+ * Définit les méthode à implémenter (cf. CircuitImpl)
  * @author Camille
  *
  */
@@ -31,13 +32,11 @@ public interface Circuit {
 	
 	public ArrayList<Vecteur> getListeArrivees();
 	
-	public double getDist(int i, int j);
-	
 	public String getName();
 	
-	public Terrain[][] getChampsDeVision(Voiture v,HashMap<Equipe,Voiture> listeVoitures);
+	public ChampDeVision getChampDeVision(Voiture v);
 	
-	//public boolean isCar(Vecteur pos, HashMap<Equipe,Voiture> listeVoitures);
+	public boolean isCar(Vecteur pos, HashMap<Equipe,Voiture> listeVoitures);
 	
 	public ArrayList<Jalon> getListeJalons();
 	
