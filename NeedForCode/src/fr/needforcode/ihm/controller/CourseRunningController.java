@@ -42,8 +42,14 @@ import javafx.util.Duration;
  */
 public class CourseRunningController {
 	
+	/**
+	 * La marge X entre l'infobulle du nom de l'équipe et la voiture.
+	 */
     private static final double TOOLTIP_OFFSET_X = 10;
 
+    /**
+	 * La marge Y entre l'infobulle du nom de l'équipe et la voiture.
+	 */
 	private static final double TOOLTIP_OFFSET_Y = 10;
 	
 	/* Composants FXML */
@@ -83,6 +89,10 @@ public class CourseRunningController {
      */
     private HashMap<Voiture, Rectangle> listeVoitureGraphics;
     
+    /**
+     * Liste des tooltips contenant les noms des équipes. Ces tooltips suivent les voitures
+     * sur le circuit.
+     */
     private HashMap<Voiture, Text> listeVoitureTooltip;
     
     /**

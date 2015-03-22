@@ -48,6 +48,9 @@ public class ConfigCourseMenuController {
 	 */
 	private final static int NB_COL_EQUIPES = 3;
 	
+	/**
+	 * Nombre de tour par defaut.
+	 */
 	private final static int NB_TOUR_DEFAUT = 20;
 
 	@FXML
@@ -245,58 +248,68 @@ public class ConfigCourseMenuController {
     		@Override
     		public void handle(MouseEvent event) {
     			int nbTours = 0;
+    			int nbErreurs = 0;
     			String nameCircuit = comboBoxCircuit.getValue();
     			String pathImageCircuit = "";
     			
+    			/* Vérification des champs */
     			try {
     				nbTours = Integer.parseInt(textFieldNbTours.getText());
     				pathImageCircuit = circuitLoader.getImagePathFromName(nameCircuit);
     			} catch (NumberFormatException e) {
     				mainApp.setError("Le nombre de tour doit être un nombre entier");
+    				nbErreurs++;
     			} catch (AssociatedImageException e) {
 					mainApp.setError(e.getMessage());
+					nbErreurs++;
 				} catch (IOException e) {
 					mainApp.setError(e.getMessage());
+					nbErreurs++;
 				}
     			
-    			if (nameCircuit == null)
+    			if (nameCircuit == null) {
     				mainApp.setError("Vous n'avez pas selectionné de circuit");
+    				nbErreurs++;
+    			}
     			
-    			if (nbTours <= 0)
+    			if (nbTours <= 0) {
     				mainApp.setError("Le nombre de tours ne peut être inférieur ou égal à 0");
+    				nbErreurs++;
+    			}
     			
-				try {
-					
-					/* Création du circuit */
-	    			CircuitFactory cf = null;
-	    			Circuit c = null;
-	    			Course course = null;
-					
-					cf = new CircuitFactory(circuitLoader.getTrkPathFromName(nameCircuit));
-					c  = cf.build();
-					
-					/* On instancie la course */
-					course = new Course(c, nbTours);
-					
-					/* Ajout des equipes à la course */
-					for(CheckBox cb : checkBoxesEquipes) {
-						if (cb.isSelected()) {
-							try {
-								course.addEquipe(
-									equipesData.get(Integer.parseInt(cb.getId()))
-								);
-							} catch (CourseRunningException e) {
-								e.printStackTrace();
+    			if (nbErreurs == 0) {
+    				
+					try {
+						/* Création du circuit */
+		    			CircuitFactory cf = null;
+		    			Circuit c = null;
+		    			Course course = null;
+						
+						cf = new CircuitFactory(circuitLoader.getTrkPathFromName(nameCircuit));
+						c  = cf.build();
+						
+						/* On instancie la course */
+						course = new Course(c, nbTours);
+						
+						/* Ajout des equipes à la course */
+						for(CheckBox cb : checkBoxesEquipes) {
+							if (cb.isSelected()) {
+								try {
+									course.addEquipe(
+										equipesData.get(Integer.parseInt(cb.getId()))
+									);
+								} catch (CourseRunningException e) {
+									e.printStackTrace();
+								}
 							}
 						}
+						
+						mainApp.showCourseRunning(course, pathImageCircuit);
+					} catch (Exception e) {
+						mainApp.setError(e.getMessage());
 					}
-					
-					mainApp.showCourseRunning(course, pathImageCircuit);
-					
-				} catch (Exception e) {
-					mainApp.setError(e.getMessage());
-				}
-    		}
+    			}
+    		} 
     	});
     }
     

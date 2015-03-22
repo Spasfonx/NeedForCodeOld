@@ -4,15 +4,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import fr.needforcode.ihm.MainApp;
-import fr.needforcode.ihm.listener.ResizeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -72,6 +69,9 @@ public class MainAppWindowController {
     public static int BORDER_LEFT  	= 5;
     public static int BORDER_RIGHT 	= 5;
 
+    /**
+     * Point d'entrée du controlleur.
+     */
     @FXML
     void initialize() {
     	initDragableWindow();
@@ -79,6 +79,9 @@ public class MainAppWindowController {
     	initClosableBtnErrorError();
     }
 
+    /**
+     * Renvois le panel principal. C'est ce panel qui est remplis avec les vues de l'application.
+     */
 	public AnchorPane getMainContentPane() {
 		return this.mainContentPane;
 	}
@@ -94,21 +97,29 @@ public class MainAppWindowController {
         	));
 	}
 	
+	/**
+	 * Affiche une erreur dans le cadre prévu à cet effet dans la partie inférieure de l'application.
+	 * @param message
+	 */
 	public void setError(String message) {
 		this.errorContentPane.setVisible(true);
 		this.errorText.setText(message);
+		this.errorContentPane.autosize();
 	}
 	
+	/**
+	 * Ferme la zone d'erreur.
+	 */
 	public void closeError() {
 		this.errorContentPane.setVisible(false);
 		this.errorText.setText("");
 	}
 	
 	 /**
-     * Permet de rendre la fenêtre déplaçable.
+     * Initialise la fermeture de la zone d'erreur sur le click du bouton [x].
      */
     public void initClosableBtnErrorError() {
-    	btnErrorClose.setOnMousePressed(new EventHandler<MouseEvent>() {
+    	btnErrorClose.setOnMouseClicked(new EventHandler<MouseEvent>() {
     		@Override
     		public void handle(MouseEvent event) {
     			closeError();
@@ -117,7 +128,7 @@ public class MainAppWindowController {
     }
     
     /**
-     * Permet de rendre la fenêtre déplaçable.
+     * Permet de rendre la fenêtre déplaçable. Méthode non terminée, mécanisme à revoir.
      */
     public void initDragableWindow() {
     	mainAppTopBar.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -155,7 +166,6 @@ public class MainAppWindowController {
     
     /**
      * Appelée par l'application principale. Permet la référence au point d'entrée de l'application.
-     * 
      * @param mainApp
      */
     public void setMainApp(MainApp mainApp) {

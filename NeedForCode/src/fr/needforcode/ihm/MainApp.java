@@ -29,13 +29,29 @@ import javafx.stage.StageStyle;
  */
 public class MainApp extends Application {
 	
+	/**
+	 * Stage principale.
+	 */
 	private Stage primaryStage;
 	
+	/**
+	 * Panel de la fenêtre principale
+	 */
     private AnchorPane mainAppWindow;
+    
+    /**
+     * Panel du contenu principal
+     */
     private AnchorPane mainContentPane;
 
+    /**
+     * Controlleur de la fenêtre principale
+     */
     private MainAppWindowController mainAppController;
     
+    /**
+     * Nombre d'images par secondes. Vitesse de la boucle de jeu
+     */
     public final static int FRAMES_PER_SECOND = 60;
 
     /**
@@ -196,7 +212,6 @@ public class MainApp extends Application {
      */
     public void setError(String message) {
     	this.mainAppController.setError(message);
-    	System.out.println(message); // TODO: Virer
     }
 
     /**
