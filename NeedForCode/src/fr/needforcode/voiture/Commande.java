@@ -13,8 +13,8 @@ public class Commande {
 	/**
 	  * Constructeur de la classe Commande avec un accélération et une rotation 
 	  * 
-	  * @param a double acc
-	  * @param b double turn
+	  * @param double acc - accélération
+	  * @param double turn - rotation
 	  */
 	public Commande(double acc, double turn) {
 		super();
@@ -23,7 +23,8 @@ public class Commande {
 	}
 
 	/**
-	  * Contrôle de l'accélerarion et de la rotation compris entre -1 et 1
+	  * Contrôle de l'accéleration et de la rotation
+	  * qui doivent être compris entre -1 et 1
 	  */
 	public void controlCommand() {
 		if (acc > 1)
