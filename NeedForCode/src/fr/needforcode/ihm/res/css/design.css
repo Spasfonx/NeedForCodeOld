@@ -28,10 +28,6 @@
 	-fx-font-weight: bold;
 }
 
-.check-box {
-	-fx-font-size: 16pt;
-}
-
 .text-input {
 	-fx-background-color: #3e3e3e;
 	-fx-border-color: white;

@@ -15,7 +15,7 @@ import fr.needforcode.pilote.ChampDeVision;
 import fr.needforcode.voiture.Voiture;
 
 /**
- * Implémentation d'un circuit
+ * Implémentation d'un circuit.
  * @author Camille
  *
  */
@@ -53,8 +53,10 @@ public class CircuitImpl implements CircuitModifiable {
 	
 	/**
 	 * Liste de voiture ainsi que leur postion, non utilisé.
+	 * 
 	 */
-	//private HashMap<Voiture,Vecteur> listeVoitures;
+	@Deprecated
+	private HashMap<Voiture,Vecteur> listeVoitures;
 	
 	/**
 	 * Largeur en pixel du circuit.
@@ -159,8 +161,7 @@ public class CircuitImpl implements CircuitModifiable {
 			next(curseur);
 		}	
 	}
-	
-	//getter et setters :
+
 	public String getName() {
 		return name;
 	}
@@ -231,6 +232,7 @@ public class CircuitImpl implements CircuitModifiable {
 	 * Rtourne vrai si une voiture contenue dans listeVoitures se trouve à la position v
 	 * n'est pas utilisé
 	 */
+	@Deprecated
 	public boolean isCar(Vecteur v, HashMap<Equipe,Voiture> listeVoitures){
 		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
 			Voiture voiture = entry.getValue();

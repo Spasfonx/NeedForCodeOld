@@ -7,6 +7,8 @@ package fr.needforcode.circuit;
  */
 public class PositionVoitureException extends Exception {
 
+	private static final long serialVersionUID = 9132047301525411287L;
+
 	public PositionVoitureException(String message) {
 		super(message);
 	}

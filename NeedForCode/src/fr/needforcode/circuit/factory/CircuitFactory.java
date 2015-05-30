@@ -8,12 +8,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
 import fr.needforcode.circuit.CircuitImpl;
 import fr.needforcode.circuit.CircuitModifiable;
 import fr.needforcode.circuit.Jalon;
-import fr.needforcode.circuit.OrientationJalon;
 import fr.needforcode.circuit.Terrain;
 import fr.needforcode.circuit.TerrainTools;
 import fr.needforcode.geometrie.Vecteur;

@@ -10,76 +10,83 @@ import java.util.regex.Pattern;
 
 import fr.needforcode.equipe.*;
 
-
-
-public class EquipeLoader 
-{
+/**
+ * 
+ * @author Omar
+ * @version 1.0
+ */
+public class EquipeLoader {
+	/**
+	 * Dossier contenenant les classes des équipes.
+	 */
 	private File repositoryEquipe;
+
+	/**
+	 * Loader.
+	 */
 	private URLClassLoader loader;
+
+	/**
+	 * Liste de noms des équipes chargées.
+	 */
 	private ArrayList<String> listeDesEquipes = new ArrayList<String>();
-	
-	public EquipeLoader()
-	{
+
+	/**
+	 * Chargement des paramètres de l'auto-load.
+	 */
+	public EquipeLoader() {
 		this.repositoryEquipe = new File(".\\equipes");
-		try 
-		{
+		try {
 			URL urlRepoCritere = this.repositoryEquipe.toURL();
-			URL[] urls = {urlRepoCritere};
+			URL[] urls = { urlRepoCritere };
 			this.loader = URLClassLoader.newInstance(urls);
-		} 
-		catch (MalformedURLException e) 
-		{
-			System.out.println("Le chargeur de classes a été mal chargé");
-		}	
+		} catch (MalformedURLException e) {
+			System.out.println("L'auto-load n'a pas été chargé correctement");
+		}
 	}
-	
-	public ArrayList<Equipe> loadEquipe() throws NomIncorrectException
-	{
+
+	/**
+	 * Charge les classes Equipe dans le dossier associé.
+	 * 
+	 * @return Liste des instances d'équipes chargées
+	 * @throws NomIncorrectException
+	 */
+	public ArrayList<Equipe> loadEquipe() throws NomIncorrectException {
 		ArrayList<Equipe> listeEquipe = new ArrayList<Equipe>();
 		File[] listeFileEquipe = this.repositoryEquipe.listFiles();
-		for(File currentFile : listeFileEquipe)
-		{
-			String className = currentFile.getName().substring(0, currentFile.getName().lastIndexOf("."));
+		
+		for (File currentFile : listeFileEquipe) {
+			String className = currentFile.getName().substring(0,
+					currentFile.getName().lastIndexOf("."));
 			Pattern p = Pattern.compile("Equipe[^\\s]*");
 			Matcher m = p.matcher(className);
 			boolean b = m.matches();
-			if(!b){
+			if (!b) {
 				throw new NomIncorrectException();
 			}
 			String nomEquipe = className.substring(6);
 			this.listeDesEquipes.add(nomEquipe);
-			try
-			{
-				Class<?> newEquipe =  this.loader.loadClass(className);
-				Equipe sd =  (Equipe) newEquipe.newInstance();
+			
+			try {
+				Class<?> newEquipe = this.loader.loadClass(className);
+				Equipe sd = (Equipe) newEquipe.newInstance();
 				listeEquipe.add(sd);
-				
-			}
-			catch (ClassNotFoundException e) 
-			{
-				System.out.println("La classe "+className+" n'a pas pu être chargée");
-			}
-			catch(IllegalAccessException e)
-			{
-				System.out.println("L'accès à la classe "+className+ " n'a pas été possible");
+
+			} catch (ClassNotFoundException e) {
+				System.out.println("La classe " + className
+						+ " n'a pas pu être chargée");
+			} catch (IllegalAccessException e) {
+				System.out.println("L'accès à la classe " + className
+						+ " n'a pas été possible");
 				System.out.println(e.getMessage());
+			} catch (InstantiationException e) {
+				System.out.println("La classe " + className
+						+ " n'a pas pu être instanciée");
 			}
-			catch(InstantiationException e)
-			{
-				System.out.println("La classe "+className+" n'a pas pu être instanciée");
-			}
+			
 		}
+		
 		return listeEquipe;
 	}
 
-	public static void main(String[] args) throws NomIncorrectException
-	{
-		EquipeLoader al = new EquipeLoader();
-		ArrayList<Equipe> listeNewEquipe = al.loadEquipe();
-		Equipe sc  = listeNewEquipe.get(0);
-		for(String e : al.listeDesEquipes){
-			System.out.println(e);
-		}
-		System.out.println(sc.run());
-	}
 }

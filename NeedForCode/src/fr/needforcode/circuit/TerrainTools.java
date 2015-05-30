@@ -6,13 +6,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import fr.needforcode.circuit.factory.CircuitFactory;
 import fr.needforcode.circuit.factory.CircuitFactoryImage;
-import fr.needforcode.geometrie.Vecteur;
 
 /**
  * Classe outils Terrain(méthodes static)

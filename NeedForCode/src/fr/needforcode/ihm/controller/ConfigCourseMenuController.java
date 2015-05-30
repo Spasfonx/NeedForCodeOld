@@ -232,8 +232,7 @@ public class ConfigCourseMenuController {
 					circuitPreviewContainer.setImage(circuitPreview);
 					circuitPreviewContainer.autosize();
 				} catch (Exception e) {
-					//mainApp.setError(e.getMessage());
-					e.printStackTrace();
+					mainApp.setError(e.getMessage());
 				}
         		
               }    
@@ -242,6 +241,7 @@ public class ConfigCourseMenuController {
 
     /**
      * Initialise le bouton de lancement de course après que les réglages soient faits.
+     * NOTE : Méthode à refactoriser.
      */
     public void initClickButtonSubmit() {
     	this.buttonSubmit.setOnMouseClicked(new EventHandler<MouseEvent>() {

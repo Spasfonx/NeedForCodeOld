@@ -1,10 +1,7 @@
 package fr.needforcode.pilote;
 
-import java.util.HashMap;
-
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Terrain;
-import fr.needforcode.equipe.Equipe;
 import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.geometrie.vTools;
 import fr.needforcode.voiture.Voiture;

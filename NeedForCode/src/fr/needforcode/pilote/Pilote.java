@@ -1,20 +1,10 @@
 package fr.needforcode.pilote;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
-
-import javax.swing.JLabel;
-
 import fr.needforcode.circuit.Circuit;
-import fr.needforcode.circuit.Terrain;
-import fr.needforcode.equipe.Equipe;
-import fr.needforcode.geometrie.Vecteur;
-import fr.needforcode.geometrie.vTools;
 import fr.needforcode.voiture.Voiture;
 
 /**
- * Classe Pilote
+ * Classe Pilote. Non terminée, à revoir.
  * @author camille
  *
  */

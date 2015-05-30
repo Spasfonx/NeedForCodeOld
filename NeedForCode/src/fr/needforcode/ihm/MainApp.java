@@ -2,23 +2,16 @@ package fr.needforcode.ihm;
 
 import java.io.IOException;
 
-import fr.needforcode.circuit.Circuit;
-import fr.needforcode.circuit.Jalon;
-import fr.needforcode.circuit.factory.CircuitFactory;
 import fr.needforcode.course.Course;
-import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.ihm.controller.CourseRunningController;
-import fr.needforcode.ihm.controller.CourseRunningController_Test;
 import fr.needforcode.ihm.controller.MainAppWindowController;
 import fr.needforcode.ihm.controller.MainMenuController;
-import fr.needforcode.ihm.model.CircuitLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -84,7 +77,7 @@ public class MainApp extends Application {
         
         /* Configuration et affichage de la fenêtre */
         this.primaryStage.setScene(scene);
-        this.primaryStage.setFullScreen(false);
+        this.primaryStage.setFullScreen(true);
         this.primaryStage.show();
             
         /* Affichage du menu principal */
@@ -122,50 +115,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-	
-	/**
-	 * Utilisé pour test uniquement.
-	 * @throws Exception
-	 */
-	@Deprecated
-	public void showCourseRunning_Test() throws Exception {
-        try {
-        	
-            FXMLLoader loader 		= new FXMLLoader(MainApp.class.getResource("view/CourseRunning_Test.fxml"));
-            AnchorPane overviewPage = (AnchorPane) loader.load();
-            CourseRunningController_Test controller = loader.getController();
-            CircuitLoader circuitLoader = new CircuitLoader();
-            
-            // Charge la liste des circuits
-            try { circuitLoader.loadCircuits(); } 
-            catch (Exception e) { e.printStackTrace(); }
-            
-            // Scratch
-            String name = "1_safe";
-    		String filename_trk = circuitLoader.getTrkPathFromName(name);
-    		String filename_img = circuitLoader.getImagePathFromName(name);
-    		CircuitFactory cF = new CircuitFactory(filename_trk);
-    		Circuit track = cF.build();
-    		//affichage des jalons
-    		for(Jalon j : track.getListeJalons()){
-    			this.debugVecteurDraw(j.getListeVecteurs().get(0), j.getListeVecteurs().get(j.getListeVecteurs().size()-1));
-    		}
-    		/* Initialisation de la course */
-    		Course c = new Course(track, 15);
-    		//c.addEquipe(new EquipeXXXX("Camille", c));
-    		
-    		controller.setMainApp(this);
-    		controller.setCircuit(track, filename_img);
-    		controller.setCourse(c);
-            
-    		this.setMainContent(overviewPage);
-            
-            controller.launchCourse();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     
 	/**
 	 * Affiche la vue du menu principal.
@@ -185,11 +134,6 @@ public class MainApp extends Application {
         controller.setMainApp(this);
         
         this.setMainContent(overviewPage);
-    }
-    
-    public void debugVecteurDraw(Vecteur a, Vecteur b){
-    	Line trace = new Line(a.getY(),a.getX(),b.getY(),b.getX());
-    	this.mainAppWindow.getChildren().add(trace);
     }
     
     /**

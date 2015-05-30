@@ -3,7 +3,6 @@ package fr.needforcode.circuit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import fr.needforcode.chrono.Chrono;
 import fr.needforcode.equipe.Equipe;
 import fr.needforcode.geometrie.Vecteur;
 

@@ -1,11 +1,6 @@
 package fr.needforcode.geometrie;
 
-import java.awt.Shape;
 import java.util.ArrayList;
-
-import javafx.scene.shape.Line;
-
-import com.sun.javafx.geom.Line2D;
 
 import fr.needforcode.circuit.Circuit;
 import fr.needforcode.circuit.Jalon;
@@ -13,6 +8,10 @@ import fr.needforcode.circuit.OrientationJalon;
 import fr.needforcode.circuit.Terrain;
 import java.lang.Math;
 
+/**
+ * @author Camille
+ * @version 1.0
+ */
 public class vTools {
 	/**
 	 * Calcul la norme d'un vecteur v
@@ -180,15 +179,10 @@ public class vTools {
 		h = curseur.cloneAsVecteur();
 		g = curseur.cloneAsVecteur();
 		b = curseur.cloneAsVecteur();
-//		System.out.println("Curseur   : " + curseur.toString() + " Terrain : " + ci.getTerrain(curseur));
 		d.autoAdd(new Vecteur(0,1));
-//		System.out.println("-A droite : " + d.toString() + " Terrain : " + ci.getTerrain(d).toString());
 		h.autoAdd(new Vecteur(-1,0));
-//		System.out.println("-En haut  : " + h.toString() + " Terrain : " + ci.getTerrain(h).toString());
 		g.autoAdd(new Vecteur(0,-1));
-//		System.out.println("-A gauche : " + g.toString() + " Terrain : " + ci.getTerrain(g).toString());
 		b.autoAdd(new Vecteur(1,0));
-//		System.out.println("-En bas   : " + b.toString() + " Terrain : " + ci.getTerrain(b).toString());
 		Terrain td,th,tg, tb;
 		td = ci.getTerrain(d);
 		th = ci.getTerrain(h);
@@ -220,15 +214,15 @@ public class vTools {
 	 * @param jalonsCircuit liste de Jalon à inspecter.
 	 * @return true si croisement, false sinon.
 	 */
-	public static boolean croiserJalons(Jalon j, ArrayList<Jalon> jalonsCircuit){
+	public static boolean croiserJalons(Jalon j, ArrayList<Jalon> jalonsCircuit) {
 		int nb = 0;
-		for(int i = 1; i <= 50;i++){
+		for (int i = 1; i <= 50; i++) {
 			nb = j.getNum() - i;
-			if(nb >= 1 && nb <= jalonsCircuit.size()){
+			if (nb >= 1 && nb <= jalonsCircuit.size()) {
 				Jalon courant = jalonsCircuit.get(nb);
-				for(Vecteur v2 : j.getListeVecteurs()){
-					for(Vecteur v : courant.getListeVecteurs()){
-						if(v.equalsArrondi(v2,10)){
+				for (Vecteur v2 : j.getListeVecteurs()) {
+					for (Vecteur v : courant.getListeVecteurs()) {
+						if (v.equalsArrondi(v2, 10)) {
 							return true;
 						}
 					}

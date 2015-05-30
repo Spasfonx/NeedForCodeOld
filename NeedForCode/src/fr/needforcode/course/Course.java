@@ -18,17 +18,40 @@ import fr.needforcode.voiture.factory.VoitureFactory;
 
 /**
  * Course, élément principal du déroulement du jeu, carrefour des classes Circuit, Voiture et Equipe.
+ * NOTE : Non terminée
  * @author Christophe
  */
 public class Course {
 	
+	/**
+	 * <Equipe, Tour auquel elle se trouve>
+	 */
 	private HashMap<Equipe, Integer> listeEquipes;
+	
+	/**
+	 * <Equipe, Voiture associée>
+	 */
 	private HashMap<Equipe, Voiture> listeVoitures;
+	
+	/**
+	 * Circuit sur lequel se déroule la course.
+	 */
 	private Circuit circuit;
+	
+	/**
+	 * Etat de la course.
+	 */
 	private EtatCourse etatCourse;
+	
+	/**
+	 * Factory des voitures.
+	 */
 	private VoitureFactory factory;
+	
+	/**
+	 * Nombre de tour total.
+	 */
 	private int lapTotal;
-	//private int incrementStartPosition;
 
 	/**
 	 * Constructeur Course.
@@ -42,7 +65,6 @@ public class Course {
 		this.listeEquipes  = new HashMap<Equipe, Integer>();
 		this.listeVoitures = new HashMap<Equipe, Voiture>();
 		this.factory 	   = new MiageCarFactory(this.circuit);
-		//this.incrementStartPosition = 0;
 	}
 	
 	/**
@@ -51,7 +73,7 @@ public class Course {
 	 */
 	public void avancer() throws VoitureException {
 		for(Entry<Equipe, Voiture> entry : listeVoitures.entrySet()) {
-			if(!checkPosition(entry.getValue())){
+			if(!carIsOut(entry.getValue())){
 				//TODO: Eliminer la voiture(l'équipe)
 			}
 			if(checkEndLine(entry.getValue())){
@@ -65,14 +87,31 @@ public class Course {
 		}
 	}
 	
+	/**
+	 * Vérifie si la voiture passée en paramètre a dépasser la ligne d'arrivée.
+	 * @param v - Voiture concernée
+	 * @return Booléen, vrai si la voiture a dépassé la ligne d'arrivée.
+	 */
 	public boolean checkEndLine(Voiture v){
-		Terrain t = circuit.getTerrain((int) v.getPosition().getX(), (int) v.getPosition().getY());
-		if (t == Terrain.EndLine && vTools.scalaire(circuit.getDirectionArrivee(), v.getDirection()) > 0 && allJalonOk(v)) {
+		Terrain t = circuit.getTerrain(
+				(int) v.getPosition().getX(), 
+				(int) v.getPosition().getY()
+			);
+		
+		if (t == Terrain.EndLine 
+				&& vTools.scalaire(circuit.getDirectionArrivee(), v.getDirection()) > 0 && allJalonOk(v)) {
 			return true;
 		}
 		return false;
 	}
 	
+	/**
+	 * Vérifie si la voiture est passée par tous les jalons.
+	 * NOTE : Méthode non terminée.
+	 * @param v - Voiture concernée
+	 * @return Booléen, vrai si la voiture est passée par tous les jalons
+	 */
+	@Deprecated
 	public boolean allJalonOk(Voiture v){
 		boolean ret = false;
 		for(Jalon j : circuit.getListeJalons()){
@@ -81,12 +120,22 @@ public class Course {
 		return true;
 	}
 	
-	public boolean checkPosition (Voiture v){
-		Terrain t = circuit.getTerrain((int) v.getPosition().getX(), (int) v.getPosition().getY());
-		if (!TerrainTools.isRunnable(t)) {
+	/**
+	 * Vérifie si la voiture passée en paramètre se trouve sur un terrain
+	 * pratiquable (donc n'est pas hors circuit).
+	 * @param v - Voiture concernée
+	 * @return Booléen, vrai si la voiture est hors circuit
+	 */
+	public boolean carIsOut(Voiture v){
+		Terrain t = circuit.getTerrain(
+				(int) v.getPosition().getX(), 
+				(int) v.getPosition().getY()
+			);
+		
+		if (!TerrainTools.isRunnable(t))
 			return false;
-		}
-		return true;
+		else
+			return true;
 	}
 	
 	/**

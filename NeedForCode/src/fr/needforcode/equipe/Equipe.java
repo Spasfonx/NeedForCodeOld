@@ -143,17 +143,15 @@ public abstract class Equipe {
 	 * @param int y Coordonnées y du pixel dans la matrice du champs de vision
 	 * @return Angle en radian vers la position du pixel choisis
 	 */
-	public double goToPixel(int x, int y){
+	public double goToPixel(int x, int y) {
 		Terrain[][] cdv = this.getChampsDeVision().getMatrice();
 		double yMax = cdv[0].length;
-		if (y<yMax/2){
-			//System.out.println(Math.atan(x/((yMax/2)-y)));
-			return -(Math.toRadians(90)-Math.atan(x/((yMax/2)-y)));
-		}else if(y>yMax/2){
-			//System.out.println(Math.atan(x/(y-(yMax/2))));
-			return (Math.toRadians(90)-Math.atan(x/(y-(yMax/2))));
-			
-		}else{
+		if (y < yMax / 2) {
+			return -(Math.toRadians(90) - Math.atan(x / ((yMax / 2) - y)));
+		} else if (y > yMax / 2) {
+			return (Math.toRadians(90) - Math.atan(x / (y - (yMax / 2))));
+
+		} else {
 			return 0.0;
 		}
 	}

@@ -81,8 +81,10 @@ public class CourseRunningController {
      */
     private Course course;
     
-    private Circuit circuit; // @deprecated
-    private Rectangle voitureImg; // @deprecated
+    /**
+     * Circuit.
+     */
+    private Circuit circuit;
     
     /**
      * Liste objets graphiques liés au voitures.
@@ -114,11 +116,6 @@ public class CourseRunningController {
      * Deux clicks pour valider la fermeture de la course.
      */
     private boolean verifBtnStopCourse = false;
-    
-    @Deprecated
-    private final int TAILLE_LONGUEUR_VOITURE = 23;
-    @Deprecated
-    private final int TAILLE_LARGEUR_VOITURE = 12;
 
     /**
      * Initialisation du controlleur.
@@ -227,18 +224,6 @@ public class CourseRunningController {
     	this.courseContainer.setPrefSize(circuit.getHeight() * scaleY, circuit.getWidth() * scaleX);
     }
     
-    @Deprecated
-    public void setVoiture() {
-    	this.voitureImg = new Rectangle(
-    			(int) circuit.getPointDepart().getY() * scaleX, 
-    			(int) circuit.getPointDepart().getX() * scaleY, 
-    			this.TAILLE_LONGUEUR_VOITURE * scaleY,
-    			this.TAILLE_LARGEUR_VOITURE * scaleX
-    		);
-    	this.voitureImg.setFill(Color.BLUE);
-    	this.courseContainer.getChildren().add(voitureImg);
-    }
-    
     /**
      * Initialise la liste des composants graphiques associés aux voitures.
      */
@@ -306,17 +291,6 @@ public class CourseRunningController {
     }
     
     /**
-     * Règle la position de la voiture sur le circuit (graphiquement).
-     * @param x
-     * @param y
-     */
-    @Deprecated
-    private void setPositionVoiture(double x, double y) {
-    	this.voitureImg.setX(x * scaleX);
-		this.voitureImg.setY(y * scaleY);
-    }
-    
-    /**
      * Change la position d'un composant graphique associé à une voiture en fonction de la position
      * de l'objet Voiture.
      * @param v Voiture associée
@@ -327,16 +301,6 @@ public class CourseRunningController {
 		r.setY(v.getPosition().getX() * scaleY);
 		this.listeVoitureTooltip.get(v).setX(r.getX() - TOOLTIP_OFFSET_X);
 		this.listeVoitureTooltip.get(v).setY(r.getY() - TOOLTIP_OFFSET_Y);
-    }
-    
-    /**
-     * Tourne la voiture en fonction de sa direction et de l'angle donné en paramètre (graphiquement).
-     * @param angle Angle de rotation
-     */
-    @Deprecated
-    private void setDirectionVoiture(double angle) {
-    	//this.voitureImg.setRotate(voitureImg.getRotate() - angle);
-    	this.voitureImg.setRotate(angle);
     }
     
     /**

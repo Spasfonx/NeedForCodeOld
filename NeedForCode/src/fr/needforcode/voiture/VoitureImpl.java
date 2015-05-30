@@ -1,7 +1,6 @@
 package fr.needforcode.voiture;
 
 import fr.needforcode.circuit.Circuit;
-import fr.needforcode.circuit.Terrain;
 import fr.needforcode.geometrie.Vecteur;
 import fr.needforcode.geometrie.vTools;
 import fr.needforcode.pilote.Pilote;
@@ -26,8 +25,6 @@ public class VoitureImpl implements Voiture {
 	private Vecteur[][] positionGraphique;
 	public final static int LONGUEUR_VOITURE = 23;
 	public final static int LARGEUR_VOITURE = 12;
-	
-	
 	
 	/**
 	 * Commande (dépend de c) : alpha_c * c
@@ -158,8 +155,6 @@ public class VoitureImpl implements Voiture {
 		return braquage;
 	}
 	
-
-
 	/**
 	  * Méthode calculant la positon de la voiture 
 	  * selon les paramètres physiques liés au dérapage de la voiture

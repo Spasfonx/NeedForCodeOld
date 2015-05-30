@@ -2,8 +2,6 @@ package fr.needforcode.ihm.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryIteratorException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -82,7 +80,7 @@ public class CircuitLoader {
 	 * @throws IOException Si il y a une erreur sur le chemin d'accès à l'image
 	 */
 	public String getImagePathFromName(String name) throws AssociatedImageException, IOException {
-		if (!circuits.containsKey(name)) // TODO: Créer Exception spécialisée
+		if (!circuits.containsKey(name))
 			throw new AssociatedImageException("Le circuit " + name + " n'a pas d'image associé");
 		
 		// Crée le fichier pour récupérer l'url absolue
