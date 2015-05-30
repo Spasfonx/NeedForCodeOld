@@ -97,9 +97,10 @@ public class VoitureImpl implements Voiture {
 	}
 
 	/**
-	  * Méthode de pilotage détectant si le dérapage est actif et faisant appel à la méthode appropriée
+	  * Méthode de pilotage détectant si le dérapage est actif 
+	  * et fait appel à la méthode appropriée
 	  * 
-	  * @param a Commande c
+	  * @param Commande c
 	  */
 	@Override
 	public void piloter(Commande c) throws VoitureException {
@@ -117,7 +118,8 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	/**
-	  * Méthode calculant la rotation maximale que la voiture peut prendre sans déraper en fonction de sa vitesse actuelle
+	  * Méthode calculant la rotation maximale que la voiture peut prendre 
+	  * sans déraper en fonction de sa vitesse actuelle
 	  * 
 	  * @return un double du tableau tabTurn
 	  */
@@ -159,9 +161,10 @@ public class VoitureImpl implements Voiture {
 
 
 	/**
-	  * Méthode calculant la positon de la voiture selon les paramètres physiques liés au dérapage de la voiture
+	  * Méthode calculant la positon de la voiture 
+	  * selon les paramètres physiques liés au dérapage de la voiture
 	  * 
-	  * @param a Commande c
+	  * @param Commande c
 	  */
 	private void driveAvecDerapage(Commande c) {
 		// freinage quelque soit la commande
@@ -180,9 +183,10 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	/**
-	  * Méthode calculant la positon de la voiture selon les paramètres physiques de frotement, inertie et commande
+	  * Méthode calculant la positon de la voiture 
+	  * selon les paramètres physiques de frotement, inertie et commande
 	  * 
-	  * @param a Commande c
+	  * @param Commande c
 	  */
 	private void driveSansDerapage(Commande c) {
 		// approche normale
@@ -203,9 +207,10 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	/**
-	  * Méthode détectant si la commande passée en paramètre fait déraper la voiture
+	  * Méthode détectant si la commande passée 
+	  * en paramètre fait déraper la voiture
 	  * 
-	  * @param a Commande c
+	  * @param Commande c
 	  */
 	private boolean detection_derapage(Commande c) {
 		if (Double.compare(Math.abs(c.getTurn()), getMaxTurnSansDerapage()) > 0) {
@@ -224,35 +229,13 @@ public class VoitureImpl implements Voiture {
 
 	/**
 	  * Méthode débutant le dérapage de la voiture
+	  * 
+	  * @param Commande c
 	  */
 	private void debut_derapage(Commande c) {
 		derapage = true;
 		sens_derapage = Math.signum(c.getTurn());
 		direction_derapage = direction.cloneAsVecteur();
-	}
-	
-	
-	/**
-	 * méthode qui met a jour le tableau positionGraphique, nécéssaire à la détection
-	 * des autres voitures dans le champ de vision.
-	 * n'est plus utilisé
-	 */
-	private void setListePosition(){
-		Vecteur base = this.direction.cloneAsVecteur();
-		vTools.rotation(base, - Math.PI/2);
-		base = vTools.normalisation(base);
-		Vecteur curseur = this.position.cloneAsVecteur();
-		Vecteur normDirection = vTools.normalisation(this.direction);
-		
-		for(int i = 0; i < VoitureImpl.LONGUEUR_VOITURE; i++){
-			for(int j = 0; j < VoitureImpl.LARGEUR_VOITURE; j++){
-				this.positionGraphique[i][j] = curseur.cloneAsVecteur();
-				curseur.autoAdd(base);
-			}
-			curseur = position.cloneAsVecteur();
-			curseur.autoAdd(vTools.prodDouble(normDirection,i+1));
-
-		}
 	}
 	
 	

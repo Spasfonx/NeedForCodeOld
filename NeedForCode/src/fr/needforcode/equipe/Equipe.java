@@ -137,7 +137,8 @@ public abstract class Equipe {
 	}
 	
 	/**
-	 * Methode permettant de déterminer l'angle entre la voiture et un pixel du champ de vision actuel de la voiture.
+	 * Methode permettant de déterminer l'angle entre la voiture et 
+	 * un pixel du champ de vision actuel de la voiture.
 	 * @param int x Coordonnées x du pixel dans la matrice champs de visions
 	 * @param int y Coordonnées y du pixel dans la matrice du champs de vision
 	 * @return Angle en radian vers la position du pixel choisis
